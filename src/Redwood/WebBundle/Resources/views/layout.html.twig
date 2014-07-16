@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}Redwood{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
+    <link href="{{ asset('bundles/redwoodweb/css/web.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    {% block wrapBox %}
+            
+           
+    {% set nav = nav|default(null) %}
+
+    <div class="wrap">
+        <div class="left-box">
+
+            <!-- head nav -->
+            <div class="nav-top">
+                <div class="nav-group">
+                    <ul class="layout-nav" id='layout-tab'>
+                        <li {% if nav == 'notes' %} class="active" {% endif %}>
+                            <a href="#layout-tab-notes" data-toggle="tab">
+                                <i class="icon-white-16 icon-home "></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#layout-tab-notifications" data-toggle="tab">
+                                <i class="icon-white-16 icon-notifications"></i>
+                            </a>
+                        </li>
+                        <li {% if nav == 'settings' %} class="active" {% endif %}>
+                            <a href="#layout-tab-settings" class="avatar" data-toggle="tab">
+                                <img alt="mudenglong" src="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="javascript:;" title="redwood" class="logo">logo</a>
+
+            </div>
+            <div class="nav-body">
+                <div class="sidebar-content">
+                    <div id='layout-tab-notes' class='tab-pane {% if nav == 'notes' %}active{% endif %}'>
+                        {% include 'RedwoodWebBundle:Note:base.html.twig' %}
+                    </div>
+                    <div id='layout-tab-notifications' class='tab-pane'>
+                        还没有写 
+                        <!-- @todo -->
+                    </div>
+                    <div id='layout-tab-settings' class='tab-pane {% if nav == 'settings' %}active{% endif %}'>
+                        {% include 'RedwoodWebBundle:Settings:base.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <a href="/about/">关于我</a>
+                <a href="/feedback/">问题反馈</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ url('admin_square') }}" style="color:red;">
+                    <i class="icon-white-16 icon-lock"></i>
+                    进入后台
+                </a>
+                {% endif %}
+            </div>
+           
+        </div>
+
+        <div class="right-box">
+            {% block rightBox %}
+            
+            {% endblock %}
+        </div>
+    </div>
+    {% endblock %}
+
+    <script>
+        var app = {};
+        app.debug = {% if app.debug %}true{% else %}false{% endif %};
+        app.version = '{{ assets_version() }}';
+
+        {% if script_controller is defined %}
+            app.controller = '{{ script_controller }}';
+        {% endif %}
+    </script>
+    <script src="{{ asset('libs/seajs/2.1.1/sea.js') }}"></script>
+    <script src="{{ asset('libs/seajs-global-config.js') }}"></script>
+    <script type="text/javascript">
+        seajs.use('{{ asset('bundles/redwoodweb/js/app.js') }}');
+    </script>
+    <script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc0d9ab22e8e4b79429e32a816e7989c6' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+</body>
+</html>

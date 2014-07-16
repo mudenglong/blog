@@ -1,0 +1,32 @@
+{% extends 'RedwoodWebBundle::layout.html.twig' %}
+
+{% block title %}头像 {% endblock %}
+
+{% set script_controller = 'settings/avatar-crop' %}
+{% set nav = 'settings' %}
+
+{% block rightBox %}
+    <h2>头像设置</h2>
+
+    <form id="avatar-crop-form" method="post" enctype="multipart/form-data">
+
+      <div>
+          <p>提示：请选择图片裁剪区域。</p>
+       
+          <img src="{{ asset(pictureUrl) }}" id="avatar-crop" width="{{scaledSize.width}}" height="{{scaledSize.height}}" data-natural-width="{{ naturalSize.width }}" data-natural-height="{{ naturalSize.height }}" />
+
+      </div>
+
+      <div>
+
+          <input type="hidden" name="x">
+          <input type="hidden" name="y">
+          <input type="hidden" name="width">
+          <input type="hidden" name="height">
+          <button class="btn btn-fat btn-primary" type="submit">保存</button>
+   
+      </div>
+    </form>
+
+
+{% endblock %}

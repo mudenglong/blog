@@ -1,0 +1,65 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: RedwoodWebBundle:Default:index }
+
+register:
+    pattern:  /register
+    defaults: { _controller: RedwoodWebBundle:Register:index }
+
+login:
+    pattern:  /login
+    defaults: { _controller: RedwoodWebBundle:Login:index }
+
+login_check:
+    pattern:  /login_check
+
+logout:
+    pattern:  /logout
+
+register_success:
+    pattern:  /register/success/{id}/{hash}
+    defaults: { _controller:  RedwoodWebBundle:Register:success }
+
+register_email_verify:
+    pattern:  /register/email/verify/{token}
+    defaults: { _controller: RedwoodWebBundle:Register:emailVerify }
+
+password_reset:
+    pattern:  /password/reset
+    defaults: { _controller: RedwoodWebBundle:PasswordReset:index }
+
+password_reset_update:
+    pattern:  /password/reset/update
+    defaults: { _controller: RedwoodWebBundle:PasswordReset:update }
+
+note_inbox_show:
+    pattern:  /inbox
+    defaults: { _controller: RedwoodWebBundle:Note:inboxShow }
+
+# notes:
+#     pattern: /note
+#     defaults: { _controller:RedwoodWebBundle:Note:index }
+
+# settings:
+#     pattern: /settings
+#     defaults: { _controller:RedwoodWebBundle:Settings:profile }
+
+settings_avatar:
+    pattern:  /settings/avatar
+    defaults: { _controller: RedwoodWebBundle:Settings:avatar }
+
+settings_avatar_crop:
+    pattern: /settings/avatar/crop 
+    defaults: { _controller:RedwoodWebBundle:Settings:avatarCrop }
+
+
+
+wecker_html_build:
+    pattern: /html/build
+    defaults: { _controller:RedwoodWebBundle:Wecker:html }
+wecker_html_crop:
+    pattern: /html/build/crop
+    defaults: { _controller:RedwoodWebBundle:Wecker:htmlCrop }
+wecker_zip_get:
+    pattern: /html/build/get
+    defaults: { _controller:RedwoodWebBundle:Wecker:zipGet }

@@ -1,0 +1,537 @@
+@charset "utf-8";
+/*web css*/
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, lengend, button,input, textarea, /* form elements 表单元素 */
+th, td,form,select{ /* table elements 表格元素 */
+    margin: 0;
+    padding: 0;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, button, textarea, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    word-break: break-all;
+}
+/* 设置默认字体 */
+body,
+button, select, textarea { /* for ie */
+    font-family: Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+    12px/1.5 \5b8b\4f53, Arial, sans-serif
+    font-size: 100%;
+    font-size: 12px;
+    word-break: break-all;
+    font-family:12px/1.5 "\5b8b\4f53",Arial,sans-serif;
+    
+}
+
+h1 h2 h3 h4, h5, h6 { font-size: 100%; }
+
+code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } /* 统一等宽字体 */
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+/* 重置列表元素 */
+ul, ol { list-style: none; }
+
+/* 重置文本格式元素 */
+a:focus {outline: none; } /*firefox 点击时有边框*/
+
+a {text-decoration:none;}
+a:hover {text-decoration: none; }
+q:before, q:after {content: ''; }
+
+/* 重置表单元素 */
+legend { color: #000; } /* for ie6 */
+fieldset, img { border: 0 none; height: auto; max-width: 100%; vertical-align: middle; } /* img 搭车：让链接里的 img 无边框 */ /* 注：optgroup 无法扶正 */
+button, input, select, textarea {
+    font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+/* 重置 hr */
+hr {
+    border: none;
+    height: 1px;
+}
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+html {overflow-y: scroll; }
+
+textarea {
+    line-height: 20px;
+    padding: 2px 3px;
+    resize: none;
+}
+input, textarea, select {
+    vertical-align: middle;
+}
+
+input,textarea,select,h1,h2,h3,h4,h5,h6 {
+    font-size: 100%;
+}
+
+.fz12 {
+    font-size: 12px;
+}
+
+.fz14 {
+    font-size: 14px;
+}
+
+.fz16 {
+    font-size: 16px;
+}
+/*reset结束*/
+
+
+/*col */
+.left-box{
+    width: 100%;
+    height: 100%;
+}
+.right-box{
+    background: #e5e9ec;
+    clear: both;
+}
+.left-box{
+    width: 270px\9;
+    position: absolute\9;
+    top: 0\9;
+    left: 0\9;
+}
+.right-box{
+    margin-left: 270px\9;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+   .left-box{
+        width: 30%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .right-box{
+        margin-left: 30%;
+    }
+}
+
+@media (min-width: 992px) {
+    .left-box{
+        width: 22%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .right-box{
+        margin-left: 22%;
+    }
+}
+/*col end */
+
+.nav-top {
+  background-color:  #22262E;
+  display: block;
+  height: 60px;
+  overflow: hidden;
+  position: relative;
+}
+.nav-group {
+  background: #1B1E25;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: block;
+  overflow: hidden;
+}
+.layout-nav li{
+    float: left;
+}
+.layout-nav li a{
+    display: block;
+    height: 32px;
+    overflow: hidden;
+    width: 32px;
+    opacity: 0.5;
+}
+.layout-nav li a:hover{
+    opacity: 1;
+}
+.layout-nav li a i{
+    margin: 8px;
+}
+.layout-nav li.active a {
+    background: #0D0F12;
+    opacity: 1;
+}
+.layout-nav li.active a .icon-white{
+    opacity: 1;
+}
+
+.nav-group .avatar {
+    opacity: 1;
+}
+.nav-group .avatar img{
+  border-radius: 32px;
+  height: 20px;
+  margin: 6px;
+  width: 20px;
+}
+.icon, .icon-white, .icon-white-16 {
+    background: url("../../img/icons-gc.png") no-repeat scroll 0 0;
+    display: inline-block;
+    height: 16px;
+    line-height: 14px;
+    margin: 0;
+    opacity: 1;
+    vertical-align: middle;
+    width: 16px;
+}
+.icon-white-16 {
+    background-image: url("../img/icons-gc-w-16.png");
+}
+.icon-notifications.icon-white-16 {
+    background-position: -26px -26px;
+}
+.icon-home.icon-white-16 {
+    background-position: -52px -26px;
+}
+.icon-inbox.icon-white-16 {
+    background-position: -52px -129px;
+}
+.icon-favorited.icon-white-16 {
+    background-position: -26px -104px;
+}
+.icon-lock.icon-white-16 {
+    background-position: 0 -50px;
+}
+.btn.green {
+    background: #21B598;
+}
+
+.nav-top .logo {
+  background: url(../img/logo.jpg) no-repeat 0 0;
+  display: block;
+  height: 33px;
+  margin-left: 6px;
+  margin-top: 13px;
+  overflow: hidden;
+  text-indent: -999em;
+  width: 139px;
+}
+.nav-top .logo {
+  background-position: -12px -89px;
+}
+
+.nav-body {
+  background-color:  #1B1D24;
+  bottom: 30px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+    .left-box{
+        position: relative;
+    }
+    .right-box{
+        position: relative;
+    }
+    .nav-body {
+        background-color:  #1B1D24;
+        overflow: hidden;
+        position: relative;
+        top: 0;
+        bottom: 0;
+    }
+}
+/*tab*/
+.sidebar-content {
+    width: 100%;
+}
+.sidebar-content .tab-pane.active{
+    display: block;
+}
+.sidebar-content .tab-pane{
+    display: none;
+}
+/*End tab*/
+
+.sidebar-content .lists {
+    display: block;
+    font-size: 13px;
+    list-style: none outside none;
+    margin: 0 15px 0 24px;
+    opacity: 1;
+    padding: 0;
+}
+
+.sidebar-content h5 {
+    color: #656A74;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    margin: 10px 0 5px 23px;
+}
+
+.lists-system {
+    margin-left: 23px;
+}
+
+.lists-system > li a:hover {
+  background: #2a2d35;
+  color: #fff;
+}
+.lists-system > li a {
+  border: 0 none;
+  color: #DEE1E7;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 26px;
+  line-height: 26px;
+  margin: 0;
+  padding: 0 8px;
+  vertical-align: middle;
+  width: 90%;
+}
+
+.lists-system > li a i {
+    margin: 0 7px 0 3px;
+    opacity: 0.9;
+}
+
+.sidebar-content .new-folder{
+    margin: 15px 0;
+}
+
+.sidebar-content .new-folder a:hover{
+  color: #fff;
+}
+.sidebar-content .new-folder .title{
+    background-color:  #22262E;
+    color: #DEE1E7;
+    margin: 0 15px;
+    padding: 7px 10px;
+}
+
+
+.sidebar-content .lists {
+    display: block;
+    font-size: 13px;
+    list-style: none outside none;
+    margin: 0 15px 0 24px;
+    opacity: 1;
+    padding: 0;
+}
+.sidebar-content .lists > li {
+    line-height: 1.2;
+    margin: 0;
+    position: relative;
+}
+.sidebar-content .list-link > a:hover{
+   background: #2a2d35;
+  color: #fff;
+}
+.sidebar-content .lists > li > a, .sidebar-content .lists > li .list-link > a {
+    border: 0 none;
+    border-radius: 1px;
+    color: #DEE1E7;
+    display: block;
+    font-weight: 500;
+    margin: 1px 5px 1px 0;
+    padding: 3px 10px;
+}
+
+.sidebar-content .lists > li .list-dropdown {
+    color: #777777;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    right: 5px;
+    top: 0;
+}
+
+.footer {
+  background-color:  #22262E;
+  bottom: 0;
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  width: 100%;
+}
+
+.footer a {
+    color: #AAAAAA;
+    margin-left: 15px;
+}
+
+/* under construction*/
+.bg-under-construction{
+  background: #454545;
+  
+}
+.under-construction-box h4{
+  font-size: 10px;
+  margin: 4px 0;
+}
+.under-construction-box h1{
+  font-size: 24px;
+  font-family: SimHei;
+  font-weight: bold;
+  margin: 2px 0 11px;
+}
+.under-construction-box .white{
+  color: #fff;
+}
+.under-construction-box .yellow{
+  color: #f9c40b;
+}
+.under-construction-box{
+  width: 400px;
+  margin: 200px auto 0;
+   text-align: center;
+}
+.under-construction-icon{
+  background: url("../img/under-construction.jpg")  0 0 no-repeat;
+  width: 151px;
+  height: 138px;
+  display: inline-block;;
+
+}
+/* end under construction*/
+
+
+
+/*crop html*/
+.pre-crop-box{
+  margin: 80px 0;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+}
+.pre-crop-box h1 {
+  font-size: 100px;
+  line-height: 1;
+  margin: 10px 0;
+}
+.pre-crop-form{
+width: 323px;
+margin: 0 auto;
+height: 133px;
+background: #eee;
+padding: 30px 78px;
+}
+.crop-get-form{
+  width: 408px;
+margin: 0 auto;
+height: 96px;
+background: #eee;
+padding: 30px 20px;
+}
+.pre-crop-upload{
+  margin: 0 0 15px 0;
+}
+.cr-box hr{
+  margin: 10px 0 10px;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
+.cr-box{
+  width: 1000px;
+  margin: 0 auto;
+}
+.cr-box .muted {
+color: #999999;
+font-size: 24px;
+margin: 10px 0;
+}
+.cr-tip{
+  background: #ffde96;
+  padding: 10px;
+  margin: 10px 20px;
+  border-radius: 4px;
+  color: #000;
+}
+.waiting-box{
+  text-align: center;
+  margin: 70px 20px;
+  padding: 10px;
+}
+.cr-settings{
+  padding: 10px;
+  margin: 10px 20px;
+}
+.cr-tip span{
+  font-size: 18px;
+  color: #6d6d6d;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.crop-waiting-icon{
+  background: url("../img/crop-loading.gif") 0 -30px no-repeat;
+  width: 800px;
+  height: 47px;
+  display: block;
+  margin: 0 auto;
+  text-indent: -999em;
+}
+.crop-waiting-p{
+  color: #ccc;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: bold;
+}
+.cr-ok-box{
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 65px;
+  border: 1px solid #e8e8e8;
+  -webkit-box-shadow: 0 3px 20px rgba(50,50,50,.3);
+  -moz-box-shadow: 0 3px 20px rgba(50,50,50,.3);
+  box-shadow: 0 3px 20px rgba(50,50,50,.3);
+  width: 1000px;
+  margin: 40px auto;
+  position: relative;
+}
+.cr-ok-img1{
+  background: url(../img/crop-ok-bg1.jpg) 0 0 no-repeat;
+  width: 960px;
+  height: 324px;
+}
+.cr-ok-img2{
+  background: url(../img/crop-ok-bg2.jpg) 0 0 no-repeat;
+  width: 960px;
+  height: 276px;
+}
+.cr-ok-con .w200{
+  width: 554px;
+font-size: 26px;
+height: 56px;
+}
+.cr-ok-con h3{
+  font-size: 24px;
+font-weight: bold;
+line-height: 100px;
+}
+.cr-ok-con{
+  position: absolute;
+  top: 166px;
+  left: 181px;
+  width: 642px;
+  height: 300px;
+  background: #fff;
+  opacity: 0.8;
+  box-shadow: 0 3px 20px rgba(50,50,50,.8);
+  text-align: center;
+  padding: 28px 50px;
+}
+.mar-r-20{
+  margin-right: 20px;
+}
+/*end crop html*/

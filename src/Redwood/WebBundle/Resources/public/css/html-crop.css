@@ -1,0 +1,19 @@
+.img-wrap{
+  margin: 0 auto;
+  position: relative;
+}
+.html-crop-xline{
+    background: #fff url(../img/html-crop.gif);
+	opacity: 0.8;
+	width: 100%;
+	height: 2px;
+	display: block;
+	overflow: hidden;
+	/*top: 0px;*/
+}
+.html-crop-xline-wrap{
+	overflow: hidden;
+	height: 7px;
+
+	cursor: n-resize;
+}

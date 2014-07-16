@@ -1,0 +1,7 @@
+parameters:
+#    redwood_admin.example.class: Redwood\AdminBundle\Example
+
+services:
+#    redwood_admin.example:
+#        class: %redwood_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

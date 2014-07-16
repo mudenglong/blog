@@ -1,0 +1,75 @@
+<!-- @todo <form action="" method="" class="search">
+  <input placeholder="搜索您的note内容..." title="搜索" type="search">
+  <i class="icon-white-16 icon-search-round"></i>
+</form> -->
+
+<div class="borwse-box">
+  <h5>快速浏览</h5>
+  <ul class="lists-system">
+  	<li>
+  		<a href="{{ url('note_inbox_show') }}">
+  			<i class="icon-white-16 icon-inbox">
+  			</i>Inbox
+  		</a>
+  	</li>
+  	<li>
+  		<a href="javascript:;">
+  			<i class="icon-white-16 icon-favorited">
+  			</i>Favorites
+  		</a>
+  	</li>
+  </ul>
+
+  <div class="folders ui-sortable">
+  <div class="new-folder">
+    <a href="" class="title">+ 新建文件夹</a>
+    <!-- @todo new folder input div -->
+  </div>
+    <div data-title="Your lists" class="folder user-lists">
+      <div class="title">
+        <h5>文档列表</h5>
+      </div>
+
+      <ul class="lists">
+        <li class="list">
+          <div class="list-link">
+            <a href="javascript:;">我的web文件夹</a>
+
+            <div class="dropdown list-dropdown list-options">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+              <li><a href="javascript:;" title="Edit list">Edit</a></li>
+              <li><a href="" class="delete" title="Delete list">Delete</a></li>
+              <li class="divider"></li>
+              <li class="sub">Move to...</li>
+              <li class="sub">✓&nbsp;Your lists</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="list">
+        <div class="list-link">
+          <a href="javascript:;"><span title="This list is private"></span>音乐</a>
+
+          <div class="dropdown list-dropdown list-options">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+              <li><a href="javascript:;" class="edit" title="Edit list">Edit</a></li>
+              <li><a href="" class="delete" title="Delete list">Delete</a></li>
+              <li class="divider"></li>
+              <li class="sub">Move to...</li>
+              <li class="sub">✓&nbsp;Your lists</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    </div>
+    </div>
+
+  </div>

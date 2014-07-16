@@ -1,0 +1,8 @@
+redwood_admin:
+    resource: "@RedwoodAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin/
+
+redwood_web:
+    resource: "@RedwoodWebBundle/Resources/config/routing.yml"
+    prefix:   /
+

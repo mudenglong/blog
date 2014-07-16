@@ -1,0 +1,7 @@
+parameters:
+#    redwood_web.example.class: Redwood\WebBundle\Example
+
+services:
+#    redwood_web.example:
+#        class: %redwood_web.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

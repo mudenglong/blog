@@ -1,0 +1,43 @@
+/*admin css*/
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+	border: 1px solid #ccc;
+}
+
+.bootstrap-notify-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	border-radius: 0;
+	text-align: center;
+	z-index: 2000;
+}
+
+.form-inline > .divider {
+	width: 1px;
+	height: 30px;
+	margin: 10px 9px;
+	border-right: 1px solid #ccc;
+	border-bottom: 0;
+}
+
+
+
+
+
+
+.w160{
+	width: 160px;
+}
+.add-box{
+	display: inline-block;
+}
+
+[class*="span"] {
+float: left;
+min-height: 1px;
+margin-left: 20px;
+}
+.tag-box{
+	
+}

@@ -1,0 +1,23 @@
+{% extends 'RedwoodWebBundle::layout.html.twig' %}
+
+{% block title %}头像 {% endblock %}
+
+{% set script_controller = 'settings/avatar' %}
+{% set nav = 'settings' %}
+
+{% block rightBox %}
+
+    <form  method="post" enctype="multipart/form-data">
+
+        <b>当前头像</b>
+        <img src="">
+        
+        {{ form_label(form.avatar, '新头像') }}
+        {{ form_widget(form.avatar,{'attr' : { 'accept': 'image/gif,image/jpeg,image/png'}}) }}
+
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-primary">上传</button>
+         
+    </form>
+
+{% endblock %}

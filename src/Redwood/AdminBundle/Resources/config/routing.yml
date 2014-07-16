@@ -1,0 +1,39 @@
+admin_square:
+    pattern:  /square
+    defaults: { _controller: RedwoodAdminBundle:Default:index }
+
+admin_user:
+    pattern: /user
+    defaults: { _controller: RedwoodAdminBundle:User:index }
+
+admin_user_show:
+    pattern: /user/{id}
+    defaults: { _controller: RedwoodAdminBundle:User:show }
+
+# admin_user_edit:
+#     pattern: /user/{id}/edit
+#     defaults: { _controller: RedwoodAdminBundle:User:edit }
+
+admin_user_roles:
+    pattern:  /user/{id}/roles
+    defaults: { _controller: RedwoodAdminBundle:User:roles }
+
+admin_user_lock:
+    pattern:  /user/{id}/lock
+    defaults: { _controller: RedwoodAdminBundle:User:lock }
+    methods:  [POST]
+
+admin_user_unlock:
+    pattern:  /user/{id}/unlock
+    defaults: { _controller: RedwoodAdminBundle:User:unlock }
+    methods:  [POST]
+
+admin_user_send_passwordreset_email:
+    pattern:  /user/{id}/send_passwordreset_email
+    defaults: { _controller: RedwoodAdminBundle:User:sendPasswordResetEmail }
+    methods:  [POST]
+
+admin_user_send_emailverify_email:
+    pattern:  /user/{id}/send_emailverify_email
+    defaults: { _controller: RedwoodAdminBundle:User:sendEmailVerifyEmail }
+    methods:  [POST]

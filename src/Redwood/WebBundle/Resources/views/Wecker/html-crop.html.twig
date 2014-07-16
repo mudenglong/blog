@@ -1,0 +1,54 @@
+{% extends 'RedwoodWebBundle::layout.html.twig' %}
+
+{% block title %}html crop {% endblock %}
+
+{% set script_controller = 'wecker/html-crop' %}
+
+
+{% block wrapBox %}
+
+<div class="cr-ok cr-ok-box" style="display:none;">
+    <div class="cr-ok-img1"></div>
+    <div class="cr-ok-img2"></div>
+    <div class="cr-ok-con">
+        <h3>裁剪成功，请牢记您的提取文件密码：</h3>
+        <input disabled='disabled' class="form-control w200" data-role="show-secret" type='text' />
+        <br/>
+
+        <a id="linkGetZip" class="btn btn-success mar-r-20" data-secret="" data-url="{{ path('wecker_zip_get') }}" href="javascript:;" target="_blank">现在就提取</a>
+        <a href="{{ path('wecker_html_build') }}" class="btn btn-default" target="_blank">下次可凭密码去这里提取</a>
+    </div>
+</div>
+<div class="cr-box">
+    <h3 class="muted">Crop page 设置</h3>
+    <hr>
+    <div class="waiting-box" style="display: none;">
+        <p class="crop-waiting-icon">icon</p>
+        <p class="crop-waiting-p">正在处理图片，请稍后。。。（搞不好就失败了 ^_^）</p>
+    </div>
+    <div class="cr-tip">
+        <p><span>Tips:</span> 双击 添加a 标签</p>
+    </div>
+    <div class="cr-settings">
+        <button data-role="cropBtn" class="btn btn-fat btn-primary" type="button">保存</button>
+    </div>
+  
+</div>
+<div id="demo" >
+    
+    <div class="html-crop-con" id="html-crop-con">
+
+        
+
+        <div class="img-wrap" style="width:{{scaledSize.width}}px;" data-crop-html="img-wrap">
+          <canvas id='canvas' width="{{scaledSize.width}}" height="{{scaledSize.height}}" style="position:absolute;">
+            This text is displayed if your browser does not support HTML5 Canvas.
+          </canvas>
+          <img src="{{ asset(pictureUrl) }}" data-role="html-img" width="{{scaledSize.width}}" height="{{scaledSize.height}}" data-natural-width="{{ naturalSize.width }}" data-natural-height="{{ naturalSize.height }}" />
+        </div>
+        
+   
+    </div>
+  
+</div>
+{% endblock %}

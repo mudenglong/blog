@@ -1,0 +1,35 @@
+{# src/Redwood/WebBundle/Resources/views/Register/index.html.twig #}
+{% extends 'RedwoodWebBundle::beforeLayout.html.twig' %}
+{% block introduce %}  
+	{# <h1>注 册</h1> #}
+
+{% endblock %}
+{% set script_controller = 'auth/register' %}
+{% block content %}
+
+		{{ form_errors(form) }}
+
+		<form id="signForm" action="{{ path('register') }}" method="POST" {{ form_enctype(form) }}>
+		    {# <h3>请用Email 注册</h3> #}
+
+			<div>
+		        {{ form_widget(form.username, {attr:{placeholder: 'username'}}) }}
+		    </div>
+		    <div>
+		        {{ form_widget(form.email, {attr:{placeholder: 'xxx.@example.com'}}) }}
+		    </div>
+		    <div>
+		       {{ form_widget(form.password, {attr:{placeholder: 'password'}}) }}
+		    </div>
+
+		    <div>
+		        
+				{# <input name="next" value="/welcome/" type="hidden"> #}
+				{{ form_rest(form) }}
+				<input value="submit" type="submit">
+		    </div>
+		
+		</form>
+
+{% endblock %}
+

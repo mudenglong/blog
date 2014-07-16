@@ -1,0 +1,18 @@
+{% extends 'RedwoodAdminBundle::layout.html.twig' %}
+
+{% set nav = 'user' %}
+
+{% block content %}
+  <div class="col-md-2">
+    {% block sidebar %}
+      <div class="list-group">
+        <a href="{# {{ url('admin_user') }} #}" class="list-group-item {% if menu == 'user' %}active{% endif %}">用户管理</a>
+        <a href="javascript:;" class="list-group-item {% if menu == 'teacher' %}active{% endif %}">其他管理</a>
+
+      </div>
+    {% endblock %}
+  </div>
+  <div class="col-md-10">
+      {% block main %}{% endblock %}
+  </div>
+{% endblock %}
