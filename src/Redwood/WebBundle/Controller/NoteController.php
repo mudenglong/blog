@@ -22,4 +22,10 @@ class NoteController extends BaseController
             'user' => $user,
         ));
     }
+
+    public function createAction()
+    {
+        var_dump("expression");
+        return $this->render('RedwoodWebBundle:Note:create.html.twig');
+    }
 }

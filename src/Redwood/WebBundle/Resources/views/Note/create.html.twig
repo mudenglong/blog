@@ -1,0 +1,14 @@
+{% extends 'RedwoodWebBundle::layout.html.twig' %}
+
+{% block title %}Inbox - {{ parent() }}{% endblock %}
+{% set nav = 'notes' %}
+{% set script_controller = 'note/create' %}
+
+{% block rightBox %} 
+    <h2>我要新建</h2>
+    <form>
+        <textarea name="content" style="width:700px;height:200px;visibility:hidden;">
+            KindEditor
+        </textarea>
+    </form>
+{% endblock %}
