@@ -25,7 +25,10 @@ class NoteController extends BaseController
 
     public function createAction()
     {
-        var_dump("expression");
-        return $this->render('RedwoodWebBundle:Note:create.html.twig');
+
+        $testJson = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+        return $this->render('RedwoodWebBundle:Note:create.html.twig', array(
+            'testJson' => $testJson,
+        ));
     }
 }

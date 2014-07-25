@@ -35,9 +35,16 @@ password_reset_update:
 note_inbox_show:
     pattern:  /inbox
     defaults: { _controller: RedwoodWebBundle:Note:inboxShow }
+
 note_create:
     pattern: /note/create
     defaults: { _controller:RedwoodWebBundle:Note:create }
+
+kindeditor_upload:
+    pattern:  /kindeditor/upload
+    defaults: { _controller: RedwoodWebBundle:Kindeditor:upload }
+    methods: [POST]
+
 # notes:
 #     pattern: /note
 #     defaults: { _controller:RedwoodWebBundle:Note:index }

@@ -55,16 +55,16 @@ class FileServiceImpl extends BaseService implements FileService
         );
 
         $tempLargeImage = $this->newTempAvatar($basicImage, $largeImageTarget);
-        $largeImageInfo = $this->generateUri($tempLargeImage);
-        $largeAvatar = $this->saveAvatarFile($largeImageInfo, $tempLargeImage);
+        $largeImageInfo = $this->generateUri('userAvatar', $tempLargeImage);
+        $largeAvatar = $this->saveFile($largeImageInfo, $tempLargeImage);
 
         $tempMediumImage = $this->newTempAvatar($basicImage, $mediumImageTarget);
-        $mediumImageInfo = $this->generateUri($tempMediumImage);
-        $mediumAvatar = $this->saveAvatarFile($mediumImageInfo, $tempMediumImage);
+        $mediumImageInfo = $this->generateUri('userAvatar', $tempMediumImage);
+        $mediumAvatar = $this->saveFile($mediumImageInfo, $tempMediumImage);
 
         $tempSmallImage = $this->newTempAvatar($basicImage, $smallImageTarget);
-        $smallImageInfo = $this->generateUri($tempSmallImage);
-        $smallAvatar = $this->saveAvatarFile($smallImageInfo, $tempSmallImage);
+        $smallImageInfo = $this->generateUri('userAvatar', $tempSmallImage);
+        $smallAvatar = $this->saveFile($smallImageInfo, $tempSmallImage);
 
         return array(
             'largeAvatar' => $largeAvatar, 
@@ -82,17 +82,23 @@ class FileServiceImpl extends BaseService implements FileService
         return $this->getKernel()->getParameter('redwood.upload.public_directory') . '/' . str_replace('public://', '', $sqlUri);
     }
 
-    private function saveAvatarFile($newImageInfo, $tempImage)
+    // private function saveAvatarFile($newImageInfo, $tempImage)
+    // {
+    //     $finalPath = $this->sqlUriConvertAbsolutUri($newImageInfo['directory']);
+    //     return $tempImage->move($finalPath, $newImageInfo["filename"]);
+    // }
+
+    private function saveFile($newImageInfo, $file)
     {
         $finalPath = $this->sqlUriConvertAbsolutUri($newImageInfo['directory']);
-        // if (!is_writable($finalPath)) {
-        //     throw $this->createServiceException("文件上传路径{$finalPath}不可写，文件上传失败。");
-        // }
-        return $tempImage->move($finalPath, $newImageInfo["filename"]);
+        if (!is_writable($finalPath)) {
+            throw $this->createServiceException("上传路径{$finalPath}不可写，文件上传失败。");
+        }
+        return $file->move($finalPath, $newImageInfo['filename']);
     }
 	
 
-    private function generateUri(File $file)
+    private function generateUri($group, File $file)
     {
 
         if ($file instanceof UploadedFile) {
@@ -107,11 +113,41 @@ class FileServiceImpl extends BaseService implements FileService
             throw $this->createServiceException('获取文件扩展名失败！');
         }
 
-        $newImage["directory"] = 'public://user/'.date('Y') . '/' . date('m-d') . '/';
+        $newImage["directory"] = 'public://' . $group .'/'.date('Y') . '/' . date('m-d') . '/';
        
         $newImage["filename"] = date('His') . substr(uniqid(), - 6) . substr(uniqid('', true), - 6) . '.' . $ext;
         
         return $newImage;
+    }
+
+    public function uploadFile($group, File $file)
+    {
+        $errors = FileToolkit::validateFileExtension($file);
+        if ($errors) {
+            @unlink($file->getRealPath());
+            throw $this->createServiceException("该文件格式，不允许上传。");
+        }
+
+        $newImage = $this->generateUri($group, $file);
+
+        $user = $this->getCurrentUser();
+        $record = array();
+        $record['userId'] = $user['id'];
+        $record['groupName'] = $group;
+        $record['size'] = $file->getSize();
+        $record['uri'] = $newImage['directory'] . $newImage['filename'];
+        $record['createdTime'] = time();
+        $record = $this->getFileDao()->addFile($record);
+
+        $record['file'] = $this->saveFile($newImage, $file);
+
+        return $record;
+    }
+
+
+    private function getFileDao()
+    {
+        return $this->createDao('Content.FileDao');
     }
 
 
@@ -122,12 +158,6 @@ class FileServiceImpl extends BaseService implements FileService
 
 
 
-
-
-
-
-
-    
 
     private function generatePageUri(File $file, $secret)
     {
@@ -171,7 +201,7 @@ class FileServiceImpl extends BaseService implements FileService
         foreach ($pageRecords as $key => $pageRecord) {
             $newImageInfo = $this->generatePageUri($pageRecord, $secret);
             $imagesInfos[] = $newImageInfo['filename'];
-            $newImages[] = $this->saveAvatarFile($newImageInfo, $pageRecord);
+            $newImages[] = $this->saveFile($newImageInfo, $pageRecord);
         }
         return array(
             // 'newImages' => $newImages,
@@ -226,9 +256,12 @@ class FileServiceImpl extends BaseService implements FileService
 
     }
 
-    /*
-    * 写文件
-    */
+    /**
+     * write a html File
+     * @param  string $cropDirPath example: public://cropHtml/...
+     * @param  string $content     
+     * @return boolen 
+     */
     public function writeFile($cropDirPath, $content)
     {
         $includePathFilename = $cropDirPath .'/index.html';

@@ -65,6 +65,31 @@ abstract class BaseController extends Controller
         return true;
     }
 
+    /**
+     * 创建消息提示响应
+     * @todo 理解
+     * @param  string  $type        消息类型：info, warning, error
+     * @param  string  $message     消息内容
+     * @param  string  $title       消息抬头
+     * @param  integer $duration    消息显示持续的时间
+     * @param  string  $goto        消息跳转的页面
+     * @return Response
+     */
+    protected function createMessageResponse($type, $message, $title = '', $duration = 0, $goto = null)
+    {
+        if (!in_array($type, array('info', 'warning', 'error'))) {
+            throw new \RuntimeException('type不正确');
+        }
+
+        return $this->render('RedwoodWebBundle:Default:message.html.twig', array(
+            'type' => $type,
+            'message' => $message,
+            'title' => $title,
+            'duration' => $duration,
+            'goto' => $goto,
+        ));
+    }
+
     //页面中用到的 ajax 刷新页面，都是用这个方法的
     protected function createJsonResponse($data)
     {

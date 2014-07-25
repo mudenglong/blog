@@ -2,3 +2,5 @@
 parameters:
     site_name: Redwood
     site_url: www.111dev.com
+    weibo_key: testdata
+    qq_key: testdata

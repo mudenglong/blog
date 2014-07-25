@@ -25,6 +25,30 @@ class WebExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * support sqlUri convert webUri
+     * For example: public//user/2014/09-13/test.jpg convert www.XXX.com/image/4564fsdf2164.jpg
+     * @param  string $sqlUri 
+     * @return boolen
+     */
+    public function sqlUriConvertWebUri($sqlUri)
+    {
+        $assets = $this->container->get('templating.helper.assets');
+        $parts = explode('://', $sqlUri);
+        // if (empty($parts) or count($parts)!=2) {
+        //     throw $this->createServiceException('解析文件URI({$uri})失败！');
+        // }
+        $uri['access'] = $parts[0];
+        $uri['path'] = $parts[1];
+        if ($uri['access'] == 'public') {
+            $url = rtrim($this->container->getParameter('redwood.upload.public_url_path'), ' /') . '/' . $uri['path'];
+            $url = ltrim($url, ' /');
+            $url = $assets->getUrl($url);
+
+            return $url;
+        }
+    }
+
     public function smarttimeFilter ($time) {
         $diff = time() - $time;
         if ($diff < 0) {

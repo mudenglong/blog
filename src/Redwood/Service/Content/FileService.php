@@ -9,11 +9,16 @@ interface FileService
 
     public function sqlUriConvertAbsolutUri($sqlUri);
 
+    public function uploadFile($group, File $file);
+    
     public function uploadHtmlPic($filePath, array $options);
 
-    /*
-    * 工具函数，根据分割线，获得要分割div的坐标及宽度高度
-    */
+    /**
+     * 工具函数，根据分割线，获得要分割div的坐标及宽度高度
+     * @param  [array] $lines
+     * @param  [int]   $totalHeight
+     * @return [array] $lines 
+     */
     public function getCropDivCoordsByLines($lines, $totalHeight);
     
     public function writeFile($includePathFilename, $content);
@@ -21,7 +26,5 @@ interface FileService
     public function zipFolder($includePathFilename);
 
     public function downloadZip($secret);
-
-
 
 }

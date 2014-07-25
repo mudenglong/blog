@@ -80,6 +80,12 @@
         app.debug = {% if app.debug %}true{% else %}false{% endif %};
         app.version = '{{ assets_version() }}';
 
+        app.config = {{
+            {
+                editor_upload_path: path('kindeditor_upload')
+            }|json_encode|raw
+        }};   
+
         {% if script_controller is defined %}
             app.controller = '{{ script_controller }}';
         {% endif %}
