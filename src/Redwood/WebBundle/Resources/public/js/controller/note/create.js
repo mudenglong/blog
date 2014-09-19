@@ -1,10 +1,20 @@
 define(function(require, exports, module) {
     var KindEditorFactory = require('common/kindeditor-factory');
-    var HtmlCropper = require("../widget/html-cropper");
-    
+    require('jquery.validate')($);
+
     exports.run = function() {
-        console.log(app.config.editor_upload_path);
-        var editor = KindEditorFactory.create('#simpleEditor', 'simple', {extraFileUploadParams:{group:'note'}});
+        var editor = KindEditorFactory.create('#note_content', 'simple', {extraFileUploadParams:{group:'note'}});
+
+        $("#noteForm").validate({
+            rules: {
+                'note[title]': "required",
+                'note[content]': "required"
+            },
+            messages: {
+                'note[title]': "请输入姓名",
+                'note[content]': "请输入title"
+            }
+        });
     };
 
 });

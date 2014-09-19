@@ -90,6 +90,11 @@ abstract class BaseController extends Controller
         ));
     }
 
+    protected function createNamedFormBuilder($name, $data = null, array $options = array())
+    {
+        return $this->container->get('form.factory')->createNamedBuilder($name, 'form', $data, $options);
+    }
+
     //页面中用到的 ajax 刷新页面，都是用这个方法的
     protected function createJsonResponse($data)
     {
@@ -114,5 +119,10 @@ abstract class BaseController extends Controller
     protected function getLogService()
     {
         return $this->getServiceKernel()->createService('System.LogService');
+    }
+
+    protected function getNoteService()
+    {
+        return $this->getServiceKernel()->createService('Note.NoteService');
     }
 }

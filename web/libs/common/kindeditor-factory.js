@@ -26,7 +26,7 @@ define(function(require, exports, module) {
     contentCss.push('p {margin: 0 0 10px;}');
     contentCss.push('img {max-width: 100%;}');
     contentCss.push('p {font-size:14px;}');
-
+    
     var defaultConfig = {
         width: '100%',
         resizeType: 1,

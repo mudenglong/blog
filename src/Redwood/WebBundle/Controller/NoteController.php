@@ -23,12 +23,32 @@ class NoteController extends BaseController
         ));
     }
 
-    public function createAction()
+    public function createAction(Request $request)
     {
+        $user = $this->getCurrentUser();
 
-        $testJson = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+        $form = $this->creatNoteForm();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+            if ($form->isValid()) {
+                $note = $form->getData();
+
+                $note = $this->getNoteService()->createNote($note);
+
+                // var_dump($note);
+            }
+        }
         return $this->render('RedwoodWebBundle:Note:create.html.twig', array(
-            'testJson' => $testJson,
+            'form' => $form->createView()
         ));
     }
+
+    private function creatNoteForm($data = array())
+    {
+        return $this->createNamedFormBuilder('note', $data)
+            ->add('title', 'text')
+            ->add('content', 'textarea')
+            ->getForm();
+    }
+
 }

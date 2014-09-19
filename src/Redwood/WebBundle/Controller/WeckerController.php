@@ -47,8 +47,6 @@ class WeckerController extends BaseController
 
     public function htmlCropAction(Request $request)
     {
-
-
         $filename = $request->query->get('file');
         $filename = str_replace('!', '.', $filename);
 
