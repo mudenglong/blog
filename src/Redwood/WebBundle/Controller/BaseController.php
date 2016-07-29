@@ -125,4 +125,10 @@ abstract class BaseController extends Controller
     {
         return $this->getServiceKernel()->createService('Note.NoteService');
     }
+
+    // 获得组件库服务
+    protected function getJswidgetService()
+    {
+        return $this->getServiceKernel()->createService('Note.JswidgetService');
+    }
 }

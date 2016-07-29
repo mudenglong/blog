@@ -2,6 +2,10 @@ homepage:
     pattern:  /
     defaults: { _controller: RedwoodWebBundle:Default:index }
 
+testjs:
+    pattern: /testjs/home
+    defaults: { _controller: RedwoodWebBundle:Default:testhome }
+
 register:
     pattern:  /register
     defaults: { _controller: RedwoodWebBundle:Register:index }
@@ -38,12 +42,15 @@ note_inbox_show:
 
 note_create:
     pattern: /note/create
-    defaults: { _controller:RedwoodWebBundle:Note:create }
+    defaults: { _controller: RedwoodWebBundle:Note:create }
 
 kindeditor_upload:
     pattern:  /kindeditor/upload
     defaults: { _controller: RedwoodWebBundle:Kindeditor:upload }
     methods: [POST]
+
+
+
 
 # notes:
 #     pattern: /note
@@ -59,4 +66,27 @@ settings_avatar:
 
 settings_avatar_crop:
     pattern: /settings/avatar/crop 
-    defaults: { _controller:RedwoodWebBundle:Settings:avatarCrop }
+    defaults: { _controller: RedwoodWebBundle:Settings:avatarCrop }
+
+
+# 前端组件
+jswidget_show:
+    pattern: /jswidget
+    defaults: { _controller: RedwoodWebBundle:Jswidget:index }
+
+jswidget_content:
+    pattern: /jswidget/{id}
+    defaults: { _controller: RedwoodWebBundle:Jswidget:show }   
+    requirements:
+            id:  \d+
+
+jswidget_create:
+    pattern: /jswidget/create
+    defaults: { _controller: RedwoodWebBundle:Jswidget:create }
+
+jswidget_edit:
+    pattern: /jswidget/{id}/edit
+    defaults: { _controller: RedwoodWebBundle:Jswidget:edit }
+
+
+

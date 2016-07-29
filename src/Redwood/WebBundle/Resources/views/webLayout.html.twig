@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %} 同花顺前端{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
+    <link href="{{ asset('bundles/redwoodweb/css/web.css') }}" rel="stylesheet" />
+  
+    <style>
+        body{
+            font-family: 'Source Sans Pro', 'Lucida Grande', sans-serif;
+            background: #fff;
+        }
+        .navbar-nav > li.active{
+            background: grey;
+        }
+        .es-header {
+            background: #212121;
+        }
+    </style>
+</head>
+
+<body>
+    
+    
+
+    {% set nav = nav|default('webDeveloper') %}
+    <body class="homepage">
+
+        <div class="es-wrap">
+
+            <header class="es-header navbar">
+                <div class="navbar-header">
+                    <div class="visible-xs  navbar-mobile">
+                        <a href="javascript:;" class="navbar-more js-navbar-more">
+                            <i class="es-icon es-icon-menu"></i>
+                        </a>
+                        <div class="html-mask"></div>
+                        <div class="nav-mobile">
+
+                            <ul class="nav navbar-nav">
+
+                                <li class="nav-hover{% if nav == 'webDeveloper' %} active{% endif %}"  >
+                                    <a href="http://www.qiqiuyu.com/course/explore" >前端</a>
+                                </li>
+                                <li class="nav-hover">
+                                    <a href="/#" >关于</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <nav class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav clearfix hidden-xs " id="nav">
+              
+                        <li class="nav-hover{% if nav == 'webDeveloper' %} active{% endif %}"  >
+                            <a href="http://www.qiqiuyu.com/course/explore" >前端</a>
+                        </li>
+                        <li class="nav-hover">
+                            <a href="/#" >关于</a>
+                        </li>
+          
+                    </ul>
+                    <div class="navbar-user  left ">
+                        <ul class="nav user-nav">
+                            <li class="user-avatar-li nav-hover visible-xs">
+                                <a href="javascript:;" class="dropdown-toggle">
+                                    <img class="avatar-xs" src="http://www.qiqiuyu.com/assets/img/default/avatar.png?6.17.25">
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/login?goto=%2F">登录</a></li>
+                                    <li><a href="/register?goto=%2F">注册</a></li>
+                                </ul>
+                            </li>
+                            <li class="hidden-xs"><a href="/login?goto=%2F">登录</a></li>
+                            <li class="hidden-xs"><a href="/register?goto=%2F">注册</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>        
+
+            {% block wrapBox %}
+                <section class="es-poster swiper-container" style="display:none;">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide swiper-hidden" style="background: #29adff;">
+                            <div class="container">
+                              <a href="" target="_blank" ><img class="img-responsive" src="/files/system/2016/07-22/182706a8e0c0480956.jpg?6.17.25">
+                              </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide swiper-hidden" style="background: #c5a691;">
+                            <div class="container">
+                              <a href="http://www.qiqiuyu.com/course/429" target="_blank" ><img class="img-responsive" src="/files/system/2016/07-22/182649926049727901.jpg?6.17.25">
+                              </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide swiper-hidden" style="background: #0984f7;">
+                            <div class="container">
+                              <a href="/mobile" target="_blank" ><img class="img-responsive" src="/files/system/2015/12-14/153857159e61670863.jpg?6.11.1">
+                              </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide swiper-hidden" style="background: #ff9c00;">
+                            <div class="container">
+                              <a href="http://www.edusoho.com/product/probation/stepOne/0" target="_blank" ><img class="img-responsive" src="/files/system/2015/12-14/1537520192d7177992.jpg?6.11.1">
+                              </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pager"></div>
+                </section>
+                    
+            {% endblock %}
+            
+
+        </div>
+
+        
+    <script>
+        var app = {};
+        app.debug = {% if app.debug %}true{% else %}false{% endif %};
+        app.version = '{{ assets_version() }}';
+
+        app.config = {{
+            {
+                editor_upload_path: path('kindeditor_upload')
+            }|json_encode|raw
+        }};   
+
+        {% if script_controller is defined %}
+            app.controller = '{{ script_controller }}';
+        {% endif %}
+    </script>
+    <script src="{{ asset('libs/seajs/2.1.1/sea.js') }}"></script>
+    <script src="{{ asset('libs/seajs-global-config.js') }}"></script>
+    <script type="text/javascript">
+        seajs.use('{{ asset('bundles/redwoodweb/js/app.js') }}');
+    </script>
+    <script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc0d9ab22e8e4b79429e32a816e7989c6' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+</body>
+</html>

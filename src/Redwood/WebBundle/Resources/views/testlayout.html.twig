@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}Redwood{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
+    <link href="{{ asset('bundles/redwoodweb/css/web.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    {% block wrapBox %}
+            
+           <div>father</div>
+            
+    {% endblock %}
+
+    <script>
+        var app = {};
+        app.debug = {% if app.debug %}true{% else %}false{% endif %};
+        app.version = '{{ assets_version() }}';
+
+        app.config = {{
+            {
+                editor_upload_path: path('kindeditor_upload')
+            }|json_encode|raw
+        }};   
+
+        {% if script_controller is defined %}
+            app.controller = '{{ script_controller }}';
+        {% endif %}
+    </script>
+    <script src="{{ asset('libs/seajs/2.1.1/sea.js') }}"></script>
+    <script src="{{ asset('libs/seajs-global-config.js') }}"></script>
+    <script type="text/javascript">
+        seajs.use('{{ asset('bundles/redwoodweb/js/app.js') }}');
+    </script>
+    <script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc0d9ab22e8e4b79429e32a816e7989c6' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+</body>
+</html>

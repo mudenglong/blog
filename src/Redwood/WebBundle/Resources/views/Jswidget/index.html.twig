@@ -1,0 +1,22 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+{% block wrapBox %}
+    
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ url('jswidget_create') }}">添加组件</a>
+    {% endif %}
+    <form class="site-search" id="npm-search" action="/search" method="get" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction">
+        <div id="site-search-container">
+            <input name="q" value="" type="search" id="site-search" placeholder="find packages" tabindex="1" autocorrect="off" autocapitalize="off" itemprop="query-input" autocomplete="off">
+        </div>
+        <button tabindex="2" type="submit">
+            <span class="a11y-only">Search</span>
+            <svg viewBox="0 0 34 34" fill="none" stroke="currentColor">
+                <ellipse stroke-width="3" cx="16" cy="15" rx="12" ry="12"></ellipse>
+                <path d="M26 26 l 8 8" stroke-width="3" stroke-linecap="square"></path>
+            </svg>
+        </button>
+    </form>
+        
+{% endblock %}

@@ -1,0 +1,55 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+
+{% block wrapBox %}
+    
+    {{ dump(user) }}
+
+    {{ dump('0000000000000000000000000000000') }}
+    {{ dump(author) }}
+
+    {% if user.id == author.id %}
+        <a href="{{ path('jswidget_edit', {id:jswidget.id}) }}" class="btn btn-link"><span class="glyphicon glyphicon-edit"></span> {{'编辑'}}</a>
+    {% endif %}
+
+     <ul>
+         <li>
+             <span>作者</span>
+             <span>{{ author.username }}</span>
+         </li> 
+         <li>
+             <span>拷贝地址</span>
+             <span>{{ jswidget.url }}</span>
+         </li>
+         <li>
+             <span>title</span>
+             <span>{{ jswidget.title }}</span>
+         </li>  
+         <li>
+             <span>描述</span>
+             <span>{{ jswidget.description }}</span>
+         </li>  
+         <li>
+             <span>内容</span>
+             <span>{{ jswidget.content }}</span>
+         </li> 
+         <li>
+             <span>创建时间</span>
+             <span>{{ jswidget.createTime }}</span>
+         </li>
+         <li>
+             <span>更新时间</span>
+             <span>{{ jswidget.updateTime }}</span>
+         </li>
+         <li>
+             <span>访问人数</span>
+             <span>{{ jswidget.view }}</span>
+         </li>
+         <li>
+             <span>点赞</span>
+             <span>{{ jswidget.admire }}</span>
+         </li>
+     </ul>
+        
+{% endblock %}
