@@ -33,6 +33,11 @@ abstract class BaseController extends Controller
         throw new \RuntimeException('获得当前登录用户的API变更为：getCurrentUser()。');
     }
 
+    protected function setFlashMessage($level, $message)
+    {
+        $this->get('session')->getFlashBag()->add($level, $message);
+    }
+
 	protected function authenticateUser ($user)
     {
         $currentUser = new CurrentUser();

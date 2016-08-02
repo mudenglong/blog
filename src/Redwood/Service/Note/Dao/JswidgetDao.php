@@ -8,6 +8,11 @@ interface JswidgetDao
     
 	public function updateJswidget($id, $jswidget);
 
+    public function deleteJswidget($id);
+
     public function getJswidget($id);
 
+    public function searchJswidgetCount(array $conditions);
+
+    public function searchJswidget($conditions, $orderBy, $start, $limit);
 }

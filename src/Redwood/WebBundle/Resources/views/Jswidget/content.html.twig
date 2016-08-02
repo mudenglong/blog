@@ -4,12 +4,9 @@
 
 {% block wrapBox %}
     
-    {{ dump(user) }}
+          {{ web_macro.flash_messages() }}
 
-    {{ dump('0000000000000000000000000000000') }}
-    {{ dump(author) }}
-
-    {% if user.id == author.id %}
+    {% if app.user.id == author.id %}
         <a href="{{ path('jswidget_edit', {id:jswidget.id}) }}" class="btn btn-link"><span class="glyphicon glyphicon-edit"></span> {{'编辑'}}</a>
     {% endif %}
 

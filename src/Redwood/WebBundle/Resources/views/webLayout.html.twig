@@ -1,10 +1,11 @@
+{% import "RedwoodWebBundle::macro.html.twig" as web_macro %}
+
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>{% block title %} 同花顺前端{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
-    <link href="{{ asset('bundles/redwoodweb/css/web.css') }}" rel="stylesheet" />
   
     <style>
         body{
@@ -16,14 +17,19 @@
         }
         .es-header {
             background: #212121;
+
+                background-image: -ms-linear-gradient(top, #F5F5F5 0, #fff 100%);
+                background-image: -moz-linear-gradient(top, #F5F5F5 0, #fff 100%);
+                background-image: -o-linear-gradient(top, #F5F5F5 0, #fff 100%);
+                background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #F5F5F5),color-stop(1, #fff));
+                background-image: -webkit-linear-gradient(top, #F5F5F5 0, #fff 100%);
+                background-image: linear-gradient(to bottom, #F5F5F5 0, #fff 100%);
         }
     </style>
 </head>
 
 <body>
     
-    
-
     {% set nav = nav|default('webDeveloper') %}
     <body class="homepage">
 
@@ -41,7 +47,7 @@
                             <ul class="nav navbar-nav">
 
                                 <li class="nav-hover{% if nav == 'webDeveloper' %} active{% endif %}"  >
-                                    <a href="http://www.qiqiuyu.com/course/explore" >前端</a>
+                                    <a href="{{ path('jswidget_show') }}" >前端</a>
                                 </li>
                                 <li class="nav-hover">
                                     <a href="/#" >关于</a>
@@ -54,62 +60,35 @@
                     <ul class="nav navbar-nav clearfix hidden-xs " id="nav">
               
                         <li class="nav-hover{% if nav == 'webDeveloper' %} active{% endif %}"  >
-                            <a href="http://www.qiqiuyu.com/course/explore" >前端</a>
+                            <a href="{{ path('jswidget_show') }}" >前端</a>
                         </li>
                         <li class="nav-hover">
                             <a href="/#" >关于</a>
                         </li>
           
                     </ul>
-                    <div class="navbar-user  left ">
-                        <ul class="nav user-nav">
-                            <li class="user-avatar-li nav-hover visible-xs">
-                                <a href="javascript:;" class="dropdown-toggle">
-                                    <img class="avatar-xs" src="http://www.qiqiuyu.com/assets/img/default/avatar.png?6.17.25">
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/login?goto=%2F">登录</a></li>
-                                    <li><a href="/register?goto=%2F">注册</a></li>
-                                </ul>
-                            </li>
-                            <li class="hidden-xs"><a href="/login?goto=%2F">登录</a></li>
-                            <li class="hidden-xs"><a href="/register?goto=%2F">注册</a></li>
-                        </ul>
-                    </div>
+            
+                                   
+               
                 </nav>
-            </header>        
+            </header>     
+
+            <div>
+                {% if app.user %}
+                   
+                    <div>用户名: {{ app.user.username }}</div>
+
+                    <a href="{{ path('jswidget_list') }}">我的组件</a>
+
+                {% else %}
+                    <a href="#">登录</a>
+
+                    <a href="#">注册</a>
+                {% endif %}
+            </div>   
 
             {% block wrapBox %}
-                <section class="es-poster swiper-container" style="display:none;">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide swiper-hidden" style="background: #29adff;">
-                            <div class="container">
-                              <a href="" target="_blank" ><img class="img-responsive" src="/files/system/2016/07-22/182706a8e0c0480956.jpg?6.17.25">
-                              </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide swiper-hidden" style="background: #c5a691;">
-                            <div class="container">
-                              <a href="http://www.qiqiuyu.com/course/429" target="_blank" ><img class="img-responsive" src="/files/system/2016/07-22/182649926049727901.jpg?6.17.25">
-                              </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide swiper-hidden" style="background: #0984f7;">
-                            <div class="container">
-                              <a href="/mobile" target="_blank" ><img class="img-responsive" src="/files/system/2015/12-14/153857159e61670863.jpg?6.11.1">
-                              </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide swiper-hidden" style="background: #ff9c00;">
-                            <div class="container">
-                              <a href="http://www.edusoho.com/product/probation/stepOne/0" target="_blank" ><img class="img-responsive" src="/files/system/2015/12-14/1537520192d7177992.jpg?6.11.1">
-                              </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pager"></div>
-                </section>
-                    
+              
             {% endblock %}
             
 

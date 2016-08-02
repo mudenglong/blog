@@ -88,5 +88,13 @@ jswidget_edit:
     pattern: /jswidget/{id}/edit
     defaults: { _controller: RedwoodWebBundle:Jswidget:edit }
 
+jswidget_list:
+    pattern: /jswidget/list
+    defaults: { _controller: RedwoodWebBundle:Jswidget:list }
+
+jswidget_delete:
+    pattern: /jswidget/{id}/delete
+    defaults: { _controller: RedwoodWebBundle:Jswidget:delete }
+
 
 

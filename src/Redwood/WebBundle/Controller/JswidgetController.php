@@ -3,6 +3,7 @@
 namespace Redwood\WebBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Redwood\Common\Paginator;
 
 class JswidgetController extends BaseController
 {
@@ -10,7 +11,6 @@ class JswidgetController extends BaseController
     public function indexAction() 
     {   
         $user = $this->getCurrentUser();
-        var_dump($user);
         return $this->render('RedwoodWebBundle:Jswidget:index.html.twig', array(
             'user' => $user,
         ));
@@ -18,15 +18,17 @@ class JswidgetController extends BaseController
 
     public function showAction(Request $request, $id) 
     {   
-        $user = $this->getCurrentUser();
         $jswidget = $this->getJswidgetService()->getJswidget($id);
+
+        if(!$jswidget){ 
+            return $this->createMessageResponse('info', "非常抱歉，组件id:{$id}未找到, 10秒后将跳转到组件首页.",'',10,$this->generateUrl('jswidget_show')); 
+        }
+
         return $this->render('RedwoodWebBundle:Jswidget:content.html.twig', array(
-            'user'     => $user,
             'jswidget' => $jswidget,
             'author'   => $this->getUserService()->getUser($jswidget['userId'])
         ));
     } 
-
 
     public function editAction(Request $request, $id) 
     {   
@@ -60,6 +62,44 @@ class JswidgetController extends BaseController
             'jswidget' => $jswidget,
             'form' => $form->createView()
         ));
+    }
+
+    public function listAction(Request $request) {
+        $fields = $request->query->all();
+        $user = $this->getCurrentUser();
+
+        $conditions = array(
+            'userId' => $user['id'],
+            'title' => ''
+        );
+
+        if(!empty($fields)){
+            $conditions = $fields;
+        }
+
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getJswidgetService()->searchJswidgetCount($conditions),
+            20
+        );
+
+        $jswidget = $this->getJswidgetService()->searchJswidget(
+            $conditions,
+            array('createTime', 'DESC'),
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
+        return $this->render('RedwoodWebBundle:Jswidget:list.html.twig', array(
+            'jswidgets' => $jswidget,
+            'paginator' => $paginator,
+        ));
+
+    }
+
+    public function deleteAction(Request $request, $id) {
+       $this->getJswidgetService()->deleteJswidget($id);
+       return $this->createJsonResponse(true);
     }
 
     public function createAction(Request $request) 

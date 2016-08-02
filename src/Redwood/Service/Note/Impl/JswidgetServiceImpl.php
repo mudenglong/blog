@@ -29,10 +29,39 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         }
     }
 
+    public function deleteJswidget($id){
+        $jswidget = $this->getJswidget($id);
+        if (empty($jswidget)) {
+            $this->createNotFoundException("组件#{$id}不存在, 删除失败");
+        }
+
+        $this->getJswidgetDao()->deleteJswidget($id);
+
+        // $content = strip_tags($jswidget['content']);
+        // $this->getLogService()->info('jswidget', 'delete', "删除{$jswidget['targetType']}(#{$jswidget['targetId']})的公告《{$content}》(#{$jswidget['id']})");
+
+        // $this->dispatchEvent('jswidget.delete', $jswidget);
+
+        return true;
+    }
+
     public function findJswidgetById($id)
     {
         # code...
     }
+
+    public function searchJswidgetCount($conditions)
+    {
+        return $this->getJswidgetDao()->searchJswidgetCount($conditions);
+    }
+
+    public function searchJswidget(array $conditions, array $orderBy, $start, $limit)
+    {
+        $jswidget = $this->getJswidgetDao()->searchJswidget($conditions, $orderBy, $start, $limit);
+        return $jswidget;
+    }
+
+
 
     private function getJswidgetDao()
     {

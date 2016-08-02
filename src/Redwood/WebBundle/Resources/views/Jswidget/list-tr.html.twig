@@ -1,0 +1,46 @@
+<tr id="jswidget-table-tr-{{ jswidget.id }}">
+  <td>
+    <strong>{{ jswidget.title }}</strong>
+  </td>
+
+
+  <td>
+    {{ jswidget.description }}
+   
+  </td>
+
+  <td>
+    <span class="text-sm">{{ jswidget.createTime|date('Y-n-d H:i:s') }}</span>
+    <br>
+    {# @todo <a class="text-muted text-sm" href="http://www.baidu.com/s?wd={{ jswidget.createdIp }}" target="_blank">{{ jswidget.createdIp }}</a> #}
+  </td>
+  <td>
+    <span class="text-sm">
+      {{ jswidget.saveHours }}
+    </span>
+  </td>
+  <td>
+    {{ jswidget.view }}
+  </td>
+  <td>
+    {{ jswidget.admire }}
+  </td>
+  <td>
+    <div class="btn-group">
+      
+    
+        <a href="{{ path('jswidget_content', {id:jswidget.id}) }}" target="_blank" class="btn btn-default btn-sm">查看</a>
+
+        <a href="javascript:;" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('jswidget_edit', {id:jswidget.id}) }}">编辑</a></li>
+         
+            <li><a class="delete-jswidget" data-url="{{ path('jswidget_delete', {id:jswidget.id}) }}" href="javascript:" title="删除组件">删除</a></li>
+         
+        </ul>
+    </div>
+  </td>
+</tr>
+

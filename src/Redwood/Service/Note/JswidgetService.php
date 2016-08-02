@@ -7,8 +7,14 @@ interface JswidgetService
 
     public function updateJswidget($jswidget);
 
+    public function deleteJswidget($id);
+
     public function getJswidget($id);
 
     public function findJswidgetById($id);
+
+    public function searchJswidgetCount($conditions);
+    
+    public function searchJswidget(array $conditions, array $oderBy, $start, $limit);
 
 }

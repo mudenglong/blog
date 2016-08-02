@@ -24,13 +24,54 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
         return $this->getJswidget($this->getConnection()->lastInsertId());
 	}
 
+    public function deleteJswidget($id)
+    {
+        return $this->getConnection()->delete($this->table, array('id' => $id));
+    }
+
     public function updateJswidget($id, $jswidget)
     {
-        var_dump('dddddd');
-        var_dump($id);
 
         $this->getConnection()->update($this->table, $jswidget, array('id' => $id));
         return $this->getJswidget($id);
     }
+
+    public function searchJswidgetCount(array $conditions){
+        $builder = $this->createJswidgetQueryBuilder($conditions)
+            ->select('COUNT(id)');
+        return $builder->execute()->fetchColumn(0);
+    }
+
+    public function searchJswidget($conditions, $orderBy, $start, $limit)
+    {
+        $builder = $this->createJswidgetQueryBuilder($conditions)
+            ->select('*')
+            ->orderBy($orderBy[0], $orderBy[1])
+            ->setFirstResult($start)
+            ->setMaxResults($limit);
+
+        return $builder->execute()->fetchAll() ? : array();  
+    }
+
+    private function createJswidgetQueryBuilder($conditions)
+    {
+        if(isset($conditions['keywordType'])) {
+            $conditions[$conditions['keywordType']]=$conditions['keyword'];
+            unset($conditions['keywordType']);
+            unset($conditions['keyword']);
+        }
+
+        if (isset($conditions['title'])) {
+            $conditions['title'] = "%{$conditions['title']}%";
+        }
+
+        return $this->createDynamicQueryBuilder($conditions)
+            ->from($this->table, 'jswidget')
+            ->andWhere('title LIKE :title')
+            ->andWhere('userId = :userId');
+    }
+
+
+
 
 }
