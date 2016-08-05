@@ -1,10 +1,15 @@
 {# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
-{% extends 'RedwoodWebBundle::beforeLayout.html.twig' %}
+{# {% extends 'RedwoodWebBundle::beforeLayout.html.twig' %} #}
+
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+
+
 {% block title %}  
 	{# <h1>登 录</h1> #}
 登 录
 {% endblock %}
-{% block content %}
+{% block wrapBox %}
 
 		<form id="login-form" method="post" action="{{ path('login_check') }}">
 
@@ -35,7 +40,12 @@
             </span>
             <a href="{{ path('password_reset') }}">找回密码</a>
 
+            <input type="hidden" name="_target_path" value="{{ path('jswidget_show') }}" />
+
+            {#
             <input type="hidden" name="_target_path" value="{{ path('note_inbox_show') }}" />
+            #}
+
            {#  {% if app.request.query.get('to') %}
               <input type="hidden" name="_target_path" value="{{ app.request.query.get('to') }}" />
             {% endif %} #}

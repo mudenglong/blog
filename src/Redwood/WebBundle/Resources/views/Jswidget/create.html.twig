@@ -25,11 +25,6 @@
         action="{{ path('jswidget_create') }}"
     {% endif %}>
 
-    <p>
-        <span>url:</span>
-        <span>
-        {{ form_widget(form.url, {attr:{'data-display':'url'}}) }}</span>
-    </p>
 
     <p>
         <span>标题:</span>
@@ -40,6 +35,16 @@
         <span>描述:</span>
         <span>
         {{ form_widget(form.description, {attr:{'data-display':'description'}}) }}
+    </p>
+    <p>
+        <span>组件根目录url:</span>
+        <span>
+        {{ form_widget(form.url, {attr:{'data-display':'url'}}) }}</span>
+    </p>
+    <p>
+        <span>iframe url:</span>
+        <span>
+        {{ form_widget(form.iframeUrl, {attr:{'data-display':'iframeUrl'}}) }}</span>
     </p>
     <p>
         <span>内容:</span>

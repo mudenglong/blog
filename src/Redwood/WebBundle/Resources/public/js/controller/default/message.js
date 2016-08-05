@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     	if (duration > 0 && gotoUrl) {
 	        setTimeout(function() {
 	            window.location.href= gotoUrl;
-	        }, 2000);
+	        }, duration*1000);
     	}
 
     }

@@ -62,9 +62,10 @@
                      {% if app.user %}
 
                         <span>{{ app.user.username }}</span><span>, 你好</span>
-                        <a href="{{ path('logout') }}" style="margin-top:10px;"><i class="glyphicon glyphicon-off"></i> 退出</a>
+                        <a href="{{ path('logout', {goto:'jswidget_show'}) }}" style="margin-top:10px;"><i class="glyphicon glyphicon-off"></i> 退出</a>
+
                     {% else %}
-                        <a href="#">登录</a>
+                        <a href="{{ path('login') }}">登录</a>
 
                         <a href="#">注册</a>
                     {% endif %}
@@ -72,8 +73,9 @@
                     </div>
                 </div>
 
-                <form action="/search" method="get">
+                <form action="{{ path('jswidget_search') }}" method="get">
                     <input id="search" type="text" placeholder="Search" name="terms" value="">
+                    <button type="submit">submit</button>
                     <span class="help">
                         <span class="keys">需前往测试服务器(172.20.204.24)下载</span>
                     </span>
