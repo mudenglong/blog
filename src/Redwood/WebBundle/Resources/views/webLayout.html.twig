@@ -4,95 +4,97 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{% block title %} 同花顺前端{% endblock %}</title>
+    <title>{% block title %} 同花顺Widget库{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/redwoodweb/css/subm.css') }}" />
   
     <style>
-        body{
-            font-family: 'Source Sans Pro', 'Lucida Grande', sans-serif;
-            background: #fff;
+        header a#logo h2 {
+            -moz-transition: opacity .15s ease-in-out;
+            -webkit-transition: opacity .15s ease-in-out;
+            transition: opacity .15s ease-in-out;
+            border: 0;
+            display: block;
+            float: left;
+            max-height: 51px;
+            max-width: 286px;
+            margin-right: 30px;
         }
-        .navbar-nav > li.active{
-            background: grey;
+        header form input#search{
+            margin-top: 22px;
         }
-        .es-header {
-            background: #212121;
-
-                background-image: -ms-linear-gradient(top, #F5F5F5 0, #fff 100%);
-                background-image: -moz-linear-gradient(top, #F5F5F5 0, #fff 100%);
-                background-image: -o-linear-gradient(top, #F5F5F5 0, #fff 100%);
-                background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #F5F5F5),color-stop(1, #fff));
-                background-image: -webkit-linear-gradient(top, #F5F5F5 0, #fff 100%);
-                background-image: linear-gradient(to bottom, #F5F5F5 0, #fff 100%);
-        }
+/*@media (max-width: 1100px){
+    body.package div#installs {
+        width: 46%;
+    }
+}*/
     </style>
 </head>
 
-<body>
-    
-    {% set nav = nav|default('webDeveloper') %}
-    <body class="homepage">
+{% set nav = nav|default('browse') %}
+{% set navclass = navclass|default('index') %}
+<body class="{% if navclass == 'package' %} package {% else %} index{% endif %}">
+    <header>
+        <section>
+            <div>
+                <a id="logo" href="{{ path('jswidget_show') }}">
+                    <h2>Widget 库</h2>
+                </a>
+                <div id="nav_container">
+                    <nav>
+                        <a href="{{ path('jswidget_show') }}" class="{% if nav == 'browse' %} active{% endif %}">分类浏览</a>
+                        <a href="/docs" class="{% if nav == 'link1' %} active{% endif %}">链接一</a>
+                        <a href="/docs" class="{% if nav == 'link2' %} active{% endif %}">链接二</a>
+                        <a href="/docs" class="{% if nav == 'manual' %} active{% endif %}">使用手册</a>
+                        <a href="/news" class="{% if nav == 'news' %} active{% endif %}">更新日志</a>
+                        <a href="/feedback" class="{% if nav == 'feedback' %} active{% endif %}">反馈&建议</a>
 
-        <div class="es-wrap">
+                        {% if app.user %}
+                        <a style="color:#6A8F1A;" class="{% if nav == 'mywidget' %} active{% endif %}" href="{{ path('jswidget_list') }}">我的组件</a>
+                        <a style="color:#F34B4B;"  class="{% if nav == 'addwidget' %} active{% endif %}" href="{{ path('jswidget_create') }}">添加组件</a>
+                        {% endif %}
 
-            <header class="es-header navbar">
-                <div class="navbar-header">
-                    <div class="visible-xs  navbar-mobile">
-                        <a href="javascript:;" class="navbar-more js-navbar-more">
-                            <i class="es-icon es-icon-menu"></i>
-                        </a>
-                        <div class="html-mask"></div>
-                        <div class="nav-mobile">
+                        <span class="loading"></span>
+                    </nav>
 
-                            <ul class="nav navbar-nav">
+                    <div id="spons">
 
-                                <li class="nav-hover{% if nav == 'webDeveloper' %} active{% endif %}"  >
-                                    <a href="{{ path('jswidget_show') }}" >前端</a>
-                                </li>
-                                <li class="nav-hover">
-                                    <a href="/#" >关于</a>
-                                </li>
-                            </ul>
-                        </div>
+                     {% if app.user %}
+
+                        <span>{{ app.user.username }}</span><span>, 你好</span>
+                        <a href="{{ path('logout') }}" style="margin-top:10px;"><i class="glyphicon glyphicon-off"></i> 退出</a>
+                    {% else %}
+                        <a href="#">登录</a>
+
+                        <a href="#">注册</a>
+                    {% endif %}
+
                     </div>
                 </div>
-                <nav class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav clearfix hidden-xs " id="nav">
-              
-                        <li class="nav-hover{% if nav == 'webDeveloper' %} active{% endif %}"  >
-                            <a href="{{ path('jswidget_show') }}" >前端</a>
-                        </li>
-                        <li class="nav-hover">
-                            <a href="/#" >关于</a>
-                        </li>
-          
-                    </ul>
-            
-                                   
-               
-                </nav>
-            </header>     
 
-            <div>
-                {% if app.user %}
-                   
-                    <div>用户名: {{ app.user.username }}</div>
+                <form action="/search" method="get">
+                    <input id="search" type="text" placeholder="Search" name="terms" value="">
+                    <span class="help">
+                        <span class="keys">需前往测试服务器(172.20.204.24)下载</span>
+                    </span>
+                </form>
+            </div>
+        </section>
+    </header>
+    <div id="torso">
 
-                    <a href="{{ path('jswidget_list') }}">我的组件</a>
-
-                {% else %}
-                    <a href="#">登录</a>
-
-                    <a href="#">注册</a>
-                {% endif %}
-            </div>   
+        <div id="content">
 
             {% block wrapBox %}
-              
+
             {% endblock %}
-            
 
         </div>
+    </div>
+
+    <footer>
+        <section>这里还什么都没有... </section>
+    </footer>
 
         
     <script>
@@ -117,7 +119,6 @@
     </script>
     <script type="text/javascript">
     var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc0d9ab22e8e4b79429e32a816e7989c6' type='text/javascript'%3E%3C/script%3E"));
     </script>
 
 </body>

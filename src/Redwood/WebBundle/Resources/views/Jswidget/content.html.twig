@@ -2,51 +2,88 @@
 {% extends 'RedwoodWebBundle::webLayout.html.twig' %}
 
 
+{% set navclass = 'package' %}
 {% block wrapBox %}
     
-          {{ web_macro.flash_messages() }}
+{{ web_macro.flash_messages() }}
+
+<div id="content">
+    <a class="context" href="javascript:;">Browse</a>
+    <h1>{{ jswidget.title }}
 
     {% if app.user.id == author.id %}
         <a href="{{ path('jswidget_edit', {id:jswidget.id}) }}" class="btn btn-link"><span class="glyphicon glyphicon-edit"></span> {{'编辑'}}</a>
-    {% endif %}
+    {% endif %}</h1>
+    <div class="meta">
+        <span class="author">
+            <em>by</em>
+            <a href="/browse/authors/iTitou">{{ author.username }}</a>
 
-     <ul>
-         <li>
-             <span>作者</span>
-             <span>{{ author.username }}</span>
-         </li> 
-         <li>
-             <span>拷贝地址</span>
-             <span>{{ jswidget.url }}</span>
-         </li>
-         <li>
-             <span>title</span>
-             <span>{{ jswidget.title }}</span>
-         </li>  
-         <li>
-             <span>描述</span>
-             <span>{{ jswidget.description }}</span>
-         </li>  
-         <li>
-             <span>内容</span>
-             <span>{{ jswidget.content }}</span>
-         </li> 
-         <li>
-             <span>创建时间</span>
-             <span>{{ jswidget.createTime }}</span>
-         </li>
-         <li>
-             <span>更新时间</span>
-             <span>{{ jswidget.updateTime }}</span>
-         </li>
-         <li>
-             <span>访问人数</span>
-             <span>{{ jswidget.view }}</span>
-         </li>
-         <li>
-             <span>点赞</span>
-             <span>{{ jswidget.admire }}</span>
-         </li>
-     </ul>
+        </span>
+        <!-- <span class="versions both" title="Works with Sublime Text 2 and 3">ST2/ST3</span> -->
+    </div>
+
+    <div class="meta" style="display:none;">
+        <span>访问人数</span>
+        <span>{{ jswidget.view }}</span>
+        <span>点赞</span>
+        <span>{{ jswidget.admire }}</span>
+    </div>
+    <p class="description">
+        {{ jswidget.description }}
+    </p>
+    <p class="description">
+        <span>组件根目录</span>
+        <a href="{{ jswidget.url }}" title="在测试服务器172.20.204.24上">{{ jswidget.url }}</a> 
+    </p>
+    <!-- <div class="labels">
+        <span class="title">Labels</span><a href="/browse/labels/auto-complete">auto-complete</a>, <a href="/browse/labels/language%20syntax">language syntax</a>
+    </div> -->
+    <div id="details">
+        <h2>Details</h2>
+        <ul class="meta">
+           <!--  <li class="version">
+                <label>Version</label><span>1.1.0</span>
+            </li> -->
+            
+            <li class="modified"><label>上一次修改</label><span>{{ jswidget.updateTime|date('Y-n-d H:i:s') }}</span></li>
+            <li class="first_seen"><label>创建时间</label><span>{{ jswidget.createTime|date('Y-n-d H:i:s') }}</span></li>
+        </ul>
+    </div>
+    <div id="installs">
+        <h2>unknown</h2>
+        <ul class="totals"> 
+            <li> 
+                <span class="total">Total</span> <span title="68" class="installs">--</span> 
+            </li> 
+            <li> 
+                <span class="platform">属性1</span> <span title="49" class="windows installs">-- <span class="key"></span></span> 
+            </li> 
+            <li> 
+                <span class="platform">属性2</span> <span title="10" class="osx installs">-- <span class="key"></span></span> 
+            </li> 
+            <li> 
+                <span class="platform">属性3</span> <span title="9" class="linux installs">-- <span class="key"></span></span> 
+            </li> 
+        </ul>
+    </div>
+    <div style="clear: both">
+    </div>
+
+    <div> 
+        <h2>Iframe 预览 <span><a style="border-bottom: 1px solid #eee;
+    color: #555E69; font-size:14px;" href="javascript:;" target="_blank">新窗口打开</a></span></h2> 
+        <div class="contents">  
+            <p>ddddddddd</p>
+        </div>
+    </div> 
+
+    <div id="readme"> 
+        <h2>Readme</h2>  
+        <div class="contents">  
+            {{ jswidget.content }} 
+        </div>
+    </div>
+</div>
         
 {% endblock %}
