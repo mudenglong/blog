@@ -10,6 +10,8 @@ interface UserDao
 
 	public function findUserByUsername($username);
 
+    public function findUsersByIds(array $ids);
+
     public function addUser($user);
 
     public function updateUser($id, $fields);

@@ -1,0 +1,33 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+{% set script_controller = 'jswidget/search' %}
+
+{% block title %}
+我的组件-{{ parent() }}
+{% endblock %}
+
+{% block wrapBox %}
+
+<div class="results">
+    <!-- <div class="sort">
+        <span>Sort by</span><a href="?" class="relevance selected">Relevance</a><a href="?sort=popularity" class="popularity">Popularity</a>
+    </div> -->
+
+    <ul  id="jswidget-search-table" class="packages results">
+        {% for jswidget in jswidgets %}
+
+        {% set user = users[jswidget.userId]|default(null) %}
+
+          {% include 'RedwoodWebBundle:Jswidget:searchList-tr.html.twig' with {jswidget:jswidget, user:user} %}
+        {% else %}
+            <div class="results">    
+                <div class="no results"> 暂无该组件 </div>     
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+  
+ {{ web_macro.paginator(paginator) }} 
+    
+{% endblock %}

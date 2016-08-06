@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Redwood\Service\Common\BaseService;
 use Redwood\Service\User\UserService;
 
+use Redwood\Common\ArrayToolkit;
+
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
 use Imagine\Image\Point;
@@ -45,6 +47,14 @@ class UserServiceImpl extends BaseService implements UserService
         } else {
             return UserSerialize::unserialize($user);
         }
+    }
+
+    public function findUsersByIds(array $ids)
+    {
+        $users = UserSerialize::unserializes(
+            $this->getUserDao()->findUsersByIds($ids)
+        );
+        return ArrayToolkit::index($users, 'id');
     }
 
     public function register($registration, $type = 'default')

@@ -38,6 +38,7 @@
         <section>
             <div>
                 <a id="logo" href="{{ path('jswidget_show') }}">
+
                     <h2>Widget 库</h2>
                 </a>
                 <div id="nav_container">
@@ -74,7 +75,7 @@
                 </div>
 
                 <form action="{{ path('jswidget_search') }}" method="get">
-                    <input id="search" type="text" placeholder="Search" name="terms" value="">
+                    <input id="search" type="text" placeholder="Search" name="q" value="">
                     <button type="submit">submit</button>
                     <span class="help">
                         <span class="keys">需前往测试服务器(172.20.204.24)下载</span>

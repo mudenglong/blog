@@ -4,6 +4,7 @@ namespace Redwood\WebBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Redwood\Common\Paginator;
+use Redwood\Common\ArrayToolkit;
 
 class JswidgetController extends BaseController
 {
@@ -65,10 +66,12 @@ class JswidgetController extends BaseController
     }
 
     public function searchAction(Request $request) {
-        $jswidget = $paginator = null; 
+        $jswidgets = $paginator = null; 
         $currentUser = $this->getCurrentUser();
+        $data = array();
 
         $keywords = $request->query->get('q');
+     
         $keywords = $this->filterKeyWord(trim($keywords)); 
 
         $conditions = array(
@@ -81,17 +84,32 @@ class JswidgetController extends BaseController
             20
         );
 
-        $jswidget = $this->getJswidgetService()->searchJswidget(
+        $jswidgets = $this->getJswidgetService()->searchJswidget(
             $conditions,
             array('createTime', 'DESC'),
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
+        $users = $this->getUserService()->findUsersByIds(ArrayToolkit::column($jswidgets, 'userId'));
 
-        echo "这个function还没有跑过";
+        // foreach ($jswidgets as $jswidget) {
+        //     $data[] = array(
+        //             'id' => $jswidget['id'],  
+        //             'title' => $jswidget['title'],  
+        //             'view' => $jswidget['view'],  
+        //             'admire' => $jswidget['admire'],  
+        //             'createTime' => $jswidget['createTime'],  
+        //             'description' => $jswidget['description'],  
+        //             'view' => $jswidget['view'],  
+        //             'username' => $users[$jswidget['userId']]['username'] 
+        //             );
+        // }
 
-        return $this->render('RedwoodWebBundle:Jswidget:list.html.twig', array(
-            'jswidgets' => $jswidget,
+        // return $this->createJsonResponse($data);
+
+        return $this->render('RedwoodWebBundle:Jswidget:searchList.html.twig', array(
+            'jswidgets' => $jswidgets,
+            'users' => $users,
             'paginator' => $paginator,
         ));
     }

@@ -9,6 +9,9 @@ interface UserService
 
 	public function getUserByUsername($username);
 
+    public function findUsersByIds(array $ids);
+
+
     /**
      * 用户注册
      * @param  [type] $registration 用户注册信息

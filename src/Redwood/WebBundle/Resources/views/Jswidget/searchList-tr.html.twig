@@ -1,0 +1,24 @@
+<li id="jswidget-search-table-tr-{{ jswidget.id }}"  class="package">
+    <h3>
+        <a href="{{ path('jswidget_edit', {id:jswidget.id}) }}"><b>{{ jswidget.title }}</b></a>
+    </h3>
+            
+    <span class="author"><em>by</em>
+        <a href="/browse/authors/Sequoia%20Studios">{{ user.username }}</a>
+    </span>
+
+    <span class="meta">
+        <span class="installs" title="558 total unique installs">{{ jswidget.view }} <em>views</em></span>
+
+        <span class="installs" title="558 total unique installs">{{ jswidget.admire }} <em>赞</em></span>
+
+        <span class="installs" style="background:none;" title="558 total unique installs">{{ jswidget.createTime|date('Y-n-d') }}</span>
+    </span>
+    <div class="description">
+        {{ jswidget.description }}
+    </div>
+</li>
+
+
+
+

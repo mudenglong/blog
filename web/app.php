@@ -18,9 +18,10 @@ $loader->register(true);
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
-$kernel = new AppKernel('prod', false);
+// $kernel = new AppKernel('prod', false);
+$kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
-$kernel = new AppCache($kernel);
+//$kernel = new AppCache($kernel);
 Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
 //移动下面这段到末尾 增加boot（） 方法???
