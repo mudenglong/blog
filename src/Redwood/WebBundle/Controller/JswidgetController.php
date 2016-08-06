@@ -34,7 +34,11 @@ class JswidgetController extends BaseController
     public function editAction(Request $request, $id) 
     {   
         $user = $this->getCurrentUser();
+        
         $jswidget = $this->getJswidgetService()->getJswidget($id);
+        if ($user['id'] != $jswidget['userId']) {
+            return $this->redirect($this->generateUrl('jswidget_show'));
+        }
 
         $form = $this->creatJswidgetForm($jswidget);
         if ($request->getMethod() == 'POST') {
@@ -65,10 +69,48 @@ class JswidgetController extends BaseController
         ));
     }
 
+    // 处理数据同下面的searchjsonAction, 渲染不同
     public function searchAction(Request $request) {
         $jswidgets = $paginator = null; 
         $currentUser = $this->getCurrentUser();
         $data = array();
+        $data['widgets'] = array();
+
+        $keywords = $request->query->get('q');
+        
+        $keywords = $this->filterKeyWord(trim($keywords)); 
+
+        $conditions = array(
+            'title'      => $keywords
+        );
+
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getJswidgetService()->searchJswidgetCount($conditions),
+            30
+        );
+
+        $jswidgets = $this->getJswidgetService()->searchJswidget(
+            $conditions,
+            array('createTime', 'DESC'),
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+        $users = $this->getUserService()->findUsersByIds(ArrayToolkit::column($jswidgets, 'userId'));
+
+        return $this->render('RedwoodWebBundle:Jswidget:searchList.html.twig', array(
+            'jswidgets' => $jswidgets,
+            'users' => $users,
+            'paginator' => $paginator,
+        ));
+    }
+
+    // 处理数据同上面的searchAction, 渲染不同
+    public function searchjsonAction(Request $request) {
+        $jswidgets = $paginator = null; 
+        $currentUser = $this->getCurrentUser();
+        $data = array();
+        $data['widgets'] = array();
 
         $keywords = $request->query->get('q');
      
@@ -81,7 +123,7 @@ class JswidgetController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getJswidgetService()->searchJswidgetCount($conditions),
-            20
+            30
         );
 
         $jswidgets = $this->getJswidgetService()->searchJswidget(
@@ -92,26 +134,24 @@ class JswidgetController extends BaseController
         );
         $users = $this->getUserService()->findUsersByIds(ArrayToolkit::column($jswidgets, 'userId'));
 
-        // foreach ($jswidgets as $jswidget) {
-        //     $data[] = array(
-        //             'id' => $jswidget['id'],  
-        //             'title' => $jswidget['title'],  
-        //             'view' => $jswidget['view'],  
-        //             'admire' => $jswidget['admire'],  
-        //             'createTime' => $jswidget['createTime'],  
-        //             'description' => $jswidget['description'],  
-        //             'view' => $jswidget['view'],  
-        //             'username' => $users[$jswidget['userId']]['username'] 
-        //             );
-        // }
+        $data['status'] = 'success';
+        $data['pages'] = $paginator->getOffsetCount()+1;
+        $data['terms'] = $keywords;
+        $data['count'] = $paginator->getPerPageCount();
+        foreach ($jswidgets as $jswidget) {
+            $data['widgets'][] = array(
+                    'id' => $jswidget['id'],  
+                    'title' => $jswidget['title'],  
+                    'view' => $jswidget['view'],  
+                    'admire' => $jswidget['admire'],  
+                    'createTime' => $jswidget['createTime'],  
+                    'description' => $jswidget['description'],  
+                    'view' => $jswidget['view'],  
+                    'username' => $users[$jswidget['userId']]['username'] 
+                    );
+        }
 
-        // return $this->createJsonResponse($data);
-
-        return $this->render('RedwoodWebBundle:Jswidget:searchList.html.twig', array(
-            'jswidgets' => $jswidgets,
-            'users' => $users,
-            'paginator' => $paginator,
-        ));
+        return $this->createJsonResponse($data);
     }
 
     public function listAction(Request $request) {

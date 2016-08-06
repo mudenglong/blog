@@ -108,6 +108,7 @@ class UserController extends BaseController
         if (empty($user)) {
             throw $this->createNotFoundException();
         }
+        
         $siteName = $this->container->getParameter('site_name');
         $token = $this->getUserService()->makeToken('password-reset', $user['id'], strtotime('+1 day'));
         $this->sendEmail(

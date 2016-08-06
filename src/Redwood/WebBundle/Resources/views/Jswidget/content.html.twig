@@ -11,7 +11,7 @@
     <a class="context" href="javascript:;">Browse</a>
     <h1>{{ jswidget.title }}
 
-    {% if app.user.id == author.id %}
+    {% if app.user and app.user.id == author.id %}
         <a href="{{ path('jswidget_edit', {id:jswidget.id}) }}" class="btn btn-link"><span class="glyphicon glyphicon-edit"></span> {{'编辑'}}</a>
     {% endif %}</h1>
     <div class="meta">

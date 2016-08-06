@@ -1,6 +1,6 @@
 <li id="jswidget-search-table-tr-{{ jswidget.id }}"  class="package">
     <h3>
-        <a href="{{ path('jswidget_edit', {id:jswidget.id}) }}"><b>{{ jswidget.title }}</b></a>
+        <a href="{{ path('jswidget_content', {id:jswidget.id}) }}"><b>{{ jswidget.title }}</b></a>
     </h3>
             
     <span class="author"><em>by</em>
@@ -11,8 +11,6 @@
         <span class="installs" title="558 total unique installs">{{ jswidget.view }} <em>views</em></span>
 
         <span class="installs" title="558 total unique installs">{{ jswidget.admire }} <em>赞</em></span>
-
-        <span class="installs" style="background:none;" title="558 total unique installs">{{ jswidget.createTime|date('Y-n-d') }}</span>
     </span>
     <div class="description">
         {{ jswidget.description }}

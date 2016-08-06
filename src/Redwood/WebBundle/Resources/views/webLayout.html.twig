@@ -68,7 +68,7 @@
                     {% else %}
                         <a href="{{ path('login') }}">登录</a>
 
-                        <a href="#">注册</a>
+                        <a href="{{ path('register') }}">注册</a>
                     {% endif %}
 
                     </div>
@@ -76,7 +76,6 @@
 
                 <form action="{{ path('jswidget_search') }}" method="get">
                     <input id="search" type="text" placeholder="Search" name="q" value="">
-                    <button type="submit">submit</button>
                     <span class="help">
                         <span class="keys">需前往测试服务器(172.20.204.24)下载</span>
                     </span>
