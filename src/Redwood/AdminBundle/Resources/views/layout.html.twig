@@ -22,12 +22,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url('admin_square') }}">Redwood管理后台</a>
+        <a class="navbar-brand" href="{{ url('admin_square') }}">管理后台</a>
       </div>
       <div class="navbar-collapse collapse">
 
         <ul class="nav navbar-nav">
-          <li {% if nav == 'course' %}class="active"{% endif %}><a href="{# {{ path('admin_course') }} #}">模块一</a></li>
+          <li {% if nav == 'course' %}class="active"{% endif %}><a href="{# {{ path('admin_course') }} #}">js组件库</a></li>
           <li {% if nav == 'user' %}class="active"{% endif %}><a href="{{ path('admin_user') }}">用户</a></li>
           {% if is_granted('ROLE_SUPER_ADMIN') %}
           <li {% if nav == 'system' %}class="active"{% endif %}><a href="{# {{ path('admin_setting_site') }} #}">模块三</a></li>
@@ -35,7 +35,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{{ path('homepage') }}"><i class="glyphicon glyphicon-home"></i> 回首页</a></li>
+          <li><a href="{{ path('jswidget_show') }}"><i class="glyphicon glyphicon-home"></i> 回首页</a></li>
           <li>{# <a href="{{ path('user_show', {id:app.user.uri|default(app.user.id)}) }}"><i class="glyphicon glyphicon-user"></i> {{ app.user.nickname }}</a> #}</li>
           <li><a href="{{ path('logout') }}"><i class="glyphicon glyphicon-off"></i> 退出</a></li>
         </ul>

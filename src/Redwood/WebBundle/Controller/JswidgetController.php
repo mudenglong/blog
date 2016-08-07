@@ -69,6 +69,13 @@ class JswidgetController extends BaseController
         ));
     }
 
+    // 使用手册
+    public function manualAction(Request $request) {
+        
+        return $this->render('RedwoodWebBundle:Jswidget:manual.html.twig');
+    }
+    
+
     // 处理数据同下面的searchjsonAction, 渲染不同
     public function searchAction(Request $request) {
         $jswidgets = $paginator = null; 

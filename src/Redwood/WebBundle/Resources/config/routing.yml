@@ -1,6 +1,6 @@
-homepage:
-    pattern:  /
-    defaults: { _controller: RedwoodWebBundle:Default:index }
+# homepage:
+#     pattern:  /
+#     defaults: { _controller: RedwoodWebBundle:Default:index }
 
 testjs:
     pattern: /testjs/home
@@ -71,13 +71,13 @@ settings_avatar_crop:
 
 # 前端组件
 
-# jswidget_show:
-#     pattern: /
-#     defaults: { _controller: RedwoodWebBundle:Jswidget:index }
+jswidget_show:
+    pattern: /
+    defaults: { _controller: RedwoodWebBundle:Jswidget:index }
 
 jswidget_content:
     pattern: /jswidget/{id}
-    defaults: { _controller: RedwoodWebBundle:Jswidget:show }   
+    defaults: { _controller: RedwoodWebBundle:Jswidget:show }
     requirements:
             id:  \d+
 
@@ -105,3 +105,8 @@ jswidget_searchjson:
     pattern:  /jswidget/searchjson
     defaults: { _controller: RedwoodWebBundle:Jswidget:searchjson }
 
+#使用手册
+
+jswidget_manual:
+    pattern: /jswidget/manual
+    defaults: { _controller: RedwoodWebBundle:Jswidget:manual }

@@ -153,14 +153,13 @@ define(function(require, exports, module) {
 	     this.$inputPane.val('');
 	     $(this.get('element')).css('display', 'none');
 
-	     /*输入框内容变化时*/
-	     this.$inputPane.keyup(function(){  
-	        if(that.$inputPane.val() == ""){
+	     var keyupFun = function  () {
+	     	if(that.$inputPane.val() == ""){
 	        	// var terms = '';
 	         	// history.pushState({ search: terms }, terms, window.location.origin);
 	         	window.location.href = location.origin;
 
-	        }else{
+	         }else{
 	         	$.ajax({
 	         		url: window.location.origin+'/jswidget/searchjson',
 	         		dataType: 'json',
@@ -168,28 +167,45 @@ define(function(require, exports, module) {
 	         	})
 	         	.done(function(d) {
 	         		if (d.status === 'success') {
-
 	         			var search = '/jswidget/search?q='+d.terms;
 	         			var url = window.location.origin + search;
-	         			history.pushState({ search: d.terms }, d.terms, url);
-	         			var r = d.widgets;
-	         			var str = '';
-	         			for (var i = 0; i < r.length; i++) {
-	         				str += that.fillHtml(r[i]);
+	         			history.pushState({ search: d.terms }, '', url);
+	         			
+	         			if (d.widgets.length) {
+	         				var r = d.widgets;
+	         				var str = '';
+	         				for (var i = 0; i < r.length; i++) {
+	         					str += that.fillHtml(r[i]);
+	         				}
+	         				$('#content').html('<div class="results"> <ul  id="jswidget-search-table" class="packages results">'+str+'</ul></div>');
+	         			}else{
+	         				$('#content').html('<div class="results"> <ul  id="jswidget-search-table" class="packages results"><div class="results"> <div class="no results"> 暂无该组件 </div> </div></ul></div>');
 	         			}
-	         			$('#content').html('<div class="results"> <ul  id="jswidget-search-table" class="packages results">'+str+'</ul></div>');
-
 	         		}
 	         	})
-	         	.fail(function() {
-	         		console.log("error");
-	         	})
-	         	.always(function() {
-	         		console.log("complete");
-	         	});
-	         	
-	        }
-	     });
+				.fail(function() {
+
+				})
+				.always(function() {
+				});
+
+			}
+	     		     
+	    }
+
+	    var debounce = function(idle, action){
+	    	var last
+	    	return function(){
+	    		var ctx = this, args = arguments
+	    		clearTimeout(last)
+	    		last = setTimeout(function(){
+	    			action.apply(ctx, args)
+	    		}, idle)
+	    	}
+	    }
+
+	     /*输入框内容变化时*/
+	     this.$inputPane.keyup(debounce(400, keyupFun));
 
 	    
 	 };
@@ -220,30 +236,30 @@ define(function(require, exports, module) {
 	}).render(); 
 	$('#search').trigger('focus');
 
-	// function getQueryVariable(variable) {
-	//     var url = window.location.href,
-	//         tempArr,
-	//         query = window.location.search.substring(1),
-	//         result = {};
+	function getQueryVariable(variable) {
+	    var url = window.location.href,
+	        tempArr,
+	        query = window.location.search.substring(1),
+	        result = {};
 
-	//     var vars = query.split("&");
-	//     for (var i=0;i<vars.length;i++) {
-	//         var pair = vars[i].split("=");
-	//         result[pair[0]] = pair[1];
-	//     }
+	    var vars = query.split("&");
+	    for (var i=0;i<vars.length;i++) {
+	        var pair = vars[i].split("=");
+	        result[pair[0]] = pair[1];
+	    }
 	    
-	//     return result[variable];
-	// }
+	    return result[variable];
+	}
 
-	// function setInputValue () {
-	// 	var search = getQueryVariable('q');
-	// 	if (search) {
-	// 		$('#search').val(search);
-	// 		$('#search').trigger('focus');
-	// 	};
+	function setInputValue () {
+		var search = getQueryVariable('q');
+		if (search) {
+			$('#search').val(search);
+			$('#search').trigger('focus');
+		};
 		
-	// }
-	// setInputValue();
+	}
+	setInputValue();
 
 
 });
