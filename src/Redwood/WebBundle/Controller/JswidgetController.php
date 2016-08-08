@@ -165,6 +165,10 @@ class JswidgetController extends BaseController
         $fields = $request->query->all();
         $user = $this->getCurrentUser();
 
+        if (!$user) {
+            return $this->redirect($this->generateUrl('jswidget_show'));
+        }
+
         $conditions = array(
             'userId' => $user['id'],
             'title' => ''
@@ -189,7 +193,7 @@ class JswidgetController extends BaseController
 
         return $this->render('RedwoodWebBundle:Jswidget:list.html.twig', array(
             'jswidgets' => $jswidget,
-            'paginator' => $paginator,
+            'paginator' => $paginator
         ));
 
     }
