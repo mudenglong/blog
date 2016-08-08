@@ -18,42 +18,66 @@
         在测试服务器127.20.204.24 请务必先上传您的组件 <a href="javascript:;">如何上传组件</a>
     </p>
 
-    <form id="jswidgetForm" method="POST" 
+    <form id="jswidgetForm" method="POST" class="form-horizontal" 
     {% if jswidget %}
         action="{{ path('jswidget_edit', {id: jswidget.id}) }}"
     {% else %}
         action="{{ path('jswidget_create') }}"
     {% endif %}>
 
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="profile_idcard">标题:</label>
+            
+            <div class="col-md-7 controls">
+                {{ form_widget(form.title, {attr:{'data-display':'title', 'class':'form-control'}}) }}
+                <div class="help-block" style="display:none;"></div>
+            </div>
+        </div>
 
-    <p>
-        <span>标题:</span>
-        <span>
-        {{ form_widget(form.title, {attr:{'data-display':'title'}}) }}</span>
-    </p>
-    <p>
-        <span>描述:</span>
-        <span>
-        {{ form_widget(form.description, {attr:{'data-display':'description'}}) }}
-    </p>
-    <p>
-        <span>组件根目录url:</span>
-        <span>
-        {{ form_widget(form.url, {attr:{'data-display':'url'}}) }}</span>
-    </p>
-    <p>
-        <span>iframe url:</span>
-        <span>
-        {{ form_widget(form.iframeUrl, {attr:{'data-display':'iframeUrl'}}) }}</span>
-    </p>
-    <p>
-        <span>内容:</span>
-        <span>
-        {{ form_widget(form.content, {attr:{style:'width:700px;height:200px;','data-display':'内容'}}) }}
-    </p>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="profile_idcard">描述:</label>
+            
+            <div class="col-md-7 controls">
+                {{ form_widget(form.description, {attr:{'data-display':'description' , 'class':'form-control'}}) }}
+                <div class="help-block" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="profile_idcard">组件根目录url:</label>
+            
+            <div class="col-md-7 controls">
+                {{ form_widget(form.url, {attr:{'data-display':'url' , 'class':'form-control'}}) }}
+                <div class="help-block" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="profile_idcard">iframe url:</label>
+            
+            <div class="col-md-7 controls">
+                {{ form_widget(form.iframeUrl, {attr:{'data-display':'iframeUrl', 'class':'form-control'}}) }}
+                <div class="help-block" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="profile_idcard">内容:</label>
+            
+            <div class="col-md-7 controls">
+                {{ form_widget(form.iframeUrl, {attr:{'data-display':'iframeUrl', 'class':'form-control'}}) }}
+                {{ form_widget(form.content, {attr:{style:'height:200px;','data-display':'内容', 'class':'form-control'}}) }}
+                <div class="help-block" style="display:none;"></div>
+            </div>
+        </div>
 
         {{ form_rest(form) }}
+        
+        <div class="row">
+            <div class="col-md-7 col-md-offset-2">
+                <button id="profile-save-btn" data-submiting-text="正在保存" type="submit" class="btn btn-primary">保存</button>
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary btn-fat">保存</button>
     </form>
 {% endblock %}
