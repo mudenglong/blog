@@ -12,6 +12,7 @@ class RegisterForm extends AbstractType
         $builder->add('username', 'text');
         $builder->add('email', 'text');
         $builder->add('password', 'password');
+        $builder->add('repassword', 'password');
 
     }
     

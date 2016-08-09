@@ -1,36 +1,64 @@
 {# src/Redwood/WebBundle/Resources/views/Register/index.html.twig #}
-{% extends 'RedwoodWebBundle::beforeLayout.html.twig' %}
+{#  {% extends 'RedwoodWebBundle::beforeLayout.html.twig' %} #}
+
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
 
 
-
-{% block introduce %}  
-	{# <h1>注 册</h1> #}
-
+{% block title %}  
+注 册
 {% endblock %}
+
+
 {% set script_controller = 'auth/register' %}
-{% block content %}
+{% block wrapBox %}
 
 		{{ form_errors(form) }}
 
-		<form id="signForm" action="{{ path('register') }}" method="POST" {{ form_enctype(form) }}>
-		    {# <h3>请用Email 注册</h3> #}
+		<form id="signForm" class="form-horizontal" action="{{ path('register') }}"  style="width: 60%; margin: 0 auto; " method="POST" {{ form_enctype(form) }}>
 
-			<div>
-		        {{ form_widget(form.username, {attr:{placeholder: 'username'}}) }}
-		    </div>
-		    <div>
-		        {{ form_widget(form.email, {attr:{placeholder: 'xxx.@example.com'}}) }}
-		    </div>
-		    <div>
-		       {{ form_widget(form.password, {attr:{placeholder: 'password'}}) }}
-		    </div>
+	        <div class="form-group">
+	            <label class="col-md-2 control-label">用户名</label>
+	            
+	            <div class="col-md-7 controls">
+		        	{{ form_widget(form.username, {attr:{placeholder: 'username', 'class':'form-control'}}) }}
+	                <div class="help-block" style="display:none;"></div>
+	            </div>
+	        </div>
 
-		    <div>
-		        
-				{# <input name="next" value="/welcome/" type="hidden"> #}
-				{{ form_rest(form) }}
-				<input value="submit" type="submit">
-		    </div>
+	        <div class="form-group">
+	            <label class="col-md-2 control-label">邮箱</label>
+	            
+	            <div class="col-md-7 controls">
+		        	{{ form_widget(form.email, {attr:{placeholder: 'xxx@example.com', 'class':'form-control'}}) }}
+	                <div class="help-block" style="display:none;"></div>
+	            </div>
+	        </div>
+
+	        <div class="form-group">
+	            <label class="col-md-2 control-label">密码</label>
+	            
+	            <div class="col-md-7 controls">
+		        	{{ form_widget(form.password, {attr:{placeholder: 'password', 'id':'password', 'class':'form-control'}}) }}
+	                <div class="help-block" style="display:none;"></div>
+	            </div>
+	        </div>
+
+	        <div class="form-group">
+	            <label class="col-md-2 control-label">再次输入密码</label>
+	            
+	            <div class="col-md-7 controls">
+		        	{{ form_widget(form.repassword, {attr:{placeholder: '确认密码', 'class':'form-control'}}) }}
+	                <div class="help-block" style="display:none;"></div>
+	            </div>
+	        </div>
+
+			{{ form_rest(form) }}
+
+		    <div class="row">
+	            <div class="col-md-7 col-md-offset-2">
+	                <button id="profile-save-btn" data-submiting-text="注册中" type="submit" class="btn btn-primary">注册</button>
+	            </div>
+	        </div>
 		
 		</form>
 
