@@ -37,3 +37,26 @@ admin_user_send_emailverify_email:
     pattern:  /user/{id}/send_emailverify_email
     defaults: { _controller: RedwoodAdminBundle:User:sendEmailVerifyEmail }
     methods:  [POST]
+
+
+admin_jswidget:
+    pattern:  /widget/{filter}/index
+    defaults: { _controller: RedwoodAdminBundle:Jswidget:index, filter:'normal' }
+
+admin_tag:
+    pattern:  /tag
+    defaults: { _controller: RedwoodAdminBundle:Tag:index }
+
+admin_tag_create:
+    pattern:  /tag/create
+    defaults: { _controller: RedwoodAdminBundle:Tag:create }
+
+admin_tag_delete:
+    pattern:  /tag/{id}/delete
+    defaults: { _controller: RedwoodAdminBundle:Tag:delete }
+
+admin_tag_update:
+    pattern:  /tag/{id}/update
+    defaults: { _controller: RedwoodAdminBundle:Tag:update }
+
+

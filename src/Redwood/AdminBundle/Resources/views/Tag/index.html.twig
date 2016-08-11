@@ -1,0 +1,44 @@
+{% extends 'RedwoodAdminBundle:Jswidget:layout.html.twig' %}
+
+{% block title %}标签管理 - {{ parent() }}{% endblock %}
+
+{% set menu = 'admin_tag' %}
+
+{% set script_controller = 'tag/list' %}
+
+{% block mainName %}
+<div class="page-header clearfix">
+    <h1 class="pull-left">标签管理</h1>
+    <div class="pull-right">
+        <a class="btn btn-success btn-sm" data-url="/admin/tag/create" data-toggle="modal" data-target="#modal">新增标签</a>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block main %}
+    <p class="tag-tip-info">请把 英语字母优先放在前面</p> 
+    
+    <table id="tag-table" class="table table-striped">
+        <thead>
+            <th width="10%">ID</th>
+            <th width="60%">名称</th>
+            <th width="20%">添加时间</th>
+            <th width="10%">操作</th>
+        </thead>
+        <tbody>
+          {% if tags %}
+            {% for tag in tags %}
+              {% include 'RedwoodAdminBundle:Tag:list-tr.html.twig' %}
+            {% endfor %}
+          {% else %}
+           <tr><td colspan="20"><div class="empty">暂无标签记录</div></td></tr>
+          {% endif %}
+
+        </tbody>
+    </table>
+
+    {{ admin_macro.paginator(paginator) }}
+
+  
+{% endblock %}

@@ -1,4 +1,5 @@
 {% import "RedwoodWebBundle::macro.html.twig" as web_macro %}
+{% import "RedwoodWebBundle::macro.html.twig" as admin_macro %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -8,6 +9,12 @@
     <link href="{{ asset('assets/css/common.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/redwoodadmin/css/admin.css') }}" rel="stylesheet" />
     {% block javascripts %}{% endblock %}
+
+    <style>
+    body{
+      font-size: 14px;
+    }
+    </style>
 </head>
 
 {% set nav = nav|default(null) %}
@@ -27,7 +34,7 @@
       <div class="navbar-collapse collapse">
 
         <ul class="nav navbar-nav">
-          <li {% if nav == 'course' %}class="active"{% endif %}><a href="{# {{ path('admin_course') }} #}">js组件库</a></li>
+          <li {% if nav == 'course' %}class="active"{% endif %}><a href="{{ path('admin_jswidget') }}">js组件库</a></li>
           <li {% if nav == 'user' %}class="active"{% endif %}><a href="{{ path('admin_user') }}">用户</a></li>
           {% if is_granted('ROLE_SUPER_ADMIN') %}
           <li {% if nav == 'system' %}class="active"{% endif %}><a href="{# {{ path('admin_setting_site') }} #}">模块三</a></li>

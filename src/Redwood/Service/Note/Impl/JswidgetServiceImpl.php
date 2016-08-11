@@ -36,7 +36,8 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         }
 
         $this->getJswidgetDao()->deleteJswidget($id);
-
+        
+        // @todo
         // $content = strip_tags($jswidget['content']);
         // $this->getLogService()->info('jswidget', 'delete', "删除{$jswidget['targetType']}(#{$jswidget['targetId']})的公告《{$content}》(#{$jswidget['id']})");
 

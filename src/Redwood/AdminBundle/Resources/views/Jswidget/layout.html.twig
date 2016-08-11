@@ -1,0 +1,21 @@
+{% extends 'RedwoodAdminBundle::layout.html.twig' %}
+
+{% set nav = 'jswidget' %}
+
+{% block content %}
+  <div class="col-md-2">
+    {% block sidebar %}
+      <div class="list-group">
+
+        <a href="{{ url('admin_jswidget') }}" class="list-group-item {% if menu == 'jswidget' %}active{% endif %}">组件管理</a>
+
+        <a href="{{ url('admin_tag') }}" class="list-group-item {% if menu == 'admin_tag' %}active{% endif %}">标签管理</a>
+
+      </div>
+    {% endblock %}
+  </div>
+  <div class="col-md-10">
+      {% block mainName %}{% endblock %}
+      {% block main %}{% endblock %}
+  </div>
+{% endblock %}

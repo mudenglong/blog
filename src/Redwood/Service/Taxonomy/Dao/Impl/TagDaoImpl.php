@@ -1,50 +1,50 @@
 <?php
 
-namespace Redwood\Service\Note\Dao\Impl;
+namespace Redwood\Service\Taxonomy\Dao\Impl;
 
 use Redwood\Service\Common\BaseDao;
-use Redwood\Service\Note\Dao\JswidgetDao;
+use Redwood\Service\Taxonomy\Dao\TagDao;
 
-class JswidgetDaoImpl extends BaseDao implements JswidgetDao
+class TagDaoImpl extends BaseDao implements TagDao
 {
-    protected $table = 'jswidget';
+    protected $table = 'tag';
 
-	public function getJswidget($id)
+	public function getTag($id)
 	{
         $sql = "SELECT * FROM {$this->table} WHERE id = ? LIMIT 1";
         return $this->getConnection()->fetchAssoc($sql, array($id)) ? : null;
 	}
 
-	public function addJswidget($jswidget)
+	public function addTag($tag)
 	{  
-        $affected = $this->getConnection()->insert($this->table, $jswidget);
+        $affected = $this->getConnection()->insert($this->table, $tag);
         if ($affected <= 0) {
-            throw $this->createDaoException('Insert jswidget error.');
+            throw $this->createDaoException('Insert tag error.');
         }
-        return $this->getJswidget($this->getConnection()->lastInsertId());
+        return $this->getTag($this->getConnection()->lastInsertId());
 	}
 
-    public function deleteJswidget($id)
+    public function deleteTag($id)
     {
         return $this->getConnection()->delete($this->table, array('id' => $id));
     }
 
-    public function updateJswidget($id, $jswidget)
+    public function updateTag($id, $tag)
     {
 
-        $this->getConnection()->update($this->table, $jswidget, array('id' => $id));
-        return $this->getJswidget($id);
+        $this->getConnection()->update($this->table, $tag, array('id' => $id));
+        return $this->getTag($id);
     }
 
-    public function searchJswidgetCount(array $conditions){
-        $builder = $this->createJswidgetQueryBuilder($conditions)
+    public function searchTagCount(array $conditions){
+        $builder = $this->createTagQueryBuilder($conditions)
             ->select('COUNT(id)');
         return $builder->execute()->fetchColumn(0);
     }
 
-    public function searchJswidget($conditions, $orderBy, $start, $limit)
+    public function searchTags($conditions, $orderBy, $start, $limit)
     {
-        $builder = $this->createJswidgetQueryBuilder($conditions)
+        $builder = $this->createTagQueryBuilder($conditions)
             ->select('*')
             ->orderBy($orderBy[0], $orderBy[1])
             ->setFirstResult($start)
@@ -53,7 +53,7 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
         return $builder->execute()->fetchAll() ? : array();  
     }
 
-    private function createJswidgetQueryBuilder($conditions)
+    private function createTagQueryBuilder($conditions)
     {
         if(isset($conditions['keywordType'])) {
             $conditions[$conditions['keywordType']]=$conditions['keyword'];
@@ -66,7 +66,7 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
         }
 
         return $this->createDynamicQueryBuilder($conditions)
-            ->from($this->table, 'jswidget')
+            ->from($this->table, 'tag')
             ->andWhere('title LIKE :title')
             ->andWhere('userId = :userId');
     }

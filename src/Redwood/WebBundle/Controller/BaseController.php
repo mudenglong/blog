@@ -136,4 +136,9 @@ abstract class BaseController extends Controller
     {
         return $this->getServiceKernel()->createService('Note.JswidgetService');
     }
+
+    protected function getTagService()
+    {
+        return $this->getServiceKernel()->createService('Taxonomy.TagService');
+    }
 }
