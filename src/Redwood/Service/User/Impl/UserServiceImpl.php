@@ -117,7 +117,7 @@ class UserServiceImpl extends BaseService implements UserService
 
         $len = (strlen($value) + mb_strlen($value, 'utf-8')) / 2;
         if ($len > $option['maxLength'] or $len < $option['minLength']) {
-        return false;
+            return false;
         }
 
         return !!preg_match('/^[\x{4e00}-\x{9fa5}a-zA-z0-9_]+$/u', $value);

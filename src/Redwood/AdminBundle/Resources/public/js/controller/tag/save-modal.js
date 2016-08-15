@@ -1,9 +1,12 @@
 define(function(require, exports, module) {
     var Notify = require('common/bootstrap-notify');
-    require('jquery.validate')($);
+    // require('jquery.validate')($);
+    require('common/jquery-validate').inject($);
+
 
 
 	exports.run = function() {
+
         var $form = $("#tag-form");
         var $modal = $form.parents('.modal');
         var $table = $('#tag-table');
@@ -11,24 +14,29 @@ define(function(require, exports, module) {
 
         $form.validate({
             onsubmit:true,
+            // onfocusout:false,// 是否在获取焦点时验证 
+            onkeyup :false,// 是否在敲击键盘时验证 
             rules: {
                 'name':{
-                    required: true
+                    required: true,
+                    remotecheck:[function (a, b) {}]
                 }
             },
             messages:{
                 'name':{
-                    required: "用户名不能为空"
+                    required: "用户名不能为空",
+                    remotecheck:"标签已存在"
                 }
             }
         });
 
-        $form.on('submit', function() {
+        $form.on('submit', function(event) {
             if ($form.valid()) {
-debugger;
+                event.preventDefault();
                 $('#tag-create-btn').button('submiting').addClass('disabled');
-
                 $.post($form.attr('action'), $form.serialize(), function(html){
+
+                    console.log(html);
                     var $html = $(html);
                     if ($table.find( '#' +  $html.attr('id')).length > 0) {
                         $('#' + $html.attr('id')).replaceWith($html);

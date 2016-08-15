@@ -2,20 +2,15 @@
 {% set tag = tag|default(null) %}
 
 {% block title %}
-{% if tag %}编辑{% else %}新增{% endif %}标签
+{% if tag.id %}编辑{% else %}新增{% endif %}标签
 {% endblock %}
 
 {% block body %}
-    <form class="form-horizontal" id="tag-form" action="{% if tag %}{{ path('admin_tag_update', {id:tag.id}) }}{% else %}{{ path('admin_tag_create') }}{% endif %}" method="post">
+    <form class="form-horizontal" id="tag-form" action="{% if tag.id %}{{ path('admin_tag_update', {id:tag.id}) }}{% else %}{{ path('admin_tag_create') }}{% endif %}" method="post">
         <div class="form-group">
             <label class="col-md-3 control-label" for="tag-name-field">标签名称</label>
             <div class="col-md-6 controls">
-                {% if tag %}
                     <input class="form-control" id="tag-name-field" type="text" name="name" value="{{ tag.name }}" data-url="{{ path('admin_tag_checkname', {exclude:tag.name}) }}">
-                {% else %}
-
-                    <input class="form-control" id="tag-name-field" type="text" name="name" value="" data-url="">
-                {% endif %}
             </div>
         </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
@@ -24,7 +19,7 @@
 {% endblock %}
 
 {% block footer %}
-  {% if tag %}
+{% if tag.id %}
     <button class="btn btn-default pull-left delete-tag" data-url="{{ path('admin_tag_delete', {id:tag.id}) }}" data-target="{{ tag.id }}" data-tag-id="{{ tag.id }}"><i class="glyphicon glyphicon-trash"></i> 删除</button>
   {% endif %}
 

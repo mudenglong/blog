@@ -12,6 +12,8 @@ interface TagService
 
     public function getTag($id);
 
+    public function getTagByName($name);
+
     public function findTagById($id);
 
     public function searchTagCount($conditions);

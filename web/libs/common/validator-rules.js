@@ -71,6 +71,7 @@ define(function(require, exports, module) {
         [
             'remote',
             function(options, commit) {
+                debugger;
                 var element = options.element,
                     url = options.url ? options.url : (element.data('url') ? element.data('url') : null);
                 $.get(url, {value:element.val()}, function(response) {
@@ -83,7 +84,12 @@ define(function(require, exports, module) {
     exports.inject = function(Validator) {
         $.each(rules, function(index, rule){
             Validator.addRule.apply(Validator, rule);
+            // Validator.validator.addMethod(rule);
+
         });
+
+        
+
 
     }
 

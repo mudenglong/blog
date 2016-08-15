@@ -8,14 +8,21 @@ use Redwood\Service\Taxonomy\TagService;
 class TagServiceImpl extends BaseService implements TagService
 {   
     public function createTag($tag)
-    {
-        var_dump($tag); exit;
-        
-        $tag = ArrayToolkit::parts($tag, array('name'));
+    {   
+        if (empty($tag['name'])) {
+            throw $this->createServiceException("标签名不能为空，添加失败！");
+        }
 
-        $tag                = $this->filterTagFields($tag);
+        $tag['name'] = trim($tag['name'], " ");
+        $origin = $tag['origin']?:'widget';
+
+        if(!$this->isTagNameAvalieable($tag['name'])){
+            throw $this->createServiceException("标签名#{$tag['name']}已存在，添加失败！");
+        }
+
+        $tag = ArrayToolkit::parts($tag, array('name'));
         $tag['createdTime'] = time();
-        $tag                = $this->setTagOrg($tag);
+        $tag['origin']      = $origin;
         $tag                = $this->getTagDao()->addTag($tag);
 
         // @todo
@@ -26,23 +33,24 @@ class TagServiceImpl extends BaseService implements TagService
 
     public function updateTag($id, array $fields)
     {
+        var_dump("updateupdate  ... "); exit;
        
-       $tag = $this->getTag($id);
+       // $tag = $this->getTag($id);
 
-       if (empty($tag)) {
-           throw $this->createServiceException("标签(#{$id})不存在，更新失败！");
-       }
+       // if (empty($tag)) {
+       //     throw $this->createServiceException("标签(#{$id})不存在，更新失败！");
+       // }
 
-       $fields = ArrayToolkit::parts($fields, array('name'));
+       // $fields = ArrayToolkit::parts($fields, array('name'));
 
        
-       $this->filterTagFields($fields, $tag);
+       // $this->filterTagFields($fields, $tag);
 
-       // @todo
-       // $this->getLogService()->info('tag', 'update', "编辑标签{$fields['name']}(#{$id})");
+       // // @todo
+       // // $this->getLogService()->info('tag', 'update', "编辑标签{$fields['name']}(#{$id})");
 
-        $fields['updatedTime'] = time();
-        return $this->getTagDao()->updateTag($id, $fields);
+       //  $fields['updatedTime'] = time();
+       //  return $this->getTagDao()->updateTag($id, $fields);
  
     }
 
@@ -54,6 +62,11 @@ class TagServiceImpl extends BaseService implements TagService
         } else {
             return $tag;
         }
+    }
+
+    public function getTagByName($name)
+    {
+        return $this->getTagDao()->getTagByName($name);
     }
 
     public function deleteTag($id){
@@ -83,22 +96,10 @@ class TagServiceImpl extends BaseService implements TagService
         return $tag;
     }
 
-
-    protected function filterTagFields(&$tag, $relatedTag = null)
+    public function isTagNameAvalieable($name)
     {
-        if (empty($tag['name'])) {
-            throw $this->createServiceException('标签名不能为空，添加失败！');
-        }
-
-        $tag['name'] = (string) $tag['name'];
-
-        $exclude = $relatedTag ? $relatedTag['name'] : null;
-
-        if (!$this->isTagNameAvalieable($tag['name'], $exclude)) {
-            throw $this->createServiceException('该标签名已存在，添加失败！');
-        }
-
-        return $tag;
+        $tag = $this->getTagByName($name);
+        return empty($tag) ? true : false;
     }
 
     private function getTagDao()

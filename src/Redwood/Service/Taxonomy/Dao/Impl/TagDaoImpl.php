@@ -15,6 +15,12 @@ class TagDaoImpl extends BaseDao implements TagDao
         return $this->getConnection()->fetchAssoc($sql, array($id)) ? : null;
 	}
 
+    public function getTagByName($name)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE name = ? LIMIT 1";
+        return $this->getConnection()->fetchAssoc($sql, array($name));
+    }
+
 	public function addTag($tag)
 	{  
         $affected = $this->getConnection()->insert($this->table, $tag);
@@ -22,7 +28,7 @@ class TagDaoImpl extends BaseDao implements TagDao
             throw $this->createDaoException('Insert tag error.');
         }
         return $this->getTag($this->getConnection()->lastInsertId());
-	}
+	} 
 
     public function deleteTag($id)
     {

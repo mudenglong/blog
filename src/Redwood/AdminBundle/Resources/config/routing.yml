@@ -59,4 +59,7 @@ admin_tag_update:
     pattern:  /tag/{id}/update
     defaults: { _controller: RedwoodAdminBundle:Tag:update }
 
+admin_tag_checkname:
+    pattern:  /tag/checkname
+    defaults: { _controller: RedwoodAdminBundle:Tag:checkName}
 
