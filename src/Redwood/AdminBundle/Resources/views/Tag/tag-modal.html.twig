@@ -10,7 +10,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label" for="tag-name-field">标签名称</label>
             <div class="col-md-6 controls">
-                    <input class="form-control" id="tag-name-field" type="text" name="name" value="{{ tag.name }}" data-url="{{ path('admin_tag_checkname', {exclude:tag.name}) }}">
+                    <input class="form-control" id="tag-name-field" type="text" name="name" value="{{ tag.name }}" data-url="{{ path('admin_tag_checkname') }}">
             </div>
         </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">

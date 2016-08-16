@@ -28,9 +28,13 @@ class TagController extends BaseController
 
     }
 
-    public function checkNameAction()
+    public function checkNameAction(Request $request)
     {
-        if (1) {
+        $name    = $request->query->get('value');
+  
+        $avaliable = $this->getTagService()->isTagNameAvalieable($name);
+
+        if ($avaliable) {
             $response = array('success' => true, 'message' => '');
         } else {
             $response = array('success' => false, 'message' => '标签已存在');
@@ -54,41 +58,14 @@ class TagController extends BaseController
             'tag' => array('id' => 0, 'name' => '')
         ));
 
-
-            // $user = $this->getCurrentUser();
-            // $form = $this->creatJswidgetForm();
-            // if ($request->getMethod() == 'POST') {
-            //     $form->bind($request);
-
-            //     if ($form->isValid()) {
-                  
-            //         try {
-            //             $jswidget = $form->getData();
-            //             $jswidget = $this->getJswidgetService()->createJswidget($jswidget);
-            //             // 提交成功跳转到 组件页面
-            //             return $this->redirect($this->generateUrl('jswidget_content', array(
-            //                 'id' => $jswidget['id']
-            //             )));
-
-            //         } catch (\Exception $e) {
-            //             return $this->createMessageResponse('error', '创建组件出错');
-            //         }
-
-            //     }
-            // }
     }
 
-
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        # code...
+        $this->getTagService()->deleteTag($id);
+
+        return $this->createJsonResponse(true);
     }
-    //     public function deleteAction(Request $request, $id) {
-    //    $this->getJswidgetService()->deleteJswidget($id);
-    //    return $this->createJsonResponse(true);
-    // }
-
-
 
     public function updateAction(Request $request, $id)
     {

@@ -50,6 +50,7 @@ class TagDaoImpl extends BaseDao implements TagDao
 
     public function searchTags($conditions, $orderBy, $start, $limit)
     {
+        var_dump($start);
         $builder = $this->createTagQueryBuilder($conditions)
             ->select('*')
             ->orderBy($orderBy[0], $orderBy[1])
@@ -67,14 +68,14 @@ class TagDaoImpl extends BaseDao implements TagDao
             unset($conditions['keyword']);
         }
 
-        if (isset($conditions['title'])) {
-            $conditions['title'] = "%{$conditions['title']}%";
+        if (isset($conditions['name'])) {
+            $conditions['name'] = "%{$conditions['name']}%";
         }
 
         return $this->createDynamicQueryBuilder($conditions)
             ->from($this->table, 'tag')
-            ->andWhere('title LIKE :title')
-            ->andWhere('userId = :userId');
+            ->andWhere('name LIKE :name')
+            ->andWhere('id = :id');
     }
 
 

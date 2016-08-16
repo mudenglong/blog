@@ -110,3 +110,19 @@ jswidget_searchjson:
 jswidget_manual:
     pattern: /jswidget/manual
     defaults: { _controller: RedwoodWebBundle:Jswidget:manual }
+
+
+
+
+
+tag:
+    pattern: /tag
+    defaults: { _controller: RedwoodWebBundle:Tag:index }
+
+tag_show:
+    pattern: /tag/{name}
+    defaults: { _controller: RedwoodWebBundle:Tag:show }
+
+tag_match:
+    pattern: /tag/match_jsonp
+    defaults: { _controller: RedwoodWebBundle:Tag:match }

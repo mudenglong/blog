@@ -33,24 +33,22 @@ class TagServiceImpl extends BaseService implements TagService
 
     public function updateTag($id, array $fields)
     {
-        var_dump("updateupdate  ... "); exit;
-       
-       // $tag = $this->getTag($id);
+        $tag = $this->getTag($id);
 
-       // if (empty($tag)) {
-       //     throw $this->createServiceException("标签(#{$id})不存在，更新失败！");
-       // }
+        $origin = $tag['origin']?:'widget';
 
-       // $fields = ArrayToolkit::parts($fields, array('name'));
+        if(!$this->isTagNameAvalieable($fields['name'])){
+            throw $this->createServiceException("标签名#{$tag['name']}已存在，更新失败！");
+        }
 
-       
-       // $this->filterTagFields($fields, $tag);
+        $fields = ArrayToolkit::parts($fields, array('name'));
+        $fields['createdTime'] = time();
+        $fields['origin']      = $origin;
 
-       // // @todo
-       // // $this->getLogService()->info('tag', 'update', "编辑标签{$fields['name']}(#{$id})");
-
-       //  $fields['updatedTime'] = time();
-       //  return $this->getTagDao()->updateTag($id, $fields);
+        // @todo
+        // $this->getLogService()->info('tag', 'update', "编辑标签{$fields['name']}(#{$id})");
+        // 
+        return $this->getTagDao()->updateTag($id, $fields);
  
     }
 
@@ -76,7 +74,6 @@ class TagServiceImpl extends BaseService implements TagService
         }
 
         $this->getTagDao()->deleteTag($id);
-
         return true;
     }
 

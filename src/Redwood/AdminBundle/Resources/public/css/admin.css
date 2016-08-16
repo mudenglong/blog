@@ -57,12 +57,9 @@ margin-left: 20px;
 }
 
 .tag-tip-info{
-	
-	background: #E2F5DA;
 	padding: 12px 0;
-	text-indent: 2em;
-	border: 1px solid #67C655;
 	margin-bottom: 20px;
+    font-size: 16px;
 }
 
 .page-header {

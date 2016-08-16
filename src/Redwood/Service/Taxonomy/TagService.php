@@ -14,6 +14,8 @@ interface TagService
 
     public function getTagByName($name);
 
+    public function isTagNameAvalieable($name);
+
     public function findTagById($id);
 
     public function searchTagCount($conditions);

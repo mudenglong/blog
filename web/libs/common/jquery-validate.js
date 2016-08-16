@@ -63,7 +63,6 @@ define(function(require, exports, module) {
             function(val, options, commit) {
           
                 var returnMsg = true; 
-
                 var url = $(options).data('url') || null;
                 $.ajax({
                     type:"get",

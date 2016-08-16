@@ -13,7 +13,7 @@ define(function(require, exports, module) {
             
 
         $form.validate({
-            onsubmit:true,
+            onsubmit:false,
             // onfocusout:false,// 是否在获取焦点时验证 
             onkeyup :false,// 是否在敲击键盘时验证 
             rules: {
@@ -31,8 +31,9 @@ define(function(require, exports, module) {
         });
 
         $form.on('submit', function(event) {
+            event.preventDefault();
+
             if ($form.valid()) {
-                event.preventDefault();
                 $('#tag-create-btn').button('submiting').addClass('disabled');
                 $.post($form.attr('action'), $form.serialize(), function(html){
 
@@ -51,7 +52,8 @@ define(function(require, exports, module) {
         });
 
         $modal.find('.delete-tag').on('click', function() {
-            if (!confirm('真的要删除该标签吗？')) {
+            var str = $form.find('#tag-name-field').attr('value') || '';
+            if (!confirm('真的要删除' + str + '标签吗？')) {
                 return ;
             }
 
