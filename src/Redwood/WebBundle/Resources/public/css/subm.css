@@ -217,6 +217,10 @@ form {
 input {
     font-family: "Trebuchet MS",Arial,Verdana,sans-serif;
     font-size: 1em;
+
+}
+
+input[type="text"]{
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: none
@@ -228,7 +232,7 @@ textarea {
 }
 
 label {
-    display: block;
+    display: inline-block;
     font-weight: 700
 }
 
@@ -2170,24 +2174,27 @@ body.usage a.action {
         display: none
     }
 }
-
-body.labels ul,body.authors ul {
+body.labels ul{
+    width: 100%;
+}
+body.labels ul li,body.authors ul {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 33.3%;
     float: left;
+    text-align: left;
     list-style-type: none
 }
 
 @media (max-width: 1050px) {
-    body.labels ul,body.authors ul {
+    body.labels ul li,body.authors ul {
         width: 50%
     }
 }
 
 @media (max-width: 750px) {
-    body.labels ul,body.authors ul {
+    body.labels ul li,body.authors ul {
         width: auto;
         float: none
     }
@@ -4166,4 +4173,25 @@ a .icon-flip-vertical:before {
 
 
 
+.radios, .checkboxs{
+    padding-top: 7px;
+}
+.radios label, .checkboxs label {
+    font-weight: normal;
+    padding: 0 24px 0 0px;
+}
 
+.form-group .error {
+    color: #a94442;
+    border-color: #D99795;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        display: block;
+    margin-top: 5px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.form-group label.error{
+    box-shadow: none;
+}

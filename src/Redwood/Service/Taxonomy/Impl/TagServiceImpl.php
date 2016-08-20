@@ -87,9 +87,29 @@ class TagServiceImpl extends BaseService implements TagService
         return $this->getTagDao()->searchTagCount($conditions);
     }
 
-    public function searchTags(array $conditions, array $orderBy, $start, $limit)
+    protected function convertFiltersToOrderBy($orderBy)
     {
-        $tag = $this->getTagDao()->searchTags($conditions, $orderBy, $start, $limit);
+        switch ($orderBy) {
+            case 'latest':
+                $filters = array('createdTime', 'DESC');
+                break;
+            case 'jswidgetNum':
+                $filters = array('jswidgetNum', 'DESC');
+                break;
+            default:
+                $filters = array('createdTime', 'DESC');
+                break;
+        }
+        return $filters;
+    }
+
+    public function searchTags(array $conditions, $orderBy, $start, $limit)
+    {   
+        $filters = array();
+        if ($orderBy) {
+            $filters = $this->convertFiltersToOrderBy($orderBy);
+        }
+        $tag = $this->getTagDao()->searchTags($conditions, $filters, $start, $limit);
         return $tag;
     }
 

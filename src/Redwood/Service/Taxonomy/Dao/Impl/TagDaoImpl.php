@@ -50,7 +50,6 @@ class TagDaoImpl extends BaseDao implements TagDao
 
     public function searchTags($conditions, $orderBy, $start, $limit)
     {
-        var_dump($start);
         $builder = $this->createTagQueryBuilder($conditions)
             ->select('*')
             ->orderBy($orderBy[0], $orderBy[1])

@@ -20,7 +20,7 @@ interface TagService
 
     public function searchTagCount($conditions);
     
-    public function searchTags(array $conditions, array $oderBy, $start, $limit);
+    public function searchTags(array $conditions, $oderBy, $start, $limit);
 
 
 

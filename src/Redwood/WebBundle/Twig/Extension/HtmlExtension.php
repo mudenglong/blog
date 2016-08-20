@@ -10,8 +10,7 @@ class HtmlExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('select_options', array($this, 'selectOptions'), $options),
             new \Twig_SimpleFunction('radios', array($this, 'radios'), $options),
-            new \Twig_SimpleFunction('checkboxs', array($this, 'checkboxs'), $options),
-            new \Twig_SimpleFunction('field_value', array($this, 'fieldValue'), $options),
+            new \Twig_SimpleFunction('checkboxs', array($this, 'checkboxs'), $options)
         );
     }
 

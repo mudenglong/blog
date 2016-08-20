@@ -36,7 +36,7 @@
 
 {% set nav = nav|default('browse') %}
 {% set navclass = navclass|default('index') %}
-<body class="{% if navclass == 'package' %} package {% else %} index{% endif %}">
+<body class="{% if navclass %} {{ navclass }} {% else %} index{% endif %}">
     <header>
         <section>
             <div>

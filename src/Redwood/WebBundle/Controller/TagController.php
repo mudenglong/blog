@@ -18,37 +18,56 @@ class TagController extends BaseController
         $conditions = array(
             'name' => ''
         );
-        $filters['sort'] = 'latest';
-        $orderBy = $this->convertFiltersToOrderBy($filters);
+
         $tags = $this->getTagService()->searchTags(
             $conditions,
-            $orderBy,
+            'latest',
             0,
             $this->getTagService()->searchTagCount($conditions)
         );
-        var_dump($tags);
 
         return $this->render('RedwoodWebBundle:Tag:index.html.twig',array(
             'tags'=>$tags
         ));
     }
 
-    
-    protected function convertFiltersToOrderBy($filters)
+    public function showAction(Request $request, $id)
     {
-        switch ($filters['sort']) {
-            case 'latest':
-                $orderBy = array('createdTime', 'DESC');
-                break;
-            case 'jswidgetNum':
-                $orderBy = array('jswidgetNum', 'DESC');
-                break;
-            default:
-                $orderBy = array('createdTime', 'DESC');
-                break;
+        $tag = $this->getTagService()->getTag($id);
+
+        if(!$tag){ 
+            return $this->createMessageResponse('info', "非常抱歉，标签id:{$id} 未找到, 15秒后将自动跳转到标签首页.",'', 15,$this->generateUrl('tag')); 
         }
-        return $orderBy;
+        exit;
+
+        if($tag) {  
+            $conditions = array(
+                // 'status' => 'published',
+                'tagId' => $tag['id']
+            );
+
+            $paginator = new Paginator(
+                $this->get('request'),
+                $this->getJswidgetService()->searchJswidgetCount($conditions)
+                , 12
+            );       
+
+            $courses = $this->getJswidgetService()->searchJswidget(
+                $conditions,
+                'latest',
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+        }
+
+
+
+        var_dump('dddd');
+
     }
+
+    
+    
 
 
    

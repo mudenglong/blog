@@ -15,6 +15,6 @@ interface JswidgetService
 
     public function searchJswidgetCount($conditions);
     
-    public function searchJswidget(array $conditions, array $oderBy, $start, $limit);
+    public function searchJswidget(array $conditions, $oderBy, $start, $limit);
 
 }

@@ -29,6 +29,9 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         }
     }
 
+
+
+
     public function deleteJswidget($id){
         $jswidget = $this->getJswidget($id);
         if (empty($jswidget)) {
@@ -53,13 +56,33 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
 
     public function searchJswidgetCount($conditions)
     {
+        
         return $this->getJswidgetDao()->searchJswidgetCount($conditions);
     }
 
-    public function searchJswidget(array $conditions, array $orderBy, $start, $limit)
+    public function searchJswidget(array $conditions, $orderBy, $start, $limit)
     {
-        $jswidget = $this->getJswidgetDao()->searchJswidget($conditions, $orderBy, $start, $limit);
+        $filters = array();
+        if ($orderBy) {
+            $filters = $this->convertFiltersToOrderBy($orderBy);
+        }
+
+        $jswidget = $this->getJswidgetDao()->searchJswidget($conditions, $filters, $start, $limit);
+
         return $jswidget;
+    }
+
+    protected function convertFiltersToOrderBy($orderBy)
+    {
+        switch ($orderBy) {
+            case 'latest':
+                $filters = array('createTime', 'DESC');
+                break;
+            default:
+                $filters = array('createTime', 'DESC');
+                break;
+        }
+        return $filters;
     }
 
 

@@ -96,10 +96,9 @@ class JswidgetController extends BaseController
             $this->getJswidgetService()->searchJswidgetCount($conditions),
             30
         );
-
         $jswidgets = $this->getJswidgetService()->searchJswidget(
             $conditions,
-            array('createTime', 'DESC'),
+            'latest',
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
@@ -135,7 +134,7 @@ class JswidgetController extends BaseController
 
         $jswidgets = $this->getJswidgetService()->searchJswidget(
             $conditions,
-            array('createTime', 'DESC'),
+            'latest',
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
@@ -186,7 +185,7 @@ class JswidgetController extends BaseController
 
         $jswidget = $this->getJswidgetService()->searchJswidget(
             $conditions,
-            array('createTime', 'DESC'),
+            'latest',
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
