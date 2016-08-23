@@ -14,6 +14,10 @@ interface TagDao
 
     public function getTagByName($name);
 
+    public function getTagByLikeName($name);
+
+    public function getTagsByIds(array $ids);
+
     public function searchTagCount(array $conditions);
 
     public function searchTags($conditions, $orderBy, $start, $limit);

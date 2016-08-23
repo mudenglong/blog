@@ -4,3 +4,5 @@ parameters:
     site_url: www.111dev.com
     weibo_key: testdata
     qq_key: testdata
+
+    route_white_list: ['/uploader/upload_callback', '/uploader/process_callback', '/coin/pay/return/alipay','/coin/pay/notify/alipay','/login', '/login_check']

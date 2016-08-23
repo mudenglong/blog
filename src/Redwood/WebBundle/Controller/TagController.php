@@ -66,6 +66,21 @@ class TagController extends BaseController
 
     }
 
+
+    public function matchAction(Request $request)
+    {   
+        $data = array();
+        $queryString = $request->query->get('q');
+
+        $tags = $this->getTagService()->getTagByLikeName($queryString);
+
+        foreach ($tags as $tag) {
+            $data[] = array('id' => $tag['id'],  'name' => $tag['name'] );
+        }
+
+        return $this->createJsonResponse($data);
+    }
+
     
     
 

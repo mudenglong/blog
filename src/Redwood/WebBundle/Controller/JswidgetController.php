@@ -5,6 +5,7 @@ namespace Redwood\WebBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Redwood\Common\Paginator;
 use Redwood\Common\ArrayToolkit;
+use Redwood\WebBundle\Form\JswidgetForm;
 
 class JswidgetController extends BaseController
 {
@@ -40,32 +41,32 @@ class JswidgetController extends BaseController
             return $this->redirect($this->generateUrl('jswidget_show'));
         }
 
-        $form = $this->creatJswidgetForm($jswidget);
         if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
               
-                try {
-                    $jswidget = $form->getData();
-                    $jswidget = $this->getJswidgetService()->updateJswidget($jswidget);
+            // try {
+                $updateJswidget = $request->request->all();
 
-                    // 提交成功跳转到 组件页面
-                    return $this->redirect($this->generateUrl('jswidget_content', array(
-                        'id' => $jswidget['id']
-                    )));
+                var_dump($updateJswidget);exit;
+                $jswidget = $this->getJswidgetService()->updateJswidget($jswidget['id'], $updateJswidget);
 
-                } catch (\Exception $e) {
-                    return $this->createMessageResponse('error', '创建组件出错');
-                }
+                // 提交成功跳转到 组件页面
+                return $this->redirect($this->generateUrl('jswidget_content', array(
+                    'id' => $jswidget['id']
+                )));
 
-            }
+            // } catch (\Exception $e) {
+            //     return $this->createMessageResponse('error', '更新组件出错');
+            // }
+
         }
+
+        $tagsArr = $this->getTagService()->getTagsByIds($jswidget['tags']);
+        $tags = ArrayToolkit::column($tagsArr, 'name');
 
         return $this->render('RedwoodWebBundle:Jswidget:create.html.twig', array(
             'user' => $user,
-            'jswidget' => $jswidget,
-            'form' => $form->createView()
+            'tags' => join($tags, ','),
+            'jswidget' => $jswidget
         ));
     }
 
@@ -205,30 +206,26 @@ class JswidgetController extends BaseController
     public function createAction(Request $request) 
     {   
     	$user = $this->getCurrentUser();
-        $form = $this->creatJswidgetForm();
+
         if ($request->getMethod() == 'POST') {
-            $form->bind($request);
+            // try {
+                $jswidget = $request->request->all();
+                $jswidget = $this->getJswidgetService()->createJswidget($jswidget);
 
-            if ($form->isValid()) {
-              
-                try {
-                    $jswidget = $form->getData();
-                    $jswidget = $this->getJswidgetService()->createJswidget($jswidget);
-                    // 提交成功跳转到 组件页面
-                    return $this->redirect($this->generateUrl('jswidget_content', array(
-                        'id' => $jswidget['id']
-                    )));
+                // 提交成功跳转到 组件页面
+                return $this->redirect($this->generateUrl('jswidget_content', array(
+                    'id' => $jswidget['id']
+                )));
 
-                } catch (\Exception $e) {
-                    return $this->createMessageResponse('error', '创建组件出错');
-                }
+            // } catch (\Exception $e) {
+            //     return $this->createMessageResponse('error', '创建组件出错');
+            // }
 
-            }
         }
 
         return $this->render('RedwoodWebBundle:Jswidget:create.html.twig', array(
             'user' => $user,
-            'form' => $form->createView()
+            'tags' => array()
         ));
     }
 
@@ -245,6 +242,7 @@ class JswidgetController extends BaseController
     }
 
 
+    // @todo 已作废
     private function creatJswidgetForm($data = array())
     {
         return $this->createNamedFormBuilder('jswidget', $data)

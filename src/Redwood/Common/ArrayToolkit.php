@@ -67,6 +67,26 @@ class ArrayToolkit
         return $grouped;
     }
 
+    // 把原数组$array的 name 字段, 作为 新数组的键名  index($array, 'id')
+    // $array = {
+    //      [0]:array(
+    //              "id" => 9,
+    //              "name" => 'aaaa'
+    //         ),
+    //      [1]:array(
+    //              "id" => 2,
+    //              "name" => 'bbbb'
+    //         )
+    // }
+    // 处理后:
+    // $new = {
+    //      [9]:array(
+    //              "name" => 'aaaa'
+    //         ),
+    //      [2]:array(
+    //              "name" => 'bbbb'
+    //         )
+    // }
     public static function index (array $array, $name)
     {
         $indexedArray = array();

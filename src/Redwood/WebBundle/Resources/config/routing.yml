@@ -119,11 +119,12 @@ jswidget_manual:
 tag:
     pattern: /tag
     defaults: { _controller: RedwoodWebBundle:Tag:index }
+    
+tag_match:
+    pattern: /tag/match_jsonp
+    defaults: { _controller: RedwoodWebBundle:Tag:match }
 
 tag_show:
     pattern: /tag/{id}
     defaults: { _controller: RedwoodWebBundle:Tag:show }
 
-tag_match:
-    pattern: /tag/match_jsonp
-    defaults: { _controller: RedwoodWebBundle:Tag:match }

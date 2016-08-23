@@ -96,6 +96,13 @@ services:
         tags:
             - { name: twig.extension }
 
+    kernel.listener.kernel_request_listener:
+        class: Redwood\WebBundle\Listener\KernelRequestListener
+        arguments:    ['@service_container']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority:255 }
+
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%

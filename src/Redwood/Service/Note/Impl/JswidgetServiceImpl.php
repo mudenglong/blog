@@ -4,29 +4,56 @@ namespace Redwood\Service\Note\Impl;
 use Redwood\Service\Common\BaseService;
 use Redwood\Service\Note\JswidgetService;
 
+use Redwood\Common\ArrayToolkit;
+
 class JswidgetServiceImpl extends BaseService implements JswidgetService
 {
     public function createJswidget($jswidget)
     {
         $jswidget['userId'] = $this->getCurrentUser()->id;
         $jswidget['createTime'] = time();
+        $this->filterJswidgetFields($jswidget);
         return $this->getJswidgetDao()->addJswidget($jswidget);
     }
 
-    public function updateJswidget($jswidget)
+    public function updateJswidget($id, $jswidget)
     {
         $jswidget['updateTime'] = time();
-        return $this->getJswidgetDao()->updateJswidget($jswidget['id'], $jswidget);
+        return $this->getJswidgetDao()->updateJswidget($id, $jswidget);
     }
 
     public function getJswidget($id)
     {
         $jswidget = $this->getJswidgetDao()->getJswidget($id);
+        
         if(!$jswidget){
             return null;
         } else {
             return $jswidget;
         }
+    }
+
+
+    private function filterJswidgetFields(&$fields)
+    {
+       
+        if (!empty($fields['tags'])) {
+            $tempTags = explode(',', $fields['tags']);
+            $fields['tags'] = implode("|", $tempTags);
+        }
+
+        return $fields;
+    }
+
+    private function filterJswidgetTags(&$fields)
+    {
+       
+        if (!empty($fields['tags'])) {
+            $tempTags = explode('|', $fields['tags']);
+            $fields['tags'] = implode(",", $tempTags);
+        }
+
+        return $fields;
     }
 
 

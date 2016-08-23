@@ -25,46 +25,55 @@
         action="{{ path('jswidget_create') }}"
     {% endif %}>
 
+      {{ web_macro.flash_messages() }}
         <div class="form-group">
-            <label class="col-md-2 control-label" for="profile_idcard">标题:</label>
+            <label class="col-md-2 control-label" for="jswidget_title">标题:</label>
             
             <div class="col-md-7 controls">
-                {{ form_widget(form.title, {attr:{'data-display':'title', 'class':'form-control'}}) }}
+                <input type="text" id="jswidget_title" name="title" required="required" data-display="title" class="form-control" value="{{ jswidget.title|default('') }}">
                 <div class="help-block" style="display:none;"></div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="profile_idcard">副标题(概述):</label>
+            <label class="col-md-2 control-label" for="jswidget_description">副标题(概述):</label>
             
             <div class="col-md-7 controls">
-                {{ form_widget(form.description, {attr:{'data-display':'description' , 'class':'form-control'}}) }}
+                <input type="text" id="jswidget_description" name="description" data-display="description" class="form-control" value="{{ jswidget.description|default('') }}">
                 <div class="help-block" style="display:none;"></div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="profile_idcard">组件根目录:</label>
+            <label class="col-md-2 control-label" for="jswidget_url">组件根目录:</label>
             
             <div class="col-md-7 controls">
-                {{ form_widget(form.url, {attr:{'data-display':'url' , 'class':'form-control'}}) }}
+                <input type="text" id="jswidget_url" name="url" data-display="url" class="form-control" value="{{ jswidget.url|default('') }}">
                 <div class="help-block">仅作者可以看见此目录</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="profile_idcard">演示地址:</label>
+            <label class="col-md-2 control-label" for="jswidget_iframeUrl">演示地址:</label>
             
             <div class="col-md-7 controls">
-                {{ form_widget(form.iframeUrl, {attr:{'data-display':'iframeUrl', 'class':'form-control'}}) }}
+                <input type="text" id="jswidget_iframeUrl" name="iframeUrl" data-display="iframeUrl" class="form-control" value="{{ jswidget.iframeUrl|default('') }}">
                 <div class="help-block" style="">浏览器可访问的url地址</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">{{'标签'}}</label>
+            <div class="col-md-7 controls">
+                <input type="text" id="jswidget_tags" name="tags" class="width-full select2-offscreen form-control" data-tagids="{{ jswidget.tags }}" tabindex="-1" value="{{ tags }}">
+                <div class="help-block">选填，管理员后台统一管理标签</div>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label">兼容性</label>
             <div class="col-md-8 controls radios">
-                {{ radios('compatible', {'unsure':'未知', 'all':'各平台全兼容', 'mobile':'仅手机', 'pc7':'仅电脑IE7以上', 'pc6':'仅电脑IE6以上'}, 'unsure') }}
+                {{ radios('compatible', {'unsure':'未知', 'all':'各平台全兼容', 'mobile':'仅手机', 'pc7':'仅电脑IE7以上', 'pc6':'仅电脑IE6以上'}, jswidget.compatible|default('unsure')) }}
                 <div class="help-block">电脑IE6以上:一般是一些PC客户端项目要求IE6以上.</div>
             </div>
         </div>
@@ -72,27 +81,23 @@
         <div class="form-group">
             <label class="col-md-2 control-label">分类</label>
             <div class="col-md-8 controls radios">
-                {{ radios('type', {'js':'js组件', 'css':'样式-css3', 'others':'其他'}, 'js') }}
+                {{ radios('type', {'js':'js组件', 'css':'样式-css3', 'others':'其他'}, jswidget.type|default('js')) }}
+
                 <div class="help-block">样式-css3: 是指重点在特效, 纯css3实现的内容</div>
             </div>
         </div>
-
+        
         <div class="form-group">
-            <label class="col-md-2 control-label" for="profile_idcard">内容:</label>
+            <label class="col-md-2 control-label" for="jswidget_content">内容:</label>
             
             <div class="col-md-7 controls">
-                {{ form_widget(form.iframeUrl, {attr:{'data-display':'iframeUrl', 'class':'form-control'}}) }}
-                {{ form_widget(form.content, {attr:{style:'height:200px;','data-display':'内容', 'class':'form-control'}}) }}
+                <textarea id="jswidget_content" name="content"  style="height:200px;" data-display="内容" class="form-control">{{ jswidget.content|default('还没有详细介绍') }}</textarea>
                 <div class="help-block" style="display:none;"></div>
             </div>
         </div>
 
-        
-        
-     
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
 
-        {{ form_rest(form) }}
-        
         <div class="row">
             <div class="col-md-7 col-md-offset-2">
                 <button id="profile-save-btn" data-submiting-text="正在保存" type="submit" class="btn btn-primary">保存</button>

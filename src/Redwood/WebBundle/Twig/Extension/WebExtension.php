@@ -14,6 +14,7 @@ class WebExtension extends \Twig_Extension
     {
         return array(
             'smart_time' => new \Twig_Filter_Method($this, 'smarttimeFilter') ,
+            'tags_join' => new \Twig_SimpleFilter($this, 'tagsJoinFilter')
         );
     }
 
@@ -47,6 +48,18 @@ class WebExtension extends \Twig_Extension
 
             return $url;
         }
+    }
+
+    public function tagsJoinFilter($tagIds)
+    {
+        if (empty($tagIds) || !is_array($tagIds)) {
+            return '';
+        }
+
+        $tags  = ServiceKernel::instance()->createService('Taxonomy.TagService')->findTagsByIds($tagIds);
+        $names = ArrayToolkit::column($tags, 'name');
+
+        return join($names, ',');
     }
 
     public function smarttimeFilter ($time) {

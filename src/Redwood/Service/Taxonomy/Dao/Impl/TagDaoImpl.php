@@ -21,7 +21,29 @@ class TagDaoImpl extends BaseDao implements TagDao
         return $this->getConnection()->fetchAssoc($sql, array($name));
     }
 
-	public function addTag($tag)
+    public function getTagByLikeName($name)
+    {
+        $name = "%{$name}%";
+        $sql  = "SELECT * FROM {$this->table} WHERE name LIKE ?";
+        return $this->getConnection()->fetchAll($sql, array($name));
+    }
+
+    public function getTagsByIds(array $ids)
+    {
+        $conditions = array();
+        if (empty($ids)) {
+            return array();
+        }else{
+            $conditions['tagIds'] = $ids;
+        }
+
+        $builder = $this->createTagQueryBuilder($conditions)
+            ->select('*');
+
+        return $builder->execute()->fetchAll() ? : array();
+    }
+
+    public function addTag($tag)
 	{  
         $affected = $this->getConnection()->insert($this->table, $tag);
         if ($affected <= 0) {
@@ -74,6 +96,7 @@ class TagDaoImpl extends BaseDao implements TagDao
         return $this->createDynamicQueryBuilder($conditions)
             ->from($this->table, 'tag')
             ->andWhere('name LIKE :name')
+            ->andWhere('id IN (:tagIds)')
             ->andWhere('id = :id');
     }
 

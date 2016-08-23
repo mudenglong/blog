@@ -4195,3 +4195,10 @@ a .icon-flip-vertical:before {
 .form-group label.error{
     box-shadow: none;
 }
+
+.select2-container-multi .select2-choices .select2-search-choice div{
+    padding: 2px 0;
+}
+.select2-results li {
+    margin-left: 0px;
+}

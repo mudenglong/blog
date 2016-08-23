@@ -16,40 +16,111 @@ class DynamicQueryBuilder extends QueryBuilder
 
     public function where($where)
     {
-    	if (!$this->isWhereInConditions($where)) {
-    		return $this;
-    	}
-    	return parent::where($where);
+        if (!$this->isWhereInConditions($where)) {
+            return $this;
+        }
+
+        return parent::where($where);
     }
 
     public function andWhere($where)
     {
-    	if (!$this->isWhereInConditions($where)) {
-    		return $this;
-    	}
+        if (!$this->isWhereInConditions($where)) {
+            return $this;
+        }
+
+        if ($this->isInCondition($where)) {
+            $where = $this->whereIn($where);
+            if(!$where) {
+                return $this;
+            }
+        }
+
         return parent::andWhere($where);
+    }
+
+    public function orWhere($where)
+    {
+        if (!$this->isWhereInConditions($where)) {
+            return $this;
+        }
+
+        if ($this->isInCondition($where)) {
+            $where = $this->whereIn($where);
+            if(!$where) {
+                return $this;
+            }
+        }
+
+        return parent::orWhere($where);
     }
 
     public function andStaticWhere($where)
     {
-    	return parent::andWhere($where);
+        return parent::andWhere($where);
+    }
+
+    protected function whereIn($where)
+    {
+        $conditionName = $this->getConditionName($where);
+
+        if (empty($this->conditions[$conditionName]) || !is_array($this->conditions[$conditionName])) {
+            return false;
+        }
+
+        $this->conditions[$conditionName] = array_unique($this->conditions[$conditionName]);
+
+        $marks = array();
+
+        foreach (array_values($this->conditions[$conditionName]) as $index => $value) {
+            $marks[]                                       = ":{$conditionName}_{$index}";
+            $this->conditions["{$conditionName}_{$index}"] = $value;
+        }
+
+        $where = str_replace(":{$conditionName}", join(',', $marks), $where);
+
+        return $where;
     }
 
     public function execute()
     {
-    	foreach ($this->conditions as $field => $value) {
-    		$this->setParameter(":{$field}", $value);
-    	}
-    	return parent::execute();
+        foreach ($this->conditions as $field => $value) {
+            $this->setParameter(":{$field}", $value);
+        }
+
+        return parent::execute();
     }
 
-    private function isWhereInConditions($where)
+    protected function isInCondition($where)
     {
-    	$matched = preg_match('/:([a-zA-z0-9_]+)/', $where, $matches);
-    	if (empty($matched)) {
-    		return false;
-    	}
+        $matched = preg_match('/\s+(IN)\s+/', $where, $matches);
 
-        return array_key_exists($matches[1], $this->conditions) && !is_null($this->conditions[$matches[1]]);
+        if (empty($matched)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    protected function getConditionName($where)
+    {
+        $matched = preg_match('/:([a-zA-z0-9_]+)/', $where, $matches);
+
+        if (empty($matched)) {
+            return false;
+        }
+
+        return $matches[1];
+    }
+
+    protected function isWhereInConditions($where)
+    {
+        $conditionName = $this->getConditionName($where);
+
+        if (!$conditionName) {
+            return false;
+        }
+
+        return array_key_exists($conditionName, $this->conditions) && !is_null($this->conditions[$conditionName]);
     }
 }

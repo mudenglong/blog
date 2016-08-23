@@ -9,6 +9,8 @@ seajs.config({
 		"jquery.jcrop-css": "jquery-plugin/jcrop/0.9.12/jcrop.css",
 		'widget': 'arale/widget/1.1.1/widget',
 		"templatable": "arale/templatable/0.9.1/templatable",
+		"jquery.select2": "jquery-plugin/select2/3.4.1/select2",
+		"jquery.select2-css": "jquery-plugin/select2/3.4.1/select2.css",
 		'kindeditor': 'gallery2/kindeditor/4.1.10/kindeditor',
 	},
 
