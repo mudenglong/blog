@@ -32,6 +32,16 @@ class JswidgetController extends BaseController
         ));
     } 
 
+
+    public function latestJswidgetAction(Request $request)
+    {
+
+        $jswidgets = $this->getJswidgetService()->searchJswidget(array(), 'latest', 0, 5);
+        return $this->render('RedwoodWebBundle:Jswidget:jswidget-block.html.twig', array(
+            'jswidgets'=>$jswidgets,
+        ));
+    }
+
     public function editAction(Request $request, $id) 
     {   
         $user = $this->getCurrentUser();

@@ -8,12 +8,9 @@
    <p class="intro">
        <a href="javascript:;" class="sublime_text">Widget 库</a> 提供较便捷的方式搜寻组件, 以及css样式, 欢迎各类建议或意见  ^_^.
        
-       <p>
-           <span>下面英文的链接都是假数据...</span>
-       </p>
    </p>
    <div class="highlights">
-       <div class="section trending">
+       <!-- <div class="section trending">
            <h2><a href="/browse/trending">Trending <i class="icon-chevron-sign-up"></i></a></h2>
            <p>
                A recent, relative, increase in installs
@@ -30,25 +27,11 @@
                <li><a href="/packages/Vuejs%20Snippets">Vuejs Snippets</a></li>
                <li><a href="/packages/CSSFontFamily">CSSFont​Family</a></li>
            </ul>
-       </div>
-       <div class="section new">
-           <h2><a href="/browse/new">New <i class="icon-leaf"></i></a></h2>
-           <p>
-               Just added to Package Control
-           </p>
-           <ul>
-               <li><a href="/packages/Intel%20HEX">Intel HEX</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
-               <li><a href="/packages/PHP%20Faker%20Completions">PHP Faker Completions</a></li>
-               <li><a href="/packages/F5%20iRules">F5 i​Rules</a></li>
-               <li><a href="/packages/Sublimerge%203">Sublimerge 3</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
-               <li><a href="/packages/LocalizedMenu">Localized​Menu</a></li>
-               <li><a href="/packages/NoDialogs">No​Dialogs</a></li>
-               <li><a href="/packages/CreativeCrocodile">Creative​Crocodile</a></li>
-               <li><a href="/packages/WordPress%20Completions">Word​Press Completions</a></li>
-               <li><a href="/packages/RainbowDrops%20Inspired%20-%20Color%20Scheme">Rainbow​Drops Inspired - Color Scheme</a></li>
-               <li><a href="/packages/GBK%20Support">GBK Support</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
-           </ul>
-       </div>
+       </div> -->
+       
+        {{ render(controller('RedwoodWebBundle:Jswidget:latestJswidget')) }}
+
+       
        <div class="section popular">
            <h2><a href="/browse/popular">Popular <i class="icon-certificate"></i></a></h2>
            <p>

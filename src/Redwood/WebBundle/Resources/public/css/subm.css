@@ -892,7 +892,8 @@ body.index div.section,body.search div.section {
     box-sizing: border-box;
     float: left;
     margin-left: 3%;
-    width: 22.75%
+    /*width: 22.75%;*/
+    width: 29%;
 }
 
 @media (max-width: 1050px) {

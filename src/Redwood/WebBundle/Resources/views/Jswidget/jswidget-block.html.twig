@@ -1,0 +1,31 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% import "RedwoodWebBundle::macro.html.twig" as web_macro %}
+    
+{{ web_macro.flash_messages() }}
+
+ <div class="section new">
+     
+    <h2><a href="/browse/new">New <i class="icon-leaf"></i></a></h2>
+    <!-- <p>
+        Just added to Package Control
+    </p> -->
+    <ul>
+
+        {% if jswidgets %}
+
+            {% for jswidget in jswidgets %}
+                {# {{ admin_macro.user_link(user) }} #}
+                {#  {{ dict_text('userType', user.type) }} #}
+
+                <li><a href="{{ path('jswidget_content', {id:jswidget.id}) }}">{{ jswidget.title }}</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
+            {% endfor %}
+
+<!--         <li><a href="/packages/Intel%20HEX">Intel HEX</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
+        <li><a href="/packages/PHP%20Faker%20Completions">PHP Faker Completions</a></li>
+ -->       
+        {% else %}
+            <li>暂无新组件</li>
+        {% endif %}
+    </ul>
+</div>
+
