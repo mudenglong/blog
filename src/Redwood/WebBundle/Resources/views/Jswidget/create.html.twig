@@ -65,7 +65,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">{{'标签'}}</label>
             <div class="col-md-7 controls">
-                <input type="text" id="jswidget_tags" name="tags" class="width-full select2-offscreen form-control" data-tagids="{{ jswidget.tags }}" tabindex="-1" value="{{ tags }}">
+                <input type="text" id="jswidget_tags" name="tags" class="width-full select2-offscreen form-control" tabindex="-1" value="{{ tags|default('') }}">
                 <div class="help-block">选填，管理员后台统一管理标签</div>
             </div>
         </div>

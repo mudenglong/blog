@@ -41,12 +41,15 @@ class JswidgetController extends BaseController
             return $this->redirect($this->generateUrl('jswidget_show'));
         }
 
+        if(empty($jswidget)){ 
+            return $this->createMessageResponse('info', "非常抱歉，组件id:{$id} 未找到, 15秒后将自动跳转到组件首页.",'', 15,$this->generateUrl('jswidget_show')); 
+        }
+
         if ($request->getMethod() == 'POST') {
               
-            // try {
+            try {
                 $updateJswidget = $request->request->all();
 
-                var_dump($updateJswidget);exit;
                 $jswidget = $this->getJswidgetService()->updateJswidget($jswidget['id'], $updateJswidget);
 
                 // 提交成功跳转到 组件页面
@@ -54,9 +57,9 @@ class JswidgetController extends BaseController
                     'id' => $jswidget['id']
                 )));
 
-            // } catch (\Exception $e) {
-            //     return $this->createMessageResponse('error', '更新组件出错');
-            // }
+            } catch (\Exception $e) {
+                return $this->createMessageResponse('error', '更新组件出错');
+            }
 
         }
 

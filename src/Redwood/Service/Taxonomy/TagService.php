@@ -14,6 +14,8 @@ interface TagService
 
     public function getTagByName($name);
 
+    public function getTagsByNames(array $names);
+
     public function getTagByLikeName($name);
     
     public function getTagsByIds($ids);

@@ -13,13 +13,46 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         $jswidget['userId'] = $this->getCurrentUser()->id;
         $jswidget['createTime'] = time();
         $this->filterJswidgetFields($jswidget);
-        return $this->getJswidgetDao()->addJswidget($jswidget);
+        $newJswidget = $this->getJswidgetDao()->addJswidget(JswidgetSerialize::serialize($jswidget));
+
+        $newJswidget = $this->getJswidget($newJswidget['id']);
+        return $newJswidget;
     }
 
-    public function updateJswidget($id, $jswidget)
+    public function updateJswidget($id, $fields)
+    {   
+        $jswidget = $this->getJswidgetDao()->getJswidget($id);
+        if (empty($jswidget)) {
+            throw $this->createServiceException('组件不存在，更新失败！');
+        }
+
+        $this->filterJswidgetFields($fields);
+
+        $fields['updateTime'] = time();
+        // 存储前过滤一下 tags
+        $fields = JswidgetSerialize::serialize($fields);
+
+        return JswidgetSerialize::unserialize(
+            $this->getJswidgetDao()->updateJswidget($id, $fields)
+        );
+    }
+
+    private function filterJswidgetFields(array &$fields)
     {
-        $jswidget['updateTime'] = time();
-        return $this->getJswidgetDao()->updateJswidget($id, $jswidget);
+        // @todo 
+        // if (!empty($fields['content'])) {
+        //     $fields['about'] = $this->purifyHtml($fields['about']);
+        // }
+
+        if (!empty($fields['tags'])) {
+            $fields['tags'] = explode(',', $fields['tags']);
+            $fields['tags'] = $this->getTagService()->getTagsByNames($fields['tags']);
+
+            array_walk($fields['tags'], function(&$item, $key) {
+                $item = (int) $item['id'];
+            });
+        }
+        return $fields;
     }
 
     public function getJswidget($id)
@@ -33,18 +66,6 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         }
     }
 
-
-    private function filterJswidgetFields(&$fields)
-    {
-       
-        if (!empty($fields['tags'])) {
-            $tempTags = explode(',', $fields['tags']);
-            $fields['tags'] = implode("|", $tempTags);
-        }
-
-        return $fields;
-    }
-
     private function filterJswidgetTags(&$fields)
     {
        
@@ -55,9 +76,6 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
 
         return $fields;
     }
-
-
-
 
     public function deleteJswidget($id){
         $jswidget = $this->getJswidget($id);
@@ -119,4 +137,51 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         return $this->createDao('Note.JswidgetDao');
     }
 
+    protected function getTagService()
+    {
+        return $this->createService('Taxonomy.TagService');        
+    }
+
+}
+
+
+
+
+class JswidgetSerialize
+{   
+    // 数组 -> 字符串
+    public static function serialize(array &$jswidget)
+    {
+        if (isset($jswidget['tags'])) {
+            if (is_array($jswidget['tags']) and !empty($jswidget['tags'])) {
+                $jswidget['tags'] = '|' . implode('|', $jswidget['tags']) . '|';
+            } else {
+                $jswidget['tags'] = '';
+            }
+        }
+
+        return $jswidget;
+    }
+
+    public static function unserialize(array $jswidget = null)
+    {
+        if (empty($jswidget)) {
+            return $jswidget;
+        }
+
+        if(empty($jswidget['tags'] )) {
+            $jswidget['tags'] = array();
+        } else {
+            $jswidget['tags'] = explode('|', trim($jswidget['tags'], '|'));
+        }
+
+        return $jswidget;
+    }
+
+    public static function unserializes(array $jswidgets)
+    {
+        return array_map(function($jswidget) {
+            return JswidgetSerialize::unserialize($jswidget);
+        }, $jswidgets);
+    }
 }

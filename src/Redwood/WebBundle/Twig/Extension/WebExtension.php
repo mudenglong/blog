@@ -1,6 +1,10 @@
 <?php
 namespace Redwood\WebBundle\Twig\Extension;
 
+use Redwood\Service\Common\ServiceKernel;
+
+use Redwood\Common\ArrayToolkit;
+
 class WebExtension extends \Twig_Extension
 {
     protected $container;
@@ -13,8 +17,8 @@ class WebExtension extends \Twig_Extension
     public function getFilters ()
     {
         return array(
-            'smart_time' => new \Twig_Filter_Method($this, 'smarttimeFilter') ,
-            'tags_join' => new \Twig_SimpleFilter($this, 'tagsJoinFilter')
+            'smart_time' => new \Twig_Filter_Method($this, 'smarttimeFilter'),
+            'tags_join' => new \Twig_Filter_Method($this, 'tagsJoinFilter')
         );
     }
 
@@ -50,13 +54,13 @@ class WebExtension extends \Twig_Extension
         }
     }
 
+    // @todo bug
     public function tagsJoinFilter($tagIds)
-    {
+    {   
         if (empty($tagIds) || !is_array($tagIds)) {
             return '';
         }
-
-        $tags  = ServiceKernel::instance()->createService('Taxonomy.TagService')->findTagsByIds($tagIds);
+        $tags  = ServiceKernel::instance()->createService('Taxonomy.TagService')->getTagsByIds($tagIds);
         $names = ArrayToolkit::column($tags, 'name');
 
         return join($names, ',');

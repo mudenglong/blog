@@ -5,7 +5,7 @@ interface JswidgetService
 {
 	public function createJswidget($jswidget);
 
-    public function updateJswidget($id, $jswidget);
+    public function updateJswidget($id, $fields);
 
     public function deleteJswidget($id);
 

@@ -46,7 +46,7 @@ define(function(require, exports, module) {
                     $.each(data, function(index, item) {
 
                         results.push({
-                            id: item.id,
+                            id: item.name,
                             name: item.name
                         });
                     });
@@ -59,10 +59,9 @@ define(function(require, exports, module) {
             },
             initSelection: function(element, callback) {
                 var data = [];
-                var idsArr = element.data('tagids').split('|');
-                $(element.val().split(",")).each(function(s0, name) {
+                $(element.val().split(",")).each(function (s0, name) {
                     data.push({
-                        id: idsArr[s0],
+                        id: name,
                         name: name
                     });
                 });
@@ -76,14 +75,13 @@ define(function(require, exports, module) {
             },
             width: 'off',
             multiple: true,
-            maximumSelectionSize: 20,
             placeholder: "请输入标签",
             width: 'off',
             multiple: true,
             createSearchChoice: function() {
                 return null;
             },
-            maximumSelectionSize: 20
+            maximumSelectionSize: 17
         });
 
 
@@ -91,7 +89,7 @@ define(function(require, exports, module) {
 
         // tag 转为 后台可识别的字符
         // $('#jswidgetForm').submit(function(e) {
-    
+        //     debugger;
         //     e.preventDefault();
         //     return;        
         // });

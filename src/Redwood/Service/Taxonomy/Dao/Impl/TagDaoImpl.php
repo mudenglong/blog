@@ -28,6 +28,21 @@ class TagDaoImpl extends BaseDao implements TagDao
         return $this->getConnection()->fetchAll($sql, array($name));
     }
 
+    public function getTagsByNames(array $names)
+    {
+        $conditions = array();
+        if (empty($names)) {
+            return array();
+        }else{
+            $conditions['names'] = $names;
+        }
+
+        $builder = $this->createTagQueryBuilder($conditions)
+            ->select('*');
+
+        return $builder->execute()->fetchAll() ? : array();
+    }
+
     public function getTagsByIds(array $ids)
     {
         $conditions = array();
@@ -42,6 +57,8 @@ class TagDaoImpl extends BaseDao implements TagDao
 
         return $builder->execute()->fetchAll() ? : array();
     }
+
+
 
     public function addTag($tag)
 	{  
@@ -97,6 +114,7 @@ class TagDaoImpl extends BaseDao implements TagDao
             ->from($this->table, 'tag')
             ->andWhere('name LIKE :name')
             ->andWhere('id IN (:tagIds)')
+            ->andWhere('name IN (:names)')
             ->andWhere('id = :id');
     }
 
