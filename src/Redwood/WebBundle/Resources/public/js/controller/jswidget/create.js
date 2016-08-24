@@ -15,7 +15,6 @@ define(function(require, exports, module) {
                 },
     
                 'jswidget_url': "required",
-                'jswidget_description': "required"
             },
             messages: {
                 'jswidget_title':{
@@ -23,7 +22,6 @@ define(function(require, exports, module) {
                     minlength: "标题的最小长度为2"
                 },
                 'jswidget_url': "请输入URL",
-                'jswidget_description': "请输入一句话描述"
             }
         });
 

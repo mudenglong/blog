@@ -18,6 +18,7 @@ class WebExtension extends \Twig_Extension
     {
         return array(
             'smart_time' => new \Twig_Filter_Method($this, 'smarttimeFilter'),
+            'sub_text' => new \Twig_Filter_Method($this, 'subTextFilter'), array('is_safe' => array('html')),
             'tags_join' => new \Twig_Filter_Method($this, 'tagsJoinFilter')
         );
     }
@@ -66,6 +67,24 @@ class WebExtension extends \Twig_Extension
         return join($names, ',');
     }
 
+    public function subTextFilter($text, $length = null)
+    {
+
+       $text = strip_tags($text);
+
+       $text = str_replace(array("\n", "\r", "\t"), '', $text);
+       $text = str_replace('&nbsp;', ' ', $text);
+       $text = trim($text);
+
+       $length = (int) $length;
+
+       if (($length > 0) && (mb_strlen($text, 'utf-8') > $length)) {
+           $text = mb_substr($text, 0, $length, 'UTF-8');
+           $text .= '...';
+       }
+
+       return $text; 
+    }
     public function smarttimeFilter ($time) {
         $diff = time() - $time;
         if ($diff < 0) {

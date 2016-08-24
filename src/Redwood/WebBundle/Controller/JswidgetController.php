@@ -25,9 +25,12 @@ class JswidgetController extends BaseController
         if(!$jswidget){ 
             return $this->createMessageResponse('info', "非常抱歉，组件id:{$id} 未找到, 15秒后将自动跳转到组件首页.",'', 15,$this->generateUrl('jswidget_show')); 
         }
+        $tagsArr = $this->getTagService()->getTagsByIds($jswidget['tags']);
+   
 
         return $this->render('RedwoodWebBundle:Jswidget:content.html.twig', array(
             'jswidget' => $jswidget,
+            'tags' => $tagsArr,
             'author'   => $this->getUserService()->getUser($jswidget['userId'])
         ));
     } 
@@ -75,10 +78,11 @@ class JswidgetController extends BaseController
 
         $tagsArr = $this->getTagService()->getTagsByIds($jswidget['tags']);
         $tags = ArrayToolkit::column($tagsArr, 'name');
+        $tags = join($tags, ',');
 
         return $this->render('RedwoodWebBundle:Jswidget:create.html.twig', array(
             'user' => $user,
-            'tags' => join($tags, ','),
+            'tags' => $tags,
             'jswidget' => $jswidget
         ));
     }

@@ -1,29 +1,58 @@
 {% macro paginator(paginator) %}
-  {% if paginator.lastPage > 1 %}
+    {% if paginator.lastPage > 1 %}
     <ul  class="pagination">
-      {% if paginator.currentPage == paginator.firstPage %}
-        <li class="disabled"><span>上一页</span></li>
-      {% else %}
-        <li><a  href="{{ paginator.getPageUrl(paginator.previousPage) }}">上一页</a></li>
-      {% endif %}
-      {% for page in paginator.pages %}
-        <li {% if page == paginator.currentPage %}class="active"{% endif %}><a href="{{ paginator.getPageUrl(page) }}">{{ page }}</a></li>
-      {% endfor %}
+        {% if paginator.currentPage == paginator.firstPage %}
+            <li class="disabled"><span>上一页</span></li>
+        {% else %}
+            <li><a  href="{{ paginator.getPageUrl(paginator.previousPage) }}">上一页</a></li>
+        {% endif %}
 
-      {% if paginator.currentPage == paginator.lastPage %}
-        <li class="disabled"><span>下一页</span></li>
-      {% else %}
-        <li><a  href="{{ paginator.getPageUrl(paginator.nextPage) }}">下一页</a></li>
-      {% endif %}
+        {% for page in paginator.pages %}
+            <li {% if page == paginator.currentPage %}class="active"{% endif %}><a href="{{ paginator.getPageUrl(page) }}">{{ page }}</a></li>
+        {% endfor %}
+
+        {% if paginator.currentPage == paginator.lastPage %}
+            <li class="disabled"><span>下一页</span></li>
+        {% else %}
+            <li><a  href="{{ paginator.getPageUrl(paginator.nextPage) }}">下一页</a></li>
+        {% endif %}
     </ul>
-  {% endif %}
+    {% endif %}
 {% endmacro %}
 
 
 {% macro flash_messages() %}
-  {% for type, flashMessages in app.session.flashbag.all() %}
-    {% for flashMessage in flashMessages %}
-      <div class="alert alert-{{ type }}">{{ flashMessage|raw }}</div>
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">{{ flashMessage|raw }}</div>
+        {% endfor %}
     {% endfor %}
-  {% endfor %}
+{% endmacro %}
+
+
+{# jswidget 兼容性 #}
+{% macro jswidget_compatible(jswidget, compatibleLimit = true) %}
+    {% if jswidget %}
+
+        {% if jswidget.compatible == 'all' %}
+            <span class="versions both" title="全平台支持">全{% if not compatibleLimit %}平台{% endif %}</span>
+        {% elseif jswidget.compatible == 'pc6' %}
+            <span class="versions only" title="只支持电脑IE6以上">pc6</span>
+        {% elseif jswidget.compatible == 'pc7' %}
+            <span class="versions only" title="只支持电脑IE7以上">pc7</span>
+        {% elseif jswidget.compatible == 'mobile' %}
+            <span class="versions only" title="只支持各类手机">手{% if not compatibleLimit %}机{% endif %}</span>
+        {% endif %}
+   
+    {% endif %}
+{% endmacro %}
+
+{# jswidget 分类 #}
+{% macro jswidget_type(jswidget) %}
+    {% if jswidget %}
+        {% if jswidget.type == 'css' %}
+            <span class="versions onlycss" title="样式-css3">样式-css3</span>
+        {% endif %}
+   
+    {% endif %}
 {% endmacro %}

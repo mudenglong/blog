@@ -17,7 +17,11 @@
                 {# {{ admin_macro.user_link(user) }} #}
                 {#  {{ dict_text('userType', user.type) }} #}
 
-                <li><a href="{{ path('jswidget_content', {id:jswidget.id}) }}">{{ jswidget.title }}</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
+                <li>
+                    <a href="{{ path('jswidget_content', {id:jswidget.id}) }}">{{ jswidget.title|sub_text(20) }}</a>
+                    
+                    {{ web_macro.jswidget_compatible(jswidget) }}
+                </li>
             {% endfor %}
 
 <!--         <li><a href="/packages/Intel%20HEX">Intel HEX</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
