@@ -3,32 +3,53 @@
     
 {{ web_macro.flash_messages() }}
 
- <div class="section new">
-     
-    <h2><a href="/browse/new">New <i class="icon-leaf"></i></a></h2>
-    <!-- <p>
-        Just added to Package Control
-    </p> -->
-    <ul>
+{% set titleMap = {'latest': 'New', 
+            'viewest': 'Popular',
+            'tagLatest': 'Labels'} %}
+{% set classMap = {'latest': 'new',
+            'viewest': 'popular',
+            'tagLatest':'labels'} %}
+{% set iconMap = {'latest': 'icon-leaf',
+            'viewest': 'icon-certificate',
+            'tagLatest':'icon-tag'} %}
+{% set tipMap = {'latest': 'Just added to Package Control',
+            'viewest': 'Randomly selected from the top 100',
+            'tagLatest': 'Labels with the biggest selection'} %}
 
+{% set tags = tags|default('') %}
+{% set jswidgets = jswidgets|default('') %}
+
+ <div class="section {{ classMap[type] }}">
+
+    <h2>
+        <a href="{% if jswidgets %}
+                {{ path('jswidget_search', {'filter':type}) }}
+                {% elseif tags %}
+                {{ path('tag') }}{% endif %}">{{ titleMap[type] }} <i class="{{ iconMap[type] }}"></i></a>
+    </h2>
+    <p>{{  tipMap[type] }}</p>
+
+    <ul>
         {% if jswidgets %}
 
             {% for jswidget in jswidgets %}
-                {# {{ admin_macro.user_link(user) }} #}
-                {#  {{ dict_text('userType', user.type) }} #}
-
                 <li>
                     <a href="{{ path('jswidget_content', {id:jswidget.id}) }}">{{ jswidget.title|sub_text(20) }}</a>
                     
                     {{ web_macro.jswidget_compatible(jswidget) }}
                 </li>
             {% endfor %}
-
-<!--         <li><a href="/packages/Intel%20HEX">Intel HEX</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
-        <li><a href="/packages/PHP%20Faker%20Completions">PHP Faker Completions</a></li>
- -->       
+    
+        {% elseif tags %}
+         
+            {% for tag in tags %}
+                <li>
+                    <a href="{{ path('tag_show', {id:tag.id}) }}">{{ tag.name|sub_text(20) }}</a>
+                </li>
+            {% endfor %}
+    
         {% else %}
-            <li>暂无新组件</li>
+            <li>暂无数据.</li>
         {% endif %}
     </ul>
 </div>

@@ -5,69 +5,18 @@
 
 {% block wrapBox %}
     
-   <p class="intro">
+    <p class="intro">
        <a href="javascript:;" class="sublime_text">Widget 库</a> 提供较便捷的方式搜寻组件, 以及css样式, 欢迎各类建议或意见  ^_^.
        
-   </p>
-   <div class="highlights">
-       <!-- <div class="section trending">
-           <h2><a href="/browse/trending">Trending <i class="icon-chevron-sign-up"></i></a></h2>
-           <p>
-               A recent, relative, increase in installs
-           </p>
-           <ul>
-               <li><a href="/packages/Crystal">Crystal</a></li>
-               <li><a href="/packages/Future%20Funk%20-%20Color%20Scheme">Future Funk - Color Scheme</a></li>
-               <li><a href="/packages/Future%20Funk%20-%20Codeception">Future Funk - Codeception</a></li>
-               <li><a href="/packages/GitSavvy">Git​Savvy</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
-               <li><a href="/packages/Boron%20Color%20Scheme">Boron Color Scheme</a></li>
-               <li><a href="/packages/C%2B%2B%20Starting%20Kit">C++ Starting Kit</a></li>
-               <li><a href="/packages/Apple%20Pips%20Color%20Scheme">Apple Pips Color Scheme</a></li>
-               <li><a href="/packages/ExportHtml">Export​Html</a></li>
-               <li><a href="/packages/Vuejs%20Snippets">Vuejs Snippets</a></li>
-               <li><a href="/packages/CSSFontFamily">CSSFont​Family</a></li>
-           </ul>
-       </div> -->
+    </p>
+    <div class="highlights">
        
         {{ render(controller('RedwoodWebBundle:Jswidget:latestJswidget')) }}
 
-       
-       <div class="section popular">
-           <h2><a href="/browse/popular">Popular <i class="icon-certificate"></i></a></h2>
-           <p>
-               Randomly selected from the top 100
-           </p>
-           <ul>
-               <li><a href="/packages/SFTP">SFTP</a></li>
-               <li><a href="/packages/MarkdownEditing">Markdown​Editing</a></li>
-               <li><a href="/packages/Colorsublime">Colorsublime</a><span class="versions only" title="Only works with Sublime Text 3">3</span></li>
-               <li><a href="/packages/jQuery%20Snippets%20pack">j​Query Snippets pack</a></li>
-               <li><a href="/packages/Predawn">Predawn</a></li>
-               <li><a href="/packages/Emmet%20Css%20Snippets">Emmet Css Snippets</a></li>
-               <li><a href="/packages/Tomorrow%20Color%20Schemes">Tomorrow Color Schemes</a></li>
-               <li><a href="/packages/Theme%20-%20Soda">Theme - Soda</a></li>
-               <li><a href="/packages/JsFormat">Js​Format</a></li>
-               <li><a href="/packages/IMESupport">IMESupport</a><span class="platforms windows" title="Only available on Windows">W</span></li>
-           </ul>
-       </div>
-       <div class="section labels">
-           <h2><a href="/browse/labels">Labels <i class="icon-tag"></i></a></h2>
-           <p>
-               Labels with the biggest selection
-           </p>
-           <ul>
-               <li><a href="/browse/labels/language%20syntax">language syntax</a><span class="package_count">410</span></li>
-               <li><a href="/browse/labels/snippets">snippets</a><span class="package_count">352</span></li>
-               <li><a href="/browse/labels/color%20scheme">color scheme</a><span class="package_count">245</span></li>
-               <li><a href="/browse/labels/linting">linting</a><span class="package_count">163</span></li>
-               <li><a href="/browse/labels/theme">theme</a><span class="package_count">138</span></li>
-               <li><a href="/browse/labels/auto-complete">auto-complete</a><span class="package_count">134</span></li>
-               <li><a href="/browse/labels/text%20manipulation">text manipulation</a><span class="package_count">86</span></li>
-               <li><a href="/browse/labels/formatting">formatting</a><span class="package_count">70</span></li>
-               <li><a href="/browse/labels/javascript">javascript</a><span class="package_count">68</span></li>
-               <li><a href="/browse/labels/build%20system">build system</a><span class="package_count">54</span></li>
-           </ul>
-       </div>
+        {{ render(controller('RedwoodWebBundle:Jswidget:viewestJswidget')) }}
+
+        {{ render(controller('RedwoodWebBundle:Tag:latestTag')) }}
+
    </div> 
         
 {% endblock %}

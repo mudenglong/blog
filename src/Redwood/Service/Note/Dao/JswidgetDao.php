@@ -15,4 +15,6 @@ interface JswidgetDao
     public function searchJswidgetCount(array $conditions);
 
     public function searchJswidget($conditions, $orderBy, $start, $limit);
+
+    public function waveJswidget($id, $field, $diff); 
 }

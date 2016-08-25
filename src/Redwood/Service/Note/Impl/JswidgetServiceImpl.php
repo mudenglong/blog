@@ -117,12 +117,21 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         return $jswidget;
     }
 
+    public function waveJswidget($id, $field, $diff)
+    {
+        return $this->getJswidgetDao()->waveJswidget($id, $field, $diff);
+    }
+
     protected function convertFiltersToOrderBy($orderBy)
     {
         switch ($orderBy) {
             case 'latest':
                 $filters = array('createTime', 'DESC');
                 break;
+            case 'viewest':
+                $filters = array('views', 'DESC');
+                break;
+
             default:
                 $filters = array('createTime', 'DESC');
                 break;

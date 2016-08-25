@@ -56,3 +56,15 @@
    
     {% endif %}
 {% endmacro %}
+
+{# jswidget tags #}
+{% macro jswidget_tags(tags) %}
+    {% if tags %}
+        <div class="tags-wrap" > 
+            {% for tag in tags %}
+                <a class="tag tag-green" href="{{ path('tag_show', {id:tag.id}) }}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endmacro %}

@@ -31,9 +31,7 @@
 
     <div class="meta" style="display:none;">
         <span>访问人数</span>
-        <span>{{ jswidget.view }}</span>
-        <span>点赞</span>
-        <span>{{ jswidget.admire }}</span>
+        <span>{{ jswidget.views }}</span>
     </div>
 
     {% if jswidget.description %}
@@ -58,11 +56,11 @@
     <div id="installs">
 
         <h2>标签</h2>
-        <div class="labels " style="clear:both; width:100%; background:none;" > 
-            {% for tag in tags %}
-                <a class="tag tag-green" href="#!">{{ tag.name }}</a>
-            {% endfor %}
+
+        <div style="clear:both; width:100%; background:none;">
+            {{ web_macro.jswidget_tags(tags) }}
         </div>
+        
         <div style="clear:both"></div>
         <!-- @todo 趋势 -->
         <!-- <ul class="totals"> 

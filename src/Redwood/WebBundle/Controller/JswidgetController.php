@@ -26,7 +26,8 @@ class JswidgetController extends BaseController
             return $this->createMessageResponse('info', "非常抱歉，组件id:{$id} 未找到, 15秒后将自动跳转到组件首页.",'', 15,$this->generateUrl('jswidget_show')); 
         }
         $tagsArr = $this->getTagService()->getTagsByIds($jswidget['tags']);
-   
+
+        $this->getJswidgetService()->waveJswidget($id, 'views', +1);
 
         return $this->render('RedwoodWebBundle:Jswidget:content.html.twig', array(
             'jswidget' => $jswidget,
@@ -39,9 +40,20 @@ class JswidgetController extends BaseController
     public function latestJswidgetAction(Request $request)
     {
 
-        $jswidgets = $this->getJswidgetService()->searchJswidget(array(), 'latest', 0, 5);
+        $jswidgets = $this->getJswidgetService()->searchJswidget(array(), 'latest', 0, 10);
         return $this->render('RedwoodWebBundle:Jswidget:jswidget-block.html.twig', array(
-            'jswidgets'=>$jswidgets,
+            'jswidgets' => $jswidgets,
+            'type' => 'latest'
+        ));
+    }
+
+    public function viewestJswidgetAction(Request $request)
+    {
+
+        $jswidgets = $this->getJswidgetService()->searchJswidget(array(), 'viewest', 0, 10);
+        return $this->render('RedwoodWebBundle:Jswidget:jswidget-block.html.twig', array(
+            'jswidgets' => $jswidgets,
+            'type' => 'viewest'
         ));
     }
 
@@ -95,20 +107,40 @@ class JswidgetController extends BaseController
     
 
     // 处理数据同下面的searchjsonAction, 渲染不同
-    public function searchAction(Request $request) {
+    public function searchAction(Request $request, $filter) {
+
         $jswidgets = $paginator = null; 
         $currentUser = $this->getCurrentUser();
         $data = array();
         $data['widgets'] = array();
+        $sort = 'latest';
+        $conditions = array();
 
-        $keywords = $request->query->get('q');
-        
-        $keywords = $this->filterKeyWord(trim($keywords)); 
 
-        $conditions = array(
-            'title'      => $keywords
-        );
+        if ($filter == 'normal') {
+            $keywords = $request->query->get('q');
+            $keywords = $this->filterKeyWord(trim($keywords)); 
+            $conditions = array(
+                'title'      => $keywords
+            );
+        }elseif($filter == 'latest'){
+            $conditions = array();
+        }elseif ($filter == 'viewest') {
+            $sort = 'viewest';
+        }
 
+        $res = $this->searchNormal($conditions, $sort);
+
+        return $this->render('RedwoodWebBundle:Jswidget:searchList.html.twig', array(
+            'jswidgets' => $res['jswidgets'],
+            'users' => $res['users'],
+            'paginator' => $res['paginator'],
+            'filter' => $filter
+        ));
+    }
+
+    protected function searchNormal($conditions, $sort = 'latest')
+    {
         $paginator = new Paginator(
             $this->get('request'),
             $this->getJswidgetService()->searchJswidgetCount($conditions),
@@ -116,17 +148,17 @@ class JswidgetController extends BaseController
         );
         $jswidgets = $this->getJswidgetService()->searchJswidget(
             $conditions,
-            'latest',
+            $sort,
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
         $users = $this->getUserService()->findUsersByIds(ArrayToolkit::column($jswidgets, 'userId'));
 
-        return $this->render('RedwoodWebBundle:Jswidget:searchList.html.twig', array(
-            'jswidgets' => $jswidgets,
-            'users' => $users,
-            'paginator' => $paginator,
-        ));
+        return array(
+                'paginator' => $paginator, 
+                'jswidgets' => $jswidgets, 
+                'users' => $users 
+            );
     }
 
     // 处理数据同上面的searchAction, 渲染不同
@@ -144,19 +176,10 @@ class JswidgetController extends BaseController
             'title'      => $keywords
         );
 
-        $paginator = new Paginator(
-            $this->get('request'),
-            $this->getJswidgetService()->searchJswidgetCount($conditions),
-            30
-        );
-
-        $jswidgets = $this->getJswidgetService()->searchJswidget(
-            $conditions,
-            'latest',
-            $paginator->getOffsetCount(),
-            $paginator->getPerPageCount()
-        );
-        $users = $this->getUserService()->findUsersByIds(ArrayToolkit::column($jswidgets, 'userId'));
+        $res = $this->searchNormal($conditions);
+        $paginator = $res['paginator'];
+        $jswidgets = $res['jswidgets'];
+        $users = $res['users'];
 
         $data['status'] = 'success';
         $data['pages'] = $paginator->getOffsetCount()+1;
@@ -166,11 +189,10 @@ class JswidgetController extends BaseController
             $data['widgets'][] = array(
                     'id' => $jswidget['id'],  
                     'title' => $jswidget['title'],  
-                    'view' => $jswidget['view'],  
+                    'views' => $jswidget['views'],  
                     'admire' => $jswidget['admire'],  
                     'createTime' => $jswidget['createTime'],  
                     'description' => $jswidget['description'],  
-                    'view' => $jswidget['view'],  
                     'username' => $users[$jswidget['userId']]['username'] 
                     );
         }
@@ -216,8 +238,8 @@ class JswidgetController extends BaseController
     }
 
     public function deleteAction(Request $request, $id) {
-       $this->getJswidgetService()->deleteJswidget($id);
-       return $this->createJsonResponse(true);
+        $this->getJswidgetService()->deleteJswidget($id);
+        return $this->createJsonResponse(true);
     }
 
     public function createAction(Request $request) 

@@ -4,14 +4,19 @@
     </h3>
             
     <span class="author"><em>by</em>
-        <a href="/browse/authors/Sequoia%20Studios">{{ user.username }}</a>
+        <a href="javascript:;">{{ user.username }}</a>
     </span>
+
+    {{ web_macro.jswidget_compatible(jswidget, false) }}
+
+    {{ web_macro.jswidget_type(jswidget) }}
 
     <span class="meta">
-        <span class="installs" title="558 total unique installs">{{ jswidget.view }} <em>views</em></span>
+        <span class="installs" title="共{{ jswidget.views }}次访问">{{ jswidget.views }}<em> views</em></span>
 
-        <span class="installs" title="558 total unique installs">{{ jswidget.admire }} <em>赞</em></span>
+        {# <span class="installs" title="558 total unique installs">{{ jswidget.admire }} <em>赞</em></span> #}
     </span>
+
     <div class="description">
         {{ jswidget.description }}
     </div>

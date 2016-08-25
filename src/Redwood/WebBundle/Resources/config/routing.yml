@@ -99,8 +99,8 @@ jswidget_delete:
     methods: [POST]
 
 jswidget_search:
-    pattern:  /jswidget/search
-    defaults: { _controller: RedwoodWebBundle:Jswidget:search }
+    pattern:  /jswidget/search/{filter}
+    defaults: { _controller: RedwoodWebBundle:Jswidget:search, filter:'normal' }
 
 jswidget_searchjson:
     pattern:  /jswidget/searchjson
@@ -127,4 +127,5 @@ tag_match:
 tag_show:
     pattern: /tag/{id}
     defaults: { _controller: RedwoodWebBundle:Tag:show }
+
 

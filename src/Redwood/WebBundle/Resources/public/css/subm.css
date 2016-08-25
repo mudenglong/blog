@@ -4214,7 +4214,7 @@ a .icon-flip-vertical:before {
 
 
 /*tag */
-.labels .tag {
+.tags-wrap .tag {
   display: inline-block;
   border: 1px solid;
   border-radius: 3px;
@@ -4230,13 +4230,13 @@ a .icon-flip-vertical:before {
   text-decoration: none;
   vertical-align: baseline;
 }
-.labels .tag span {
+.tags-wrap .tag span {
   display: inline-block;
   overflow: hidden;
   max-width: 100%;
   text-overflow: ellipsis;
 }
-.labels .tag:before {
+.tags-wrap .tag:before {
   content: '';
   display: inline-block;
   border-radius: 3px;
@@ -4261,7 +4261,7 @@ a .icon-flip-vertical:before {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.labels .tag:after {
+.tags-wrap .tag:after {
   content: '';
   display: block;
   background-color: #fff;
@@ -4275,19 +4275,27 @@ a .icon-flip-vertical:before {
   z-index: 3;
 }
 
-.labels .tag-green {
+.tags-wrap .tag-green {
       background-color: #AACD4E;
     color: #FFFFFF;
     font-weight: bold;
-    margin-top:10px;
 }
-.labels .tag-green, .tag-green:before, .tag-green:after {
+.tags-wrap .tag-green, .tag-green:before, .tag-green:after {
   border-color: #A1BD57;
 }
-.labels .tag-green[href]:hover, .tag-green[href]:focus, .tag-green .hover:hover, .tag-green .hover:focus {
+.tags-wrap .tag-green[href]:hover, .tag-green[href]:focus, .tag-green .hover:hover, .tag-green .hover:focus {
   background-color: #9EBE48;
   color: #fff;
 }
-.labels .tag-green[href]:hover, .tag-green[href]:hover:before, .tag-green[href]:hover:after, .tag-green[href]:focus, .tag-green[href]:focus:before, .tag-green[href]:focus:after, .tag-green .hover:hover, .tag-green .hover:hover:before, .tag-green .hover:hover:after, .tag-green .hover:focus, .tag-green .hover:focus:before, .tag-green .hover:focus:after {
+.tags-wrap .tag-green[href]:hover, .tag-green[href]:hover:before, .tag-green[href]:hover:after, .tag-green[href]:focus, .tag-green[href]:focus:before, .tag-green[href]:focus:after, .tag-green .hover:hover, .tag-green .hover:hover:before, .tag-green .hover:hover:after, .tag-green .hover:focus, .tag-green .hover:focus:before, .tag-green .hover:focus:after {
   border-color: #A1BD57;
+}
+.dropdown-menu li{
+    margin: 0;
+    text-align: center;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 15px;
 }
