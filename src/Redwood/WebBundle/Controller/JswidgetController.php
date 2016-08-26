@@ -190,7 +190,8 @@ class JswidgetController extends BaseController
                     'id' => $jswidget['id'],  
                     'title' => $jswidget['title'],  
                     'views' => $jswidget['views'],  
-                    'admire' => $jswidget['admire'],  
+                    'compatible' => $jswidget['compatible'],  
+                    'type' => $jswidget['type'],  
                     'createTime' => $jswidget['createTime'],  
                     'description' => $jswidget['description'],  
                     'username' => $users[$jswidget['userId']]['username'] 

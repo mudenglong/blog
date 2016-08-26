@@ -218,9 +218,25 @@ define(function(require, exports, module) {
 
 	// 同 /src/Redwood/WebBundle/Resources/views/Jswidget/searchList-tr.html.twig 模板
 	StocknameGenerater.prototype.fillHtml = function(d){
-		var tpl = '<li id="jswidget-search-table-tr-{{ id }}"  class="package"> <h3> <a href="{{ jswidgetUrl }}"><b>{{ title }}</b></a> </h3> <span class="author"><em>by</em> <a href="/browse/authors/Sequoia%20Studios">{{ username }}</a> </span> <span class="meta"> <span class="installs" title="558 total unique installs">{{ views }} <em> views</em></span></span> <div class="description"> {{ description }} </div> </li>';
+		var tpl = '<li id="jswidget-search-table-tr-{{ id }}"  class="package"> <h3> <a href="{{ jswidgetUrl }}"><b>{{ title }}</b></a> </h3> <span class="author"><em>by</em> <a href="javascript:;">{{ username }}</a> </span>{{ compatible }} {{ type }}<span class="meta"> <span class="installs" title="共{{ views }}次访问">{{ views }} <em> views</em></span></span> <div class="description"> {{ description }} </div> </li>';
 		d['jswidgetUrl'] = window.location.origin+'/jswidget/'+ d.id;
+		var temp;
+
         return tpl.replace(/{{ ([^}}]+)? }}/g, function(s0, s1){
+        	if (s1 === 'compatible' && d[s1]) {
+        		temp = d[s1];
+        		if (temp === 'all') {
+        			return '<span class="versions both" title="全平台支持">全平台</span>';
+        		}else if(temp === 'pc6'){
+        			return '<span class="versions only" title="只支持电脑IE6以上">pc6</span>';
+        		}else if(temp === 'pc7'){
+        			return '<span class="versions only" title="只支持电脑IE7以上">pc7</span>';
+        		}else if(temp === 'mobile'){
+        			return '<span class="versions only" title="只支持各类手机">手机</span>';
+        		}
+        	}else if(s1 === 'type'&& (d[s1] === 'css')){
+        		return '<span class="versions onlycss" title="样式-css3">样式-css3</span>'
+        	}
 			return d[s1];
 		});
 
