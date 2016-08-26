@@ -234,8 +234,8 @@ define(function(require, exports, module) {
         		}else if(temp === 'mobile'){
         			return '<span class="versions only" title="只支持各类手机">手机</span>';
         		}
-        	}else if(s1 === 'type'&& (d[s1] === 'css')){
-        		return '<span class="versions onlycss" title="样式-css3">样式-css3</span>'
+        	}else if(s1 === 'type'){
+        		return d[s1] === 'css'?'<span class="versions onlycss" title="样式-css3">样式-css3</span>':'';
         	}
 			return d[s1];
 		});
