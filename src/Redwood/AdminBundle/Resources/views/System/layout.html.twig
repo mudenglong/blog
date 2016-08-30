@@ -1,0 +1,23 @@
+{% extends 'RedwoodAdminBundle::layout.html.twig' %}
+
+{% set nav = 'system' %}
+
+{% block content %}
+  <div class="col-md-2">
+    {% block sidebar %}
+      <div class="list-group">
+
+        <a href="{{ path('admin_setting_site') }}" class="list-group-item {% if menu == 'site' %}active{% endif %}">站点设置</a>
+        <a href="{{ path('admin_setting_login_bind') }}" class="list-group-item {% if menu == 'operation' %}active{% endif %}">全局设置</a>
+
+      </div>
+    {% endblock %}
+  </div>
+  <div class="col-md-10">
+      {% block mainName %}{% endblock %}
+      
+      {% block main %}{% endblock %}
+  </div>
+{% endblock %}
+
+

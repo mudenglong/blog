@@ -39,6 +39,15 @@ admin_user_send_emailverify_email:
     methods:  [POST]
 
 
+admin_setting_site:
+    pattern:  /setting/site
+    defaults: { _controller: RedwoodAdminBundle:Setting:site }
+
+admin_setting_login_bind:
+    pattern:  /setting/login-connect
+    defaults: { _controller: RedwoodAdminBundle:Setting:loginConnect }
+
+
 admin_jswidget:
     pattern:  /widget/{filter}/index
     defaults: { _controller: RedwoodAdminBundle:Jswidget:index, filter:'normal' }

@@ -20,6 +20,28 @@ login_check:
 logout:
     pattern:  /logout
 
+login_bind:
+    pattern:  /login/bind/{type}
+    defaults: { _controller: RedwoodWebBundle:LoginBind:index }
+
+login_bind_callback:
+    pattern:  /login/bind/{type}/callback
+    defaults: { _controller: RedwoodWebBundle:LoginBind:callback }
+
+login_bind_choose:
+    pattern:  /login/bind/{type}/choose
+    defaults: { _controller: RedwoodWebBundle:LoginBind:choose }
+
+login_bind_new:
+    pattern:  /login/bind/{type}/new
+    defaults: { _controller: RedwoodWebBundle:LoginBind:new }
+    methods: [POST]
+
+login_bind_exist:
+    pattern:  /login/bind/{type}/exist
+    defaults: { _controller: RedwoodWebBundle:LoginBind:exist }
+    methods: [POST]
+
 register_success:
     pattern:  /register/success/{id}/{hash}
     defaults: { _controller:  RedwoodWebBundle:Register:success }
