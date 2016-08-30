@@ -33,37 +33,57 @@ class TagController extends BaseController
 
     public function showAction(Request $request, $id)
     {
+        $jswidgets = $paginator = null;
+
         $tag = $this->getTagService()->getTag($id);
 
         if(!$tag){ 
             return $this->createMessageResponse('info', "非常抱歉，标签id:{$id} 未找到, 15秒后将自动跳转到标签首页.",'', 15,$this->generateUrl('tag')); 
         }
-        exit;
 
-        if($tag) {  
-            $conditions = array(
-                // 'status' => 'published',
-                'tagId' => $tag['id']
-            );
+        $conditions = array(
+            // 'status' => 'published',
+            'tagId' => $tag['id']
+        );
 
-            $paginator = new Paginator(
-                $this->get('request'),
-                $this->getJswidgetService()->searchJswidgetCount($conditions)
-                , 12
-            );       
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getJswidgetService()->searchJswidgetCount($conditions)
+            , 30
+        );       
 
-            $courses = $this->getJswidgetService()->searchJswidget(
-                $conditions,
-                'latest',
-                $paginator->getOffsetCount(),
-                $paginator->getPerPageCount()
-            );
-        }
+        $searchJswidget = $this->getJswidgetService()->searchJswidget(
+            $conditions,
+            'viewest',
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
 
+        $users = $this->getUserService()->findUsersByIds(ArrayToolkit::column($searchJswidget, 'userId'));
 
 
-        var_dump('dddd');
+        return $this->render('RedwoodWebBundle:Jswidget:searchList.html.twig', array(
+            'jswidgets' => $searchJswidget,
+            'users' => $users,
+            'paginator' => $paginator,
+            'filter' => 'tags'
+        ));
 
+    }
+
+    public function latestTagAction(Request $request)
+    {
+        $tags = $this->getTagService()->searchTags(
+            array(),
+            'latest',
+            0,
+            10
+        );
+
+        return $this->render('RedwoodWebBundle:Jswidget:jswidget-block.html.twig', array(
+            'tags' => $tags,
+            'type' => 'tagLatest'
+        ));
     }
 
 

@@ -53,6 +53,20 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
         return $builder->execute()->fetchAll() ? : array();  
     }
 
+    public function waveJswidget($id, $field, $diff)
+    {
+        $fields = array('views');
+        // $fields = array('hitNum', 'noteNum');
+
+        if (!in_array($field, $fields)) {
+            throw \InvalidArgumentException(sprintf("%s字段不允许增减，只有%s才被允许增减", $field, implode(',', $fields)));
+        }
+        $sql = "UPDATE {$this->getTable()} SET {$field} = {$field} + ? WHERE id = ? LIMIT 1";
+
+        $result = $this->getConnection()->executeQuery($sql, array($diff, $id));
+        return $result;
+    }
+
     private function createJswidgetQueryBuilder($conditions)
     {
         if(isset($conditions['keywordType'])) {
@@ -65,9 +79,20 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
             $conditions['title'] = "%{$conditions['title']}%";
         }
 
+        if (isset($conditions['tagId'])) {
+            $tagId = (int) $conditions['tagId'];
+
+            if (!empty($tagId)) {
+                $conditions['tagsLike'] = "%|{$conditions['tagId']}|%";
+            }
+
+            unset($conditions['tagId']);
+        }
+
         return $this->createDynamicQueryBuilder($conditions)
             ->from($this->table, 'jswidget')
             ->andWhere('title LIKE :title')
+            ->andWhere('tags LIKE :tagsLike')
             ->andWhere('userId = :userId');
     }
 

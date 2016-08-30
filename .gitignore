@@ -19,6 +19,8 @@
 /web/files/*
 !/web/files/.gitkeep
 /web/customize/*
+/web/bundles/redwoodadmin/*
+/web/bundles/redwoodweb/*
 /web/windid_client_old
 !/web/customize/.gitkeep
 .DS_Store

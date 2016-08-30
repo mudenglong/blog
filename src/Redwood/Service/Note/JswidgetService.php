@@ -17,4 +17,7 @@ interface JswidgetService
     
     public function searchJswidget(array $conditions, $oderBy, $start, $limit);
 
+    // 自增+1
+    public function waveJswidget($id, $field, $diff);
+
 }

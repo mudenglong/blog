@@ -40,7 +40,7 @@
             
             <div class="col-md-7 controls">
                 <input type="text" id="jswidget_description" name="description" data-display="description" class="form-control" value="{{ jswidget.description|default('') }}">
-                <div class="help-block" style="display:none;"></div>
+                <div class="help-block">请一句话描述下您的组件</div>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
             <label class="col-md-2 control-label">兼容性</label>
             <div class="col-md-8 controls radios">
                 {{ radios('compatible', {'unsure':'未知', 'all':'各平台全兼容', 'mobile':'仅手机', 'pc7':'仅电脑IE7以上', 'pc6':'仅电脑IE6以上'}, jswidget.compatible|default('unsure')) }}
-                <div class="help-block">电脑IE6以上:一般是一些PC客户端项目要求IE6以上.</div>
+                <div class="help-block">电脑IE6以上:一般是一些PC客户端项目要求IE6以上; 不确定兼容性, 别勉强哦</div>
             </div>
         </div>
 
@@ -91,7 +91,7 @@
             <label class="col-md-2 control-label" for="jswidget_content">内容:</label>
             
             <div class="col-md-7 controls">
-                <textarea id="jswidget_content" name="content"  style="height:200px;" data-display="内容" class="form-control">{{ jswidget.content|default('还没有详细介绍') }}</textarea>
+                <textarea id="jswidget_content" name="content"  style="height:200px;" data-display="内容" placeholder="详细介绍" class="form-control">{{ jswidget.content|default('') }}</textarea>
                 <div class="help-block" style="display:none;"></div>
             </div>
         </div>

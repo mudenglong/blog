@@ -16,11 +16,9 @@
   </td>
  
   <td>
-    {{ jswidget.view }}
+    {{ jswidget.views }}
   </td>
-  <td>
-    {{ jswidget.admire }}
-  </td>
+ 
   <td>
     <div class="btn-group">
       
@@ -33,7 +31,7 @@
         <ul class="dropdown-menu">
             <li><a href="{{ path('jswidget_edit', {id:jswidget.id}) }}">编辑</a></li>
          
-            <li><a class="delete-jswidget" data-url="{{ path('jswidget_delete', {id:jswidget.id}) }}" href="javascript:" title="删除组件">删除</a></li>
+            <li><a class="delete-jswidget" data-url="{{ path('jswidget_delete', {id:jswidget.id}) }}" data-target="{{ jswidget.id }}" href="javascript:;" title="删除组件">删除</a></li>
          
         </ul>
     </div>

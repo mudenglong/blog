@@ -9,16 +9,13 @@
     <a class="context" href="javascript:;">Browse</a>
     <h1>标签</h1>
 
-
-    {{ dump(tags) }}
-
     {% if tags  %}
     <ul class="labels">  
         {% for tag in tags %}
             <li class="label"> 
                 <h3>
                     <em>0</em> 
-                    <a href="/browse/labels/language%20syntax">{{ tag.name }}</a>
+                    <a href="{{ path('tag_show', {id:tag.id}) }}">{{ tag.name }}</a>
                 </h3> 
             </li> 
            
@@ -29,17 +26,12 @@
     {% endif %}
 
 
-
-    <ul class="labels">  
-
-         
-
+    <!-- <ul class="labels">  
         <li class="label"> <h3><em>352</em> <a href="/browse/labels/snippets">snippets</a></h3> </li>  
 
         <li class="label"> <h3><em>245</em> <a href="/browse/labels/color%20scheme">color scheme</a></h3> </li>  
 
         <li class="label"> <h3><em>163</em> <a href="/browse/labels/linting">linting</a></h3> </li>  
-
-    </ul>
+    </ul> -->
         
 {% endblock %}
