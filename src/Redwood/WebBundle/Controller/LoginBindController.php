@@ -14,9 +14,9 @@ class LoginBindController extends BaseController
         }
 
         $client = $this->createOAuthClient($type);
-        var_dump($client);
-        exit;
+        
         $callbackUrl = $this->generateUrl('login_bind_callback', array('type' => $type), true);
+
         $url = $client->getAuthorizeUrl($callbackUrl);
         return $this->redirect($url);
     }
@@ -27,6 +27,7 @@ class LoginBindController extends BaseController
         $callbackUrl = $this->generateUrl('login_bind_callback', array('type' => $type), true);
         $token = $this->createOAuthClient($type)->getAccessToken($code, $callbackUrl);
         $bind = $this->getUserService()->getUserBindByTypeAndFromId($type, $token['userId']);
+
         if ($bind) {
             $user = $this->getUserService()->getUser($bind['toId']);
             if (empty($user)) {
@@ -42,6 +43,7 @@ class LoginBindController extends BaseController
             }
         } else {
             $request->getSession()->set('oauth_token', $token);
+
             return $this->redirect($this->generateUrl('login_bind_choose', array('type'  => $type)));
         }
 
@@ -52,12 +54,36 @@ class LoginBindController extends BaseController
         $token = $request->getSession()->get('oauth_token');
         $client = $this->createOAuthClient($type);
         $oauthUser = $client->getUserInfo($token);
+        $name = $this->mateName($type);
 
         return $this->render('RedwoodWebBundle:Login:bind-choose.html.twig', array(
             'oauthUser' => $oauthUser,
-            'client' => $client,
-            'hasPartnerAuth' => $this->getAuthService()->hasPartnerAuth(),
+            'type' => $type,
+            'name' => $name
         ));
+    }
+
+    protected function mateName($type)
+    {
+        switch ($type) {
+            case 'weixinweb':
+                return '微信注册帐号';
+                break;
+            case 'weixinmob':
+                return '微信注册帐号';
+                break;
+            case 'weibo':
+                return '微博注册帐号';
+                break;
+            case 'qq':
+                return 'QQ注册账号';
+                break;
+            case 'gitlab':
+                return 'Gitlab注册账号';
+                break;
+            default:
+                return '';
+        }
     }
 
     public function newAction(Request $request, $type)
@@ -156,7 +182,6 @@ class LoginBindController extends BaseController
 
     private function createOAuthClient($type)
     {
-        // $settings = $this->setting('login_bind');        
 
         // if (empty($settings)) {
         //     throw new \RuntimeException('第三方登录系统参数尚未配置，请先配置。');
@@ -172,8 +197,8 @@ class LoginBindController extends BaseController
 
         // $config = array('key' => $settings[$type.'_key'], 'secret' => $settings[$type.'_secret']);
         $config = array(
-                'key' => 'b0f7f837d4e2d4c72f83', 
-                'secret' => '3530f67effbbedb5f9900c9ec9709e536df70c8d'
+                'key' => '262d498f7852443e4400c4689358014d41fcae1987e21f3eca340beafbb37a4a', 
+                'secret' => '44027044a708dc7b641cf6ed62caf69616ef33d2516402f29b7c224a73d2d881'
             );
         $client = OAuthClientFactory::create($type, $config);
 

@@ -37,10 +37,19 @@ login_bind_new:
     defaults: { _controller: RedwoodWebBundle:LoginBind:new }
     methods: [POST]
 
+login_bind_newset:
+    pattern:  /login/bind/{type}/newset
+    defaults: { _controller: RedwoodWebBundle:LoginBind:newSet }
+    methods: [POST]
+
 login_bind_exist:
     pattern:  /login/bind/{type}/exist
     defaults: { _controller: RedwoodWebBundle:LoginBind:exist }
     methods: [POST]
+
+login_bind_change:
+    pattern: /login/bind/{type}/changetoexist
+    defaults: { _controller: RedwoodWebBundle:LoginBind:changeToExist }
 
 register_success:
     pattern:  /register/success/{id}/{hash}

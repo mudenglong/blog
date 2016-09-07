@@ -275,6 +275,21 @@ class UserServiceImpl extends BaseService implements UserService
         return UserSerialize::unserializes($users);
     }
 
+
+    /**
+     *
+     * 绑定第三方登录的帐号到系统中的用户帐号
+     *
+    */
+    public function getUserBindByTypeAndFromId($type, $fromId)
+    {
+        if ($type == 'weixinweb' || $type == 'weixinmob') {
+            $type = 'weixin';
+        }
+
+        return $this->getUserBindDao()->getBindByTypeAndFromId($type, $fromId);
+    }
+
     public function searchUserCount(array $conditions)
     {
         return $this->getUserDao()->searchUserCount($conditions);
@@ -315,6 +330,11 @@ class UserServiceImpl extends BaseService implements UserService
     }
 
     
+    protected function getUserBindDao()
+    {
+        return $this->createDao('User.UserBindDao');
+    }
+
     private function getUserDao()
     {
         return $this->createDao('User.UserDao');

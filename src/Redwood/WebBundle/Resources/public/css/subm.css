@@ -4299,3 +4299,62 @@ a .icon-flip-vertical:before {
     display: block;
     padding: 3px 15px;
 }
+
+
+
+.login-section {
+  margin: 50px auto;
+  width: 460px;
+  min-height: 400px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+@media (max-width: 767px) {
+  .login-section {
+    width: 100%;
+    margin: 20px auto;
+  }
+}
+.login-section.login-section-weixin {
+  min-height: 315px;
+}
+.login-section .logon-tab {
+  margin: -15px -15px 0 -15px;
+}
+.login-section .logon-tab > a {
+  display: block;
+  padding: 20px;
+  float: left;
+  width: 50%;
+  font-size: 16px;
+  text-align: center;
+  color: #616161;
+  background-color: #f5f5f5;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.login-section .logon-tab > a:hover {
+  background-color: #fafafa;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.login-section .logon-tab > a.active {
+  background-color: #fff;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.login-section .login-main {
+  padding: 40px 45px 20px 45px;
+}
+@media (max-width: 767px) {
+  .login-section .login-main {
+    padding: 20px 0 0 0;
+  }
+}

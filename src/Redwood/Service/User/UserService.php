@@ -41,4 +41,21 @@ interface UserService
 
     public function searchUsers(array $conditions, array $oderBy, $start, $limit);
 
+    /**
+     *
+     * 绑定第三方登录的帐号到系统中的用户帐号
+     *
+     */
+    // public function bindUser($type, $fromId, $toId, $token);
+
+    public function getUserBindByTypeAndFromId($type, $fromId);
+
+    // public function getUserBindByTypeAndUserId($type, $toId);
+
+    // public function getUserBindByToken($token);
+
+    // public function findBindsByUserId($userId);
+
+    // public function unBindUserByTypeAndToId($type, $toId);
+
 }

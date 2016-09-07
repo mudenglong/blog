@@ -81,7 +81,7 @@ define(function(require, exports, module) {
     ];
 
     exports.inject = function(jQuery) {
-        console.log('9090909090validate');
+        console.log('inject');
        
         jQuery.validator.setDefaults({
             errorClass: "valid-error"
