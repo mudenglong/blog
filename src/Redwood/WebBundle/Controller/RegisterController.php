@@ -7,7 +7,6 @@ use Redwood\WebBundle\Form\RegisterForm;
 
 class RegisterController extends BaseController
 {
-
     public function successAction(Request $request, $id, $hash) {
         $user = $this->checkHash($id, $hash);
         if (empty($user)) {
@@ -35,7 +34,10 @@ class RegisterController extends BaseController
 				$registration = $form->getData();
 				$user = $this->getUserService()->register($registration);
 				$this->authenticateUser($user);
-				$this->sendVerifyEmail($user);
+
+                if($this->container->getParameter('is_mail_server_open')){
+                    $this->sendVerifyEmail($user);
+                };
 				return $this->redirect($this->generateUrl('register_success', array(
                     'id' => $user['id'], 
                     'hash' => $this->makeHash($user),
@@ -59,6 +61,29 @@ class RegisterController extends BaseController
 
         $this->sendEmail($user['email'], $emailTitle, $emailBody, 'text/html');
     }
+
+    /*
+    * 第三方登录后会用到
+    */
+    public function usernameCheckAction(Request $request)
+    {
+        $username   = $request->query->get('value');
+        $randomName = $request->query->get('randomName');
+        list($result, $message) = $this->getAuthService()->checkUsername($username, $randomName);
+        return $this->validateResult($result, $message);
+    }
+
+    /*
+    * 第三方登录后会用到
+    */
+    public function emailCheckAction(Request $request)
+    {
+        $email = $request->query->get('value');
+        $email = str_replace('!', '.', $email);
+        list($result, $message) = $this->getAuthService()->checkEmail($email);
+        return $this->validateResult($result, $message);
+    }
+
 
     public function emailVerifyAction(Request $request, $token)
     {
@@ -88,6 +113,17 @@ class RegisterController extends BaseController
         return $this->render('RedwoodWebBundle:Register:email-verify-success.html.twig');
     }
 
+    protected function validateResult($result, $message)
+    {
+        if ($result == 'success') {
+            $response = array('success' => true, 'message' => '');
+        } else {
+            $response = array('success' => false, 'message' => $message);
+        }
+
+        return $this->createJsonResponse($response);
+    }
+
 	private function makeHash($user)
     {
         $string = $user['id'] . $user['email'] . $this->container->getParameter('secret');
@@ -107,5 +143,11 @@ class RegisterController extends BaseController
 
         return $user;
     }
+
+    protected function getAuthService()
+    {
+        return $this->getServiceKernel()->createService('User.AuthService');
+    }
+
 
 }

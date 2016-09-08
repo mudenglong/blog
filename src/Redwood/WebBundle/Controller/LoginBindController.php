@@ -1,6 +1,7 @@
 <?php
 namespace Redwood\WebBundle\Controller;
 
+use Redwood\Common\SimpleValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Redwood\Component\OAuthClient\OAuthClientFactory;
 
@@ -35,12 +36,8 @@ class LoginBindController extends BaseController
                 return $this->redirect($this->generateUrl('register'));
             }
             $this->authenticateUser($user);
-            if ($this->getAuthService()->hasPartnerAuth()) {
-                return $this->redirect($this->generateUrl('partner_login', array('goto'=>$request->getSession()->get('_target_path', ''))));
-            } else {
-                $goto = $request->getSession()->get('_target_path', '') ? : $this->generateUrl('homepage');
-                return $this->redirect($goto);
-            }
+            $goto = $request->getSession()->get('_target_path', '') ? : $this->generateUrl('homepage');
+            return $this->redirect($goto);
         } else {
             $request->getSession()->set('oauth_token', $token);
 
@@ -62,6 +59,59 @@ class LoginBindController extends BaseController
             'name' => $name
         ));
     }
+
+    public function newSetAction(Request $request, $type)
+    {
+        $setData = $request->request->all();
+        if (isset($setData['set_bind_emailOrMobile']) && !empty($setData['set_bind_emailOrMobile'])) {
+            if (SimpleValidator::email($setData['set_bind_emailOrMobile'])) {
+                $setData['email'] = $setData['set_bind_emailOrMobile'];
+            }
+
+            unset($setData['set_bind_emailOrMobile']);
+        }
+
+        $token = $request->getSession()->get('oauth_token');
+
+        if (empty($token)) {
+            $response = array('success' => false, 'message' => '页面已过期，请重新登录。');
+            goto response;
+        }
+
+        $client                 = $this->createOAuthClient($type);
+        $oauthUser              = $client->getUserInfo($token);
+        $oauthUser['createdIp'] = $request->getClientIp();
+        if (empty($oauthUser['id'])) {
+            $response = array('success' => false, 'message' => '网络超时，获取用户信息失败，请重试。');
+            goto response;
+        }
+
+        // if (!$this->getAuthService()->isRegisterEnabled()) {
+        //     $response = array('success' => false, 'message' => '注册功能未开启，请联系管理员！');
+        //     goto response;
+        // }
+        
+        $user = $this->generateUser($type, $token, $oauthUser, $setData);
+        if (empty($user)) {
+            $response = array('success' => false, 'message' => '登录失败，请重试！');
+            goto response;
+        }
+
+        $this->authenticateUser($user);
+
+        // if (!empty($oauthUser['avatar'])) {
+        //     $this->getUserService()->changeAvatarFromImgUrl($user['id'], $oauthUser['avatar']);
+        // }
+
+        $response = array('success' => true, '_target_path' => $this->generateUrl('jswidget_show'));
+
+        response:
+
+        return $this->createJsonResponse($response);
+    }
+
+
+
 
     protected function mateName($type)
     {
@@ -86,70 +136,20 @@ class LoginBindController extends BaseController
         }
     }
 
-    public function newAction(Request $request, $type)
+    protected function generateUser($type, $token, $oauthUser, $setData)
     {
-        $token = $request->getSession()->get('oauth_token');
+        $registration      = array();
 
-
-        if (empty($token)) {
-            $response = array('success' => false, 'message' => '页面已过期，请重新登录。');
-            goto response;
+        if (!empty($setData['username']) && !empty($setData['email'])) {
+            $registration['username']      = $setData['username'];
+            $registration['email']         = $setData['email'];
+        } else {
+            // @todo 之后完善 没有username 信息的 第三方登录
+            return;
         }
 
-        $client = $this->createOAuthClient($type);
-        $oauthUser = $client->getUserInfo($token);
-        $oauthUser['createdIp'] = $request->getClientIp();
-        
-        if (empty($oauthUser['id'])) {
-            $response = array('success' => false, 'message' => '网络超时，获取用户信息失败，请重试。');
-            goto response;
-        }
-
-        $user = $this->generateUser($type, $token, $oauthUser);
-        if (empty($user)) {
-            $response = array('success' => false, 'message' => '登录失败，请重试！');
-            goto response;
-        }
-
-        $this->authenticateUser($user);
-        $response = array('success' => true, '_target_path' => $request->getSession()->get('_target_path', $this->generateUrl('homepage')));
-
-        response:
-        return $this->createJsonResponse($response);
-    }
-
-    private function generateUser($type, $token, $oauthUser)
-    {
-        $registration = array();
-
-        $randString = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $oauthUser['name'] = str_replace(array('-'), array('_'), $oauthUser['name']);
-
-        $nameLength = mb_strlen($oauthUser['name'], 'utf-8');
-        if ($nameLength > 10) {
-            $oauthUser['name'] = mb_substr($oauthUser['name'], 0, 11, 'utf-8');
-        }
-
-        $nicknames = array();
-        $nicknames[] = $oauthUser['name'];
-        $nicknames[] = mb_substr($oauthUser['name'], 0, 8, 'utf-8') . '_' . substr($randString, 0, 3);
-        $nicknames[] = mb_substr($oauthUser['name'], 0, 8, 'utf-8') . '_' . substr($randString, 3, 3);
-        $nicknames[] = mb_substr($oauthUser['name'], 0, 8, 'utf-8') . '_' . substr($randString, 6, 3);
-
-        foreach ($nicknames as $name) {
-            if ($this->getUserService()->isNicknameAvaliable($name)) {
-                $registration['nickname'] = $name;
-                break;
-            }
-        }
-
-        if (empty($registration['nickname'])) {
-            return null;
-        }
-
-        $registration['email'] = 'u_' . substr($randString, 0, 12) . '@edusoho.net';
-        $registration['password'] = substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36), 0, 8);
-        $registration['token'] = $token;
+        $registration['password']  = substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36), 0, 8);
+        $registration['token']     = $token;
         $registration['createdIp'] = $oauthUser['createdIp'];
 
         $user = $this->getAuthService()->register($registration, $type);
@@ -196,9 +196,11 @@ class LoginBindController extends BaseController
         // }
 
         // $config = array('key' => $settings[$type.'_key'], 'secret' => $settings[$type.'_secret']);
+        $key = $this->container->getParameter('gitlab_key');
+        $secret = $this->container->getParameter('gitlab_secret');
         $config = array(
-                'key' => '262d498f7852443e4400c4689358014d41fcae1987e21f3eca340beafbb37a4a', 
-                'secret' => '44027044a708dc7b641cf6ed62caf69616ef33d2516402f29b7c224a73d2d881'
+                'key' => $key, 
+                'secret' => $secret
             );
         $client = OAuthClientFactory::create($type, $config);
 

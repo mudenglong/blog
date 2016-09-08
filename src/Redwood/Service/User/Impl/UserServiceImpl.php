@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
 use Redwood\Service\Common\BaseService;
 use Redwood\Service\User\UserService;
+use Redwood\Component\OAuthClient\OAuthClientFactory;
 
 use Redwood\Common\ArrayToolkit;
 
@@ -40,7 +41,8 @@ class UserServiceImpl extends BaseService implements UserService
         }
     }
 
-    public function getUserByUsername($username){
+    public function getUserByUsername($username)
+    {
         $user = $this->getUserDao()->findUserByUsername($username);
         if(!$user){
             return null;
@@ -67,27 +69,75 @@ class UserServiceImpl extends BaseService implements UserService
             throw $this->createServiceException('email error!');
         }
 
-        if (!$this->isEmailAvailable($registration['email'])) {
+        if (!$this->isEmailAvaliable($registration['email'])) {
             throw $this->createServiceException('Email已存在');
         }
 
-        if (!$this->isUsernameAvailable($registration['username'])) {
+        if (!$this->isUsernameAvaliable($registration['username'])) {
             throw $this->createServiceException('用户名已存在');
         }
-
         $user = array();
         $user['email'] = $registration['email'];
         $user['username'] = $registration['username'];
+        $user['emailVerified'] = 0;
         $user['roles'] =  array('ROLE_USER');
-        $user['createdTime'] = time();
-        //salt 加密
-        $user['salt'] = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $user['password'] = $this->getPasswordEncoder()->encodePassword($registration['password'], $user['salt']);
+        $user['createdIp'] = empty($registration['createdIp']) ? '' : $registration['createdIp'];
+
+        if (in_array($type, array('default', 'phpwind', 'discuz'))) {
+            $user['salt'] = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+
+            //salt 加密
+            $user['password'] = $this->getPasswordEncoder()->encodePassword($registration['password'], $user['salt']);
+            $user['setup']    = 1;
+        } elseif (in_array($type, array('qq', 'weibo', 'renren', 'weixinweb', 'weixinmob', 'gitlab')) ) {
+            $user['salt']     = '';
+            $user['password'] = '';
+            // $user['setup']    = 1;
+        } else {
+            $user['salt']     = '';
+            $user['password'] = '';
+            // $user['setup']    = 0;
+        }
         $user = UserSerialize::unserialize(
             $this->getUserDao()->addUser(UserSerialize::serialize($user))
         );
-
+        if ($type != 'default') {
+            $this->bindUser($type, $registration['token']['userId'], $user['id'], $registration['token']);
+        }
         return $user;
+    }
+
+    public function bindUser($type, $fromId, $toId, $token)
+    {
+        $user = $this->getUserDao()->getUser($toId);
+
+        if (empty($user)) {
+            throw $this->createServiceException('用户不存在，第三方绑定失败');
+        }
+
+        if (!$this->typeInOAuthClient($type)) {
+            throw $this->createServiceException("{$type}类型不正确，第三方绑定失败。");
+        }
+
+        if ($type == 'weixinweb' || $type == 'weixinmob') {
+            $type = 'weixin';
+        }
+
+        $this->getUserBindDao()->addBind(array(
+            'type'        => $type,
+            'fromId'      => $fromId,
+            'toId'        => $toId,
+            'token'       => empty($token['token']) ? '' : $token['token'],
+            'refreshToken'       => empty($token['refreshToken']) ? '' : $token['refreshToken'],
+            'createdTime' => time(),
+            'expiredTime' => empty($token['expiredTime']) ? 0 : $token['expiredTime']
+        ));
+    }
+
+    protected function typeInOAuthClient($type)
+    {   
+        $types = array_keys(OAuthClientFactory::clients());
+        return in_array($type, $types);
     }
 
     private function getPasswordEncoder()
@@ -123,7 +173,8 @@ class UserServiceImpl extends BaseService implements UserService
         return !!preg_match('/^[\x{4e00}-\x{9fa5}a-zA-z0-9_]+$/u', $value);
     }
 
-    public function isUsernameAvailable($username) {
+    public function isUsernameAvaliable($username) 
+    {
         if (empty($username)) {
             return false;
         }
@@ -131,12 +182,13 @@ class UserServiceImpl extends BaseService implements UserService
         return empty($user) ? true : false;
     }
 
-    public function isEmailAvailable($email) {
+    public function isEmailAvaliable($email) 
+    {
         if (empty($email)) {
             return false;
         }
-          $user = $this->getUserDao()->findUserByEmail($email);
-          return empty($user) ? true : false;
+        $user = $this->getUserDao()->findUserByEmail($email);
+        return empty($user) ? true : false;
     }
 
     public function makeToken($type, $userId = null, $expiredTime = null, $data = null)

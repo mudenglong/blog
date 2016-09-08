@@ -49,7 +49,7 @@ abstract class BaseController extends Controller
         $loginEvent = new InteractiveLoginEvent($this->getRequest(), $token);
         $this->get('event_dispatcher')->dispatch(SecurityEvents::INTERACTIVE_LOGIN, $loginEvent);
     }
-    
+
     protected function sendEmail ($receiver, $title, $body, $format = 'text/plain') {
         $siteName = $this->container->getParameter('site_name');
         $emailFrom = $this->container->getParameter('mailer_account');

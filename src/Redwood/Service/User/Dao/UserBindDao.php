@@ -14,7 +14,7 @@ interface UserBindDao
 
     // public function getBindByToken($token);
     
-    // public function addBind($bind);
+    public function addBind($bind);
 
     // public function deleteBind($id);
 

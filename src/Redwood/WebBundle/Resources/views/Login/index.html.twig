@@ -8,6 +8,7 @@
 {% endblock %}
 {% block wrapBox %}
 
+{#
 <form id="login-form" class="form-horizontal" method="post" action="{{ path('login_check') }}" style="width: 60%; margin: 0 auto; ">
 
     {% if error %}
@@ -40,7 +41,6 @@
         <div class="col-md-7 col-md-offset-2">
             <span>
                 <label> 
-                    {# <input type="checkbox" name="_remember_me" checked="checked"> 记住密码  #}
                     <input type="checkbox" name="_remember_me" checked="checked"> 记住密码 
                 </label>
             </span>
@@ -48,19 +48,12 @@
 
             <input type="hidden" name="_target_path" value="{{ path('jswidget_show') }}" />
 
-            {#
-            <input type="hidden" name="_target_path" value="{{ path('note_inbox_show') }}" />
-            #}
-
-            {#  {% if app.request.query.get('to') %}
-            <input type="hidden" name="_target_path" value="{{ app.request.query.get('to') }}" />
-            {% endif %} #}
             <button type="submit" >登录</button>
         </div>
     </div>
 
 </form>
-
+#}
 
 
 {% include 'RedwoodWebBundle:Login:social-logins-block.html.twig' %}

@@ -11,6 +11,10 @@ interface UserService
 
     public function findUsersByIds(array $ids);
 
+    public function isUsernameAvaliable($username);
+
+    public function isEmailAvaliable($email);
+
 
     /**
      * 用户注册

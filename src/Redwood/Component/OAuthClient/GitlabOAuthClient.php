@@ -13,12 +13,11 @@ class GitlabOAuthClient extends AbstractOAuthClient
         $params['response_type'] = 'code';
         $params['client_id'] = $this->config['key'];
         $params['redirect_uri'] = $callbackUrl;
-     
         return self::AUTHORIZE_URL . http_build_query($params);
     }
 
     public function getAccessToken($code, $callbackUrl)
-    {
+    {   
         $params = array(
             'client_id' => $this->config['key'], 
             'client_secret' => $this->config['secret'], 
@@ -30,13 +29,15 @@ class GitlabOAuthClient extends AbstractOAuthClient
       
         $result = $this->postRequest(self:: OAUTH_TOKEN_URL, $params);
         $token = json_decode($result, true);
+        $r = array();
 
         $user = $this->getUserInfo($token);
-        $token['userId'] = $user['id'];
-        $token['token'] = $token['access_token'];
-        $token['refreshToken'] = $token['refresh_token'];
-        $token['createdTime'] = $token['created_at'];
-        return $token;
+        $r['userId'] = $user['id'];
+        $r['token'] = $token['access_token'];
+        $r['access_token'] = $token['access_token'];
+        $r['refreshToken'] = $token['refresh_token'];
+        $r['createdTime'] = $token['created_at'];
+        return $r;
     }
 
     public function getUserInfo($token)

@@ -21,4 +21,30 @@ class OAuthClientFactory
     	$class = __NAMESPACE__ . '\\' .  ucfirst($type) . 'OAuthClient';
     	return new $class($config);
     }
+
+    public static function clients()
+    {
+        $clients = array(
+            'weibo' => array(
+                'name' => '微博帐号'
+            ),
+            'qq' => array(
+                'name' => 'QQ帐号'
+            ),
+            'renren' => array(
+                'name' => '人人帐号'
+            ),
+            'weixinweb' => array(
+                'name' => '微信网页登录接口'
+            ),
+            'weixinmob' => array(
+                'name' => '微信内分享登录接口'
+            ),
+            'gitlab' => array(
+                'name' => 'gitlab'
+            )
+        );
+
+        return $clients;
+    }
 }

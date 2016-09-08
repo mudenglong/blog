@@ -4358,3 +4358,40 @@ a .icon-flip-vertical:before {
     padding: 20px 0 0 0;
   }
 }
+
+
+
+
+.form-group .valid-error {
+    color: #a94442;
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.form-group label.valid-error{
+    box-shadow: none;
+}
+
+
+.social-logins{
+    text-align: center;
+}
+
+.gitlab-icon {
+    background: url(../img/gitlab690.png) no-repeat 0 0;
+    display: inline-block;
+    overflow: hidden;
+    background-size: 200px auto;
+    width: 200px;
+    height: 224px;
+    text-align: center;
+    padding-top: 200px;
+}
+
+
+
+

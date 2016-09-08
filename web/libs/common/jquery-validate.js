@@ -49,7 +49,7 @@ define(function(require, exports, module) {
             function (val) {
                 return /^[1-9]\d{4,}$/.test(val);
             },
-            '格式不正确'
+            'qq格式不正确'
         ],
         [
             'integer',
@@ -73,11 +73,31 @@ define(function(require, exports, module) {
                     success:function (response) {
                         commit[0](response.success, response.message);
                         returnMsg = response.success; 
-                    }});
+                }});
 
                 return returnMsg;
             }
-        ]
+        ],
+        [
+            'email_remotecheck',
+            function(val, options, commit) {
+                val = val.replace(/\./g, "!");
+                var returnMsg = true; 
+                var url = $(options).data('url') || null;
+                $.ajax({
+                    type:"get",
+                    url:url,
+                    data: {value:val},
+                    dataType:"json",
+                    async:false,
+                    success:function (response) {
+                        commit[0](response.success, response.message);
+                        returnMsg = response.success; 
+                }});
+
+                return returnMsg;
+            }
+        ],
     ];
 
     exports.inject = function(jQuery) {

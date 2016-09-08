@@ -1,6 +1,22 @@
+    
+
+<div id="content">
+<h1>Gitlab登录</h1>
+
+<section class="first">
+    <p>
+        考虑代码安全性, 只支持使用gitlab账号登录, 地址:<a href="http://gitlab.10jqka.com.cn/">同花顺 gitlab</a>. 需配置host: 172.20.204.80     gitlab.10jqka.com.cn
+    </p>
+
+    <p>
+        目前在gitlab上只支持 <strong>同花顺公司邮箱</strong> 注册.
+    </p>
 
     <div class="social-logins">
-      
-        <a href="{{ path('login_bind', {type:'gitlab', _target_path:targetPath|default('')}) }}" class="social-login-btn"><i class="social-icon social-icon-weibo"></i>git帐号登录</a>
+        <a class="gitlab-icon" href="{{ path('login_bind', {type:'gitlab', _target_path:targetPath|default('')}) }}" class="social-login-btn"><i class="social-icon social-icon-weibo"></i>点击登录</a>
       
     </div>
+</section>
+
+
+</div>

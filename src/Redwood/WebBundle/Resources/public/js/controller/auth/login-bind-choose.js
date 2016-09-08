@@ -1,65 +1,79 @@
 define(function(require, exports, module) {
-    // var Validator = require('bootstrap.validator');
-    // require('common/validator-rules').inject(Validator);
     var Notify = require('common/bootstrap-notify');
+    require('common/jquery-validate').inject($);
 
     exports.run = function() {
 
         var $form = $('#set-bind-new-form');
+        var $submitBtn = $('#set-bind-new-btn');
 
-        // var validator = new Validator({
-        //     element: $form,
-        //     autoSubmit: false,
-        //     onFormValidated: function(error, results, $form) {
+        $form.validate({
+            onsubmit:false,
+            // onfocusout:false,// 是否在获取焦点时验证 
+            onkeyup :false,// 是否在敲击键盘时验证 
+            rules: {
+                'username':{
+                    required: true,
+                    minlength: 6,
+                    maxlength: 18,
+                    alphanumeric:true,
+                    remotecheck:[function (a, b) {}]
+                },
+                'set_bind_emailOrMobile':{
+                    required: true,
+                    email:true,
+                    email_remotecheck:[function (a, b) {}]
+                }
+            },
+            messages:{
+                'username':{
+                    required: "用户名不能为空",
+                    minlength: "最少长度为6个字符",
+                    maxlength: "最长18个字符",
+                    remotecheck:'用户名已存在,可选择"绑定已有账号"或重新输入'
+                },
+                'set_bind_emailOrMobile':{
+                    required: "邮箱不能为空",
+                    email:"邮箱格式有误",
+                    email_remotecheck:'该邮箱已注册, 可选择"绑定已有账号"或重新输入'
+                }
+            }
+        });
 
-        //         if (error) {
-        //             return false;
-        //         }
-        //         if(!$('#user_terms').find('input[type=checkbox]').attr('checked')) {
-        //          Notify.danger('勾选同意此服务协议，才能继续注册！');
-        //          return ;
-        //         }
-        //         $form.find('[type=submit]').button('loading');
-        //         $("#bind-new-form-error").hide();
+        $form.on('submit', function(event) {
+            event.preventDefault();
 
-        //         $.post($form.attr('action'), $form.serialize(), function(response) {
-        //             if (!response.success) {
-        //                 $('#bind-new-form-error').html(response.message).show();
-        //                 return ;
-        //             }
-        //             Notify.success('登录成功，正在跳转至首页！');
-        //             window.location.href = response._target_path;
+            if ($form.valid()) {
+                $form.find('[type=submit]').button('loading');
+                $("#bind-new-form-error").hide();
 
-        //         }, 'json').fail(function() {
-        //             Notify.danger('登录失败，请重新登录后再试！');
-        //         }).always(function() {
-        //            $form.find('button[type=submit]').button('reset');
-        //         });
-        //     }
-        // });
+                $.post($form.attr('action'), $form.serialize(), function(response) {
+                    console.log(response);
+                    debugger;
+                    if (!response.success) {
+                        $('#bind-new-form-error').html(response.message).show();
+                        return ;
+                    }
+                    Notify.success('登录成功，正在跳转至首页！');
+                    window.location.href = response._target_path;
 
-         $('#user_terms input[type=checkbox]').on('click', function() {
-             if($(this).attr('checked')) {
+                }, 'json').fail(function() {
+                    Notify.danger('登录失败，请重新登录后再试！');
+                }).always(function() {
+                   $form.find('button[type=submit]').button('reset');
+                });
+            }
+        });
+
+        // checkbox 这里我影藏了
+        $('#user_terms input[type=checkbox]').on('click', function() {
+            if($(this).attr('checked')) {
                  $(this).attr('checked',false);
-             } else {
-                 $(this).attr('checked',true);
-             };
-         });
-
-        // if($("#set_bind_email").val() == ''){
-        //     validator.addItem({
-        //         element: '#set_bind_email',
-        //         required: true,
-        //         rule: 'email email_remote'
-        //     });
-        // }
-
-        // validator.addItem({
-        //     element: '#set-bind-nickname-field',
-        //     required: true,
-        //     rule: 'chinese_alphanumeric byte_minlength{min:4} byte_maxlength{max:18} remote'
-        // });
-
+            } else {
+                $(this).attr('checked',true);
+            };
+        });
+       
     };
 
 });

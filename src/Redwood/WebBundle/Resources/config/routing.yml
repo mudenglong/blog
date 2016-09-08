@@ -6,10 +6,6 @@ testjs:
     pattern: /testjs/home
     defaults: { _controller: RedwoodWebBundle:Default:testhome }
 
-register:
-    pattern:  /register
-    defaults: { _controller: RedwoodWebBundle:Register:index }
-
 login:
     pattern:  /login
     defaults: { _controller: RedwoodWebBundle:Login:index }
@@ -51,6 +47,10 @@ login_bind_change:
     pattern: /login/bind/{type}/changetoexist
     defaults: { _controller: RedwoodWebBundle:LoginBind:changeToExist }
 
+register:
+    pattern:  /register
+    defaults: { _controller: RedwoodWebBundle:Register:index }
+
 register_success:
     pattern:  /register/success/{id}/{hash}
     defaults: { _controller:  RedwoodWebBundle:Register:success }
@@ -58,6 +58,14 @@ register_success:
 register_email_verify:
     pattern:  /register/email/verify/{token}
     defaults: { _controller: RedwoodWebBundle:Register:emailVerify }
+
+register_username_check:
+    pattern:  /register/username/check
+    defaults: { _controller: RedwoodWebBundle:Register:usernameCheck }
+
+register_email_check:
+    pattern:  /register/email/check
+    defaults: { _controller: RedwoodWebBundle:Register:emailCheck }
 
 password_reset:
     pattern:  /password/reset
