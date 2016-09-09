@@ -31,7 +31,7 @@
         <div class="controls">
           <input id="set-bind-username-field" class="form-control input-lg" type="text" name="username" value="{{ oauthUser.username }}" 
           data-url="{{ path('register_username_check') }}"/>
-          <p class="help-block">{{'起名什么的最麻烦了...'}}</p>
+          <p class="help-block">{{'用户名创建后,现暂不支持修改'}}</p>
         </div>
       </div>
       {# {% if setting('login_bind.' ~ type ~ '_set_fill_account') %} #}
@@ -54,7 +54,7 @@
           <div class="col-xs-6">
             <button id="set-bind-new-btn" class="btn btn-primary btn-lg btn-block" type='submit' data-loading-text="{{'正在登录'}}...">{{'注册帐号'}}</button>
           </div>
-          <div class="col-xs-6">
+          <div class="col-xs-6" style="display:none;">
             <a class="btn btn btn-default btn-lg btn-block" href="{{ path('login_bind_change', {type: type}) }}">{{'绑定已有帐号'}}</a>
           </div>
         </div>
