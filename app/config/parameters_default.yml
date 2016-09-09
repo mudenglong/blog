@@ -4,6 +4,7 @@ parameters:
     site_url: www.111dev.com
     is_mail_server_open: false
 
+    third_login_password: 12345678
     weibo_key: testdata
     qq_key: testdata
     gitlab_key: 262d498f7852443e4400c4689358014d41fcae1987e21f3eca340beafbb37a4a

@@ -17,7 +17,7 @@ class UserProvider implements UserProviderInterface {
     }
 
     public function loadUserByUsername ($username) {
-        $user = $this->getUserService()->getUserByUsername($username);
+        $user = $this->getUserService()->getUserByLoginField($username);
         if (empty($user)) {
             throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
         }

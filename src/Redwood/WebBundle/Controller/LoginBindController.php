@@ -36,7 +36,7 @@ class LoginBindController extends BaseController
                 return $this->redirect($this->generateUrl('register'));
             }
             $this->authenticateUser($user);
-            $goto = $request->getSession()->get('_target_path', '') ? : $this->generateUrl('homepage');
+            $goto = $request->getSession()->get('_target_path', '') ? : $this->generateUrl('jswidget_show');
             return $this->redirect($goto);
         } else {
             $request->getSession()->set('oauth_token', $token);
@@ -143,12 +143,16 @@ class LoginBindController extends BaseController
         if (!empty($setData['username']) && !empty($setData['email'])) {
             $registration['username']      = $setData['username'];
             $registration['email']         = $setData['email'];
+
+            // 系统默认给一个密码
+            $password = $this->container->getParameter('third_login_password');
+            $registration['password'] = $password;
         } else {
             // @todo 之后完善 没有username 信息的 第三方登录
             return;
         }
 
-        $registration['password']  = substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36), 0, 8);
+        // $registration['password']  = substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36), 0, 8);
         $registration['token']     = $token;
         $registration['createdIp'] = $oauthUser['createdIp'];
 

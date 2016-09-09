@@ -9,6 +9,8 @@ interface UserService
 
 	public function getUserByUsername($username);
 
+    public function getUserByLoginField($keyword);
+    
     public function findUsersByIds(array $ids);
 
     public function isUsernameAvaliable($username);

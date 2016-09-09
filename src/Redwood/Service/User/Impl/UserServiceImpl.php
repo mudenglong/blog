@@ -9,6 +9,7 @@ use Redwood\Service\User\UserService;
 use Redwood\Component\OAuthClient\OAuthClientFactory;
 
 use Redwood\Common\ArrayToolkit;
+use Redwood\Common\SimpleValidator;
 
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
@@ -51,6 +52,17 @@ class UserServiceImpl extends BaseService implements UserService
         }
     }
 
+    public function getUserByLoginField($keyword)
+    {
+        if (SimpleValidator::email($keyword)) {
+            $user = $this->getUserDao()->findUserByEmail($keyword);
+        } else {
+            $user = $this->getUserDao()->findUserByUsername($keyword);
+        }
+
+        return !$user ? null : UserSerialize::unserialize($user);
+    }
+
     public function findUsersByIds(array $ids)
     {
         $users = UserSerialize::unserializes(
@@ -83,15 +95,15 @@ class UserServiceImpl extends BaseService implements UserService
         $user['roles'] =  array('ROLE_USER');
         $user['createdIp'] = empty($registration['createdIp']) ? '' : $registration['createdIp'];
 
+        $user['salt'] = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         if (in_array($type, array('default', 'phpwind', 'discuz'))) {
-            $user['salt'] = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
 
             //salt 加密
             $user['password'] = $this->getPasswordEncoder()->encodePassword($registration['password'], $user['salt']);
-            $user['setup']    = 1;
+            // $user['setup']    = 1;
         } elseif (in_array($type, array('qq', 'weibo', 'renren', 'weixinweb', 'weixinmob', 'gitlab')) ) {
-            $user['salt']     = '';
-            $user['password'] = '';
+            // $user['password'] = '';
+            $user['password'] = $this->getPasswordEncoder()->encodePassword($registration['password'], $user['salt']);
             // $user['setup']    = 1;
         } else {
             $user['salt']     = '';

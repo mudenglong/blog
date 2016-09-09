@@ -35,7 +35,7 @@ class LoginController extends BaseController
         }
 
         if ($targetPath == $this->generateUrl('login', array(), true)) {
-            return $this->generateUrl('homepage');
+            return $this->generateUrl('jswidget_show');
         }
 
         $url = explode('?', $targetPath);
