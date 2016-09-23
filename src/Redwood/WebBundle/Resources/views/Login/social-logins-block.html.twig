@@ -1,18 +1,25 @@
     
 
 <div id="content">
-<h1>Gitlab登录</h1>
+<h1>请前往Gitlab登录</h1>
 
 <section class="first">
     <p>
-        考虑代码安全性, 只支持使用gitlab账号登录, 地址:<a href="http://gitlab.10jqka.com.cn/">同花顺 gitlab</a>. 需配置host: 172.20.204.80     gitlab.10jqka.com.cn
+        1. 如果您还没有在<a href="http://gitlab.10jqka.com.cn/">同花顺Gitlab http://gitlab.10jqka.com.cn/</a>, 请先前往注册.
+    </p>
+    <p class="gitlab-p">
+        需配置host: 172.20.204.80     gitlab.10jqka.com.cn
+    </p>
+    <p class="gitlab-p">
+        只支持 <strong style="color:#BE0000;">同花顺公司邮箱</strong> 注册
     </p>
 
-    <p>
-        目前在gitlab上只支持 <strong>同花顺公司邮箱</strong> 注册.
+    <p style="margin-top:20px;">
+        2. 如果您已注册, 请点击下方"狐狸"图标绑定该账号
     </p>
 
     <div class="social-logins">
+        <div class="social-logins-director">引导图片</div>
         <a class="gitlab-icon" href="{{ path('login_bind', {type:'gitlab', _target_path:targetPath|default('')}) }}" class="social-login-btn"><i class="social-icon social-icon-weibo"></i>点击登录</a>
       
     </div>

@@ -111,7 +111,6 @@ class JswidgetServiceImpl extends BaseService implements JswidgetService
         if ($orderBy) {
             $filters = $this->convertFiltersToOrderBy($orderBy);
         }
-
         $jswidget = $this->getJswidgetDao()->searchJswidget($conditions, $filters, $start, $limit);
 
         return $jswidget;

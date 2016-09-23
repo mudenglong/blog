@@ -1,27 +1,35 @@
 define(function(require, exports, module) {
-    require('jquery.validate')($);
+    require('common/jquery-validate').inject($);
 
     require('jquery.select2-css');
     require('jquery.select2');
 
     exports.run = function() {
         
-
+        console.log('kkkkkkkk');
         $("#jswidgetForm").validate({
             rules: {
-                'jswidget_title': {
+                'title': {
                     required: true,
                     minlength: 2
                 },
-    
-                'jswidget_url': "required",
+                'url': {
+                    required: true,
+                    ths_gitlab_email:[function (url) {
+                        var visitUrl = url.replace(/(?:gitlab)/, function(s0, s1){ return 'demo'; });
+                        $('#jswidget_iframeUrl').val(visitUrl);
+                    }]
+                },
             },
             messages: {
-                'jswidget_title':{
+                'title':{
                     required: "请输入标题",
                     minlength: "标题的最小长度为2"
                 },
-                'jswidget_url': "请输入URL",
+                'url': {
+                    required:"请输入URL",
+                    ths_gitlab_email:"地址不符合gitlab格式"
+                }
             }
         });
 

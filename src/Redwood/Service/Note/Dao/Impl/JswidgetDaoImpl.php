@@ -93,6 +93,8 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
             ->from($this->table, 'jswidget')
             ->andWhere('title LIKE :title')
             ->andWhere('tags LIKE :tagsLike')
+            ->andWhere('compatible = :compatible')
+            ->andWhere('type = :type')
             ->andWhere('userId = :userId');
     }
 

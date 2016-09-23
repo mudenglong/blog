@@ -15,7 +15,7 @@
 
     <h3>{% if jswidget %}编辑{% else %}添加{% endif %}组件</h3>
     <p>
-        在测试服务器127.20.204.24 请务必先上传您的组件 <a href="javascript:;">如何上传组件</a>
+        请先在gitlab上传您的组件 <a href="{{ path('jswidget_manual') }}">如何上传组件</a>
     </p>
 
     <form id="jswidgetForm" method="POST" class="form-horizontal" 
@@ -49,7 +49,7 @@
             
             <div class="col-md-7 controls">
                 <input type="text" id="jswidget_url" name="url" data-display="url" class="form-control" value="{{ jswidget.url|default('') }}">
-                <div class="help-block">仅作者可以看见此目录</div>
+                <div class="help-block">例如:http://gitlab.10jqka.com.cn/YourName/firstWidget</div>
             </div>
         </div>
 

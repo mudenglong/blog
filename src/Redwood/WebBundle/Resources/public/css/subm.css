@@ -808,7 +808,8 @@ ul.packages li .meta {
     position: absolute;
     right: 10px;
     text-transform: uppercase;
-    top: 14px
+    top: 14px;
+    float:right;
 }
 
 @media (max-width: 1050px) {
@@ -4385,11 +4386,58 @@ a .icon-flip-vertical:before {
     background: url(../img/gitlab690.png) no-repeat 0 0;
     display: inline-block;
     overflow: hidden;
-    background-size: 200px auto;
-    width: 200px;
-    height: 224px;
+    background-size: 100px auto;
+    width: 100px;
+    /* height: 224px; */
     text-align: center;
-    padding-top: 200px;
+    padding-top: 100px;
+    margin-top: 62px;
+    float: left;
+    margin-left: 24px;
+}
+.gitlab-p{
+    margin-bottom: 2px;
+    color: #333;
+    font-size: 12px;
+}
+.social-logins-director{
+
+    background: url(../img/login.jpg) no-repeat 0 0;
+        width: 479px;
+        height: 276px;
+        text-indent: -999em;
+        float: left;
+        display: block;
+}
+
+
+
+a.versions, a.platforms {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .85em;
+    padding: 1px 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+a.versions{
+ white-space: nowrap
+}
+ul.packages li a.versions, ul.packages li a.platforms{
+    margin-right: 10px; 
+}
+a.versions.only {
+    background-color:#AABF7C;
+    color: #fff
+}
+a.versions.both {
+    background-color: #F1C090;
+    color: #fff
+}
+a.versions.onlycss {
+    background-color: #bbb;
+    color: #fff;
 }
 
 

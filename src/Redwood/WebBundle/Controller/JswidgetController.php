@@ -110,12 +110,14 @@ class JswidgetController extends BaseController
     public function searchAction(Request $request, $filter) {
 
         $jswidgets = $paginator = null; 
-        $currentUser = $this->getCurrentUser();
         $data = array();
         $data['widgets'] = array();
         $sort = 'latest';
         $conditions = array();
-
+        // 所有兼容性compatible 字段
+        $compatibleArr = array( 'unsure','pc6','all', 'pc7','mobile');
+        // 所有type
+        $typeArr = array( 'js','css');
 
         if ($filter == 'normal') {
             $keywords = $request->query->get('q');
@@ -127,6 +129,15 @@ class JswidgetController extends BaseController
             $conditions = array();
         }elseif ($filter == 'viewest') {
             $sort = 'viewest';
+        }elseif(in_array($filter, $compatibleArr)){
+            $conditions = array(
+                'compatible'      => $filter
+            );
+            $sort = 'viewest';
+        }elseif(in_array($filter, $typeArr)){
+            $conditions = array(
+                'type'      => $filter
+            );
         }
 
         $res = $this->searchNormal($conditions, $sort);

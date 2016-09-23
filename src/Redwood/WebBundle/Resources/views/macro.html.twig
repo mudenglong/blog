@@ -35,13 +35,13 @@
     {% if jswidget %}
 
         {% if jswidget.compatible == 'all' %}
-            <span class="versions both" title="全平台支持">全{% if not compatibleLimit %}平台{% endif %}</span>
+            <a class="versions both" title="全平台支持" href="{{ path('jswidget_search', {filter:jswidget.compatible}) }}">全{% if not compatibleLimit %}平台{% endif %}</a>
         {% elseif jswidget.compatible == 'pc6' %}
-            <span class="versions only" title="只支持电脑IE6以上">pc6</span>
+            <a class="versions only" title="只支持电脑IE6以上" href="{{ path('jswidget_search', {filter:jswidget.compatible}) }}">pc6</a>
         {% elseif jswidget.compatible == 'pc7' %}
-            <span class="versions only" title="只支持电脑IE7以上">pc7</span>
+            <a class="versions only" title="只支持电脑IE7以上" href="{{ path('jswidget_search', {filter:jswidget.compatible}) }}">pc7</a>
         {% elseif jswidget.compatible == 'mobile' %}
-            <span class="versions only" title="只支持各类手机">手{% if not compatibleLimit %}机{% endif %}</span>
+            <a class="versions only" title="只支持各类手机" href="{{ path('jswidget_search', {filter:jswidget.compatible}) }}">手{% if not compatibleLimit %}机{% endif %}</a>
         {% endif %}
    
     {% endif %}
@@ -51,7 +51,7 @@
 {% macro jswidget_type(jswidget) %}
     {% if jswidget %}
         {% if jswidget.type == 'css' %}
-            <span class="versions onlycss" title="样式-css3">样式-css3</span>
+            <a class="versions onlycss" title="样式-css3" href="{{ path('jswidget_search', {filter:'css'}) }}">样式-css3</a>
         {% endif %}
    
     {% endif %}

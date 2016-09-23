@@ -59,6 +59,17 @@ define(function(require, exports, module) {
             '必须为整数'
         ],
         [
+            'ths_gitlab_email',
+            function (val, options, commit) {
+                var isEmail = /gitlab.10jqka.com.cn\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+/.test(val);
+                if (isEmail) {
+                    commit[0](val);
+                }
+                return isEmail;
+            },
+            'gitlab地址不正确'
+        ],
+        [
             'remotecheck',
             function(val, options, commit) {
           

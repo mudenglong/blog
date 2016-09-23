@@ -226,17 +226,17 @@ define(function(require, exports, module) {
         	if (s1 === 'compatible' && d[s1]) {
         		temp = d[s1];
         		if (temp === 'all') {
-        			return '<span class="versions both" title="全平台支持">全平台</span>';
+        			return '<a href="'+window.location.origin+'/jswidget/search/'+temp+'" class="versions both" title="全平台支持">全平台</a>';
         		}else if(temp === 'pc6'){
-        			return '<span class="versions only" title="只支持电脑IE6以上">pc6</span>';
+        			return '<a href="'+window.location.origin+'/jswidget/search/'+temp+'" class="versions only" title="只支持电脑IE6以上">pc6</a>';
         		}else if(temp === 'pc7'){
-        			return '<span class="versions only" title="只支持电脑IE7以上">pc7</span>';
+        			return '<a href="'+window.location.origin+'/jswidget/search/'+temp+'" class="versions only" title="只支持电脑IE7以上">pc7</a>';
         		}else if(temp === 'mobile'){
-        			return '<span class="versions only" title="只支持各类手机">手机</span>';
+        			return '<a href="'+window.location.origin+'/jswidget/search/'+temp+'" class="versions only" title="只支持各类手机">手机</a>';
         		}
         		return '';
         	}else if(s1 === 'type'){
-        		return d[s1] === 'css'?'<span class="versions onlycss" title="样式-css3">样式-css3</span>':'';
+        		return d[s1] === 'css'?'<a href="'+window.location.origin+'/jswidget/search/'+s1+'" class="versions onlycss" title="样式-css3">样式-css3</a>':'';
         	}
 			return d[s1];
 		});
