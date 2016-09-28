@@ -2,6 +2,8 @@
 {% extends 'RedwoodWebBundle::webLayout.html.twig' %}
 
 
+{% set script_controller = 'jswidget/content' %}
+
 {% set navclass = 'package' %}
 {% block wrapBox %}
     
@@ -80,17 +82,8 @@
     </div>
     <div style="clear: both">
     </div>
-    
-    <div id="readme"> 
-        <h2>Readme</h2>  
-        <div class="contents">  
-            {{ jswidget.content|default('还没有详细介绍') }} 
-        </div>
-    </div>
 
     {% if jswidget.iframeUrl %}
-
-  
     <div> 
         <h2>Iframe 预览 <span><a style="border-bottom: 1px solid #eee;
     color: #555E69; font-size:14px;" href="{{ jswidget.iframeUrl }}" target="_blank">新窗口打开</a></span></h2> 
@@ -99,6 +92,17 @@
         </div>
     </div>
     {% endif %} 
+    
+    <div id="readme"> 
+        <h2>Readme</h2>
+
+        <textarea id="markdownContent">{{ jswidget.content|default('还没有详细介绍') }}</textarea>
+
+        <!-- <div class="contents" id="jswidgetContent"></div> -->
+
+    </div>
+
+    
 
     
 </div>

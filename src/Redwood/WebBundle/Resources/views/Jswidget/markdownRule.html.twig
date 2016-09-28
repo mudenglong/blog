@@ -1,0 +1,240 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+
+{% set nav = 'markdown' %}
+{% block wrapBox %}
+
+<link rel="stylesheet" href="{{ asset('bundles/redwoodweb/css/markdown1.css') }}"> 
+
+
+
+
+
+
+
+
+<title>markdown</title></head><body><article class="markdown-body"><div class="toc">
+<ul>
+<li><a href="#_1">前言</a></li>
+<li><a href="#_2">链接/图片</a><ul>
+<li><a href="#1">1. &ldquo;总写&rdquo;, 用数字或特殊字符标记</a></li>
+<li><a href="#2">2. 直接在后面加</a></li>
+</ul>
+</li>
+<li><a href="#head">Head 标题</a></li>
+<li><a href="#_3">目录</a></li>
+<li><a href="#tag">tag</a></li>
+<li><a href="#_4">引用</a></li>
+<li><a href="#list">list</a><ul>
+<li><a href="#_5">“ * ”</a></li>
+<li><a href="#_6">数字</a></li>
+<li><a href="#-">&lsquo; - &lsquo;:可支持多层级 上下要空行</a></li>
+<li><a href="#_7">列表下面加内容 ，内容也要缩进 才行</a></li>
+</ul>
+</li>
+<li><a href="#_8">特别字体效果</a></li>
+<li><a href="#_9">填充代码</a></li>
+<li><a href="#table">table</a></li>
+</ul>
+</div>
+<h2 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前言</h2>
+<p>组件内容编辑使用的是 <code>markdown</code> 编辑器</p>
+<p>也是现在比较主流 的代码编辑器</p>
+<p>tip: 如果在担心在网页中编辑,容易遇到突发情况,内容遗失, 也可以使用 sumblime 中的扩展包 &ldquo;Markdown Preview&rdquo;</p>
+<p>每个markdown解析器略有不同，基本用法是差不多的</p>
+<h2 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>链接/图片</h2>
+<p>图片与链接<br />
+插入链接与插入图片的语法很像，区别在一个 !号</p>
+<p>图片为：</p>
+<pre><code>![]()
+</code></pre>
+<p>链接为：</p>
+<pre><code>[]()
+</code></pre>
+<h3 id="1"><a name="user-content-1" href="#1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1. &ldquo;总写&rdquo;, 用数字或特殊字符标记</h3>
+<pre><code class="md">
+The code is available at github [project][home] under [MIT licence][1].
+
+[home]: https://github.com/revolunet/sublimetext-markdown-preview
+
+[1]: https://sublime.wbond.net/
+
+</code></pre>
+
+<h3 id="2"><a name="user-content-2" href="#2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. 直接在后面加</h3>
+<pre><code class="md">
+[GFM &quot;fenced&quot; code blocks](https://help.github.com/articles/github-flavored-markdown#syntax-highlighting)
+[sublime-markdown-extended](https://github.com/jonschlinkert/sublime-markdown-extended)
+
+</code></pre>
+
+<h2 id="head"><a name="user-content-head" href="#head" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Head 标题</h2>
+<p>head的设置直接影响 最后<code>目录</code>生成.</p>
+<pre><code class="md">
+##   // 表示 二级标题
+###  // 表示 三级标题 
+
+</code></pre>
+
+<h2 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>目录</h2>
+<p>在md文件开始位置 加入 <code>[TOC]</code> 即可.(这条我们站点的解析器不支持)</p>
+<h2 id="tag"><a name="user-content-tag" href="#tag" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>tag</h2>
+<p>下面是一个例子，其他的tag可以去网上找</p>
+<pre><code class="md">
+&lt;kbd&gt;enter&lt;/kbd&gt;      // 表示 一个 按钮 里面内容是 enter
+
+</code></pre>
+
+<h2 id="_4"><a name="user-content-_4" href="#_4" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>引用</h2>
+<p>如果你需要引用一小段别处的句子，那么就要用引用的格式。</p>
+<p>例如这样<br />
+只需要在文本前加入 &gt; 这种尖括号（大于号）即可</p>
+<h2 id="list"><a name="user-content-list" href="#list" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>list</h2>
+<p>列表，可用  “ * ” ， 数字 ，“ - ”引用 <code>符号要和文字之间加上一个字符的空格</code></p>
+<h3 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>“ * ”</h3>
+<pre><code class="md">* Select &quot;Install Package&quot; from the Command Palette: &lt;kbd&gt;Ctrl+Shift+P&lt;/kbd&gt; on Windows and Linux or &lt;kbd&gt;⇧⌘P&lt;/kbd&gt; on OS X)
+
+* Search for &quot;**Markdown Extended**&quot; and click &lt;kbd&gt;enter&lt;/kbd&gt;.
+
+</code></pre>
+
+<h3 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>数字</h3>
+<pre><code class="md">GFM does not auto guess language in fenced blocks, but Markdown Preview does this by default.  You can fix this in one of two ways:
+
+1. Disable auto language guessing in the settings file `&quot;guess_language&quot;: false,`
+2. Or if you are manually defining extensions: `&quot;enabled_extensions&quot;: [&quot;codehilite(guess_lang=False,pygments_style=github)&quot;]`
+
+    As mentioned earlier, almost all extensions are enabled by default, but as a reference, the minimum extensions that should be enabled are listed below:
+
+</code></pre>
+
+<h3 id="-"><a name="user-content--" href="#-" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>&lsquo; - &lsquo;:可支持多层级 上下要空行</h3>
+<pre><code class="md"> - optionally select some of your markdown for conversion
+
+ - use `cmd+shift+P` then `Markdown Preview` to show the follow commands (you will be prompted to select which parser you prefer):
+
+    - Markdown Preview: Preview in Browser
+
+    - Markdown Preview: Export HTML in Sublime Text
+
+    - Markdown Preview: Copy to Clipboard
+
+    - Markdown Preview: Open Markdown Cheat sheet
+
+ - or bind some key in your user key binding, using a line like this one:
+
+   `{ &quot;keys&quot;: [&quot;alt+m&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: {&quot;target&quot;: &quot;browser&quot;, &quot;parser&quot;:&quot;markdown&quot;} },` for a specific parser and target or `{ &quot;keys&quot;: [&quot;alt+m&quot;], &quot;command&quot;: &quot;markdown_preview_select&quot;, &quot;args&quot;: {&quot;target&quot;: &quot;browser&quot;} },` to bring up the quick panel to select enabled parsers for a given target.
+
+ - once converted a first time, the output HTML will be updated on each file save (with LiveReload plugin)
+
+</code></pre>
+
+<h3 id="_7"><strong>列表下面加内容 ，内容也要缩进 才行</strong></h3>
+<p>效果：   </p>
+<ul>
+<li>
+<p>This is a list item with two paragraphs.<br />
+    This is the second paragraph in the list item. You&rsquo;re<br />
+only required to indent the first line. Lorem ipsum dolor<br />
+sit amet, consectetuer adipiscing elit.</p>
+</li>
+<li>
+<p>Another item in the same list.</p>
+</li>
+</ul>
+<p>写法：</p>
+<pre><code class="md">* This is a list item with two paragraphs.
+    This is the second paragraph in the list item. You're
+only required to indent the first line. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit.
+
+* Another item in the same list.
+
+</code></pre>
+
+<h2 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>特别字体效果</h2>
+<p>加粗</p>
+<pre><code>**Markdown Extended**
+</code></pre>
+<p>斜体</p>
+<pre><code>*Markdown*
+</code></pre>
+<p>加背景色 ``， 通常是<code>非代码区域</code>引用了代码，或者重要内容</p>
+<pre><code class="javascript">
+`function a()`
+
+</code></pre>
+
+<p>划掉文字效果：<del>crossed out</del></p>
+<pre><code class="md">~~crossed out~~
+
+</code></pre>
+
+<p>下划线  <ins>underlined</ins></p>
+<pre><code class="md">&lt;ins&gt;underlined&lt;/ins&gt;
+
+</code></pre>
+
+<h2 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>填充代码</h2>
+<pre><code class="yaml">---
+
+    # Meta Data
+    title: Test Page
+    author:
+        - John Doe
+        - Jane Doe
+    # Settings overrides
+    settings:
+        enabled_extensions:
+        - extra
+        - codehilite(guess_lang=False,pygments_style=github)
+---
+</code></pre>
+
+<h2 id="table"><a name="user-content-table" href="#table" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>table</h2>
+<p>效果：</p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>magiclink</td>
+<td>Find and convert HTML links and email address to links (<a href="http://facelessuser.github.io/PyMdown/Extensions/MagicLink.html">MagicLink Documentation</a>).</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>Surround inline text with <code>~~crossed out~~</code> to get del tags <del>crossed out</del>.</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>Surround inline text with <code>^^underlined^^</code> to get ins tags <ins>underlined</ins>.</td>
+</tr>
+<tr>
+<td>tasklist</td>
+<td>Github Flavored Markdown tasklists (<a href="http://facelessuser.github.io/PyMdown/Extensions/Tasklist.html">Tasklist Documentation</a>).</td>
+</tr>
+</tbody>
+</table>
+<p>写法： （行之间的空行去掉）</p>
+<pre><code class="md">    | Extension | Documentation |
+
+    |-----------|---------------|
+
+    | magiclink | Find and convert HTML links and email address to links ([MagicLink Documentation](http://facelessuser.github.io/PyMdown/Extensions/MagicLink.html)). |
+
+    | delete | Surround inline text with `~~crossed out~~` to get del tags ~~crossed out~~. |
+
+    | insert | Surround inline text with `^^underlined^^` to get ins tags &lt;ins&gt;underlined&lt;/ins&gt;. |
+
+    | tasklist | Github Flavored Markdown tasklists ([Tasklist Documentation](http://facelessuser.github.io/PyMdown/Extensions/Tasklist.html)). |
+
+</code></pre>
+
+</article>
+        
+{% endblock %}

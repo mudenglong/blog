@@ -1,13 +1,33 @@
 define(function(require, exports, module) {
     require('common/jquery-validate').inject($);
 
+
+    require('markdown');
+    require('highlight');
+    require('markdown-css');
+    require('highlight-css');
+
+
     require('jquery.select2-css');
     require('jquery.select2');
 
     exports.run = function() {
-        
-        console.log('kkkkkkkk');
-        $("#jswidgetForm").validate({
+
+        // markdown
+        var simplemde = new SimpleMDE({
+            element: document.getElementById("jswidget_content"),
+            spellChecker: false,
+            toolbar: ["bold", "italic", "heading", "|", "quote", "link", "image", "|", "preview", "side-by-side", "fullscreen" ],
+            renderingConfig: {
+                codeSyntaxHighlighting: true
+            }
+        });
+
+        var $form = $('#jswidgetForm');
+
+
+
+        $form.validate({
             rules: {
                 'title': {
                     required: true,
@@ -16,6 +36,8 @@ define(function(require, exports, module) {
                 'url': {
                     required: true,
                     ths_gitlab_email:[function (url) {
+                                console.log(simplemde.toTextArea());
+
                         var visitUrl = url.replace(/(?:gitlab)/, function(s0, s1){ return 'demo'; });
                         $('#jswidget_iframeUrl').val(visitUrl);
                     }]
@@ -94,11 +116,32 @@ define(function(require, exports, module) {
 
 
         // tag 转为 后台可识别的字符
-        // $('#jswidgetForm').submit(function(e) {
-        //     debugger;
-        //     e.preventDefault();
-        //     return;        
-        // });
+//         $form.submit(function(e) {
+//             e.preventDefault();
+//             console.log(simplemde.value());
+
+
+// debugger;
+// return false;
+//             if ($form.valid()) {
+            
+//                 $.post($form.attr('action'), $form.serialize(), function(response) {
+//                     console.log(response);
+//                     debugger;
+//                     if (!response.success) {
+//                         $('#bind-new-form-error').html(response.message).show();
+//                         return ;
+//                     }
+
+//                 }, 'json').fail(function() {
+//                     Notify.danger('登录失败，请重新登录后再试！');
+//                 }).always(function() {
+//                    $form.find('button[type=submit]').button('reset');
+//                 });
+//             }
+//             debugger;
+//             // return;        
+//         });
 
     };
 

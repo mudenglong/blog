@@ -12,6 +12,10 @@ seajs.config({
 		"jquery.select2": "jquery-plugin/select2/3.4.1/select2",
 		"jquery.select2-css": "jquery-plugin/select2/3.4.1/select2.css",
 		'kindeditor': 'gallery2/kindeditor/4.1.10/kindeditor',
+		"markdown": "markdown/simplemde.min",
+		'markdown-css': 'markdown/simplemde.min.css',
+		'highlight': 'markdown/highlight',
+		"highlight-css": "markdown/highlight.css"
 	},
 
 	// 预加载项

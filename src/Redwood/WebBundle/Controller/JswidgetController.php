@@ -104,7 +104,18 @@ class JswidgetController extends BaseController
         
         return $this->render('RedwoodWebBundle:Jswidget:manual.html.twig');
     }
-    
+
+    // markdown 使用手册
+    public function markdownRulesAction()
+    {
+        return $this->render('RedwoodWebBundle:Jswidget:markdownRule.html.twig');
+    }
+
+    // markdown 使用手册
+    public function feedbackAction()
+    {
+        return $this->render('RedwoodWebBundle:Jswidget:feedback.html.twig');
+    }
 
     // 处理数据同下面的searchjsonAction, 渲染不同
     public function searchAction(Request $request, $filter) {
@@ -253,6 +264,7 @@ class JswidgetController extends BaseController
         $this->getJswidgetService()->deleteJswidget($id);
         return $this->createJsonResponse(true);
     }
+
 
     public function createAction(Request $request) 
     {   

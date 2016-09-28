@@ -144,7 +144,8 @@ kbd,tt,code {
     background-color: #f3f3f3;
     font-family: "Consolas","Driod Sans Mono",monospace;
     padding: 1px 4px;
-    text-shadow: 0 1px 0 #fff
+    /*text-shadow: 0 1px 0 #fff*/
+    text-shadow: none;
 }
 
 kbd em,tt em,code em {
@@ -380,7 +381,7 @@ header #nav_container {
     top: 20px;
     padding-top: 3px;
     position: absolute;
-    z-index: 10;
+    z-index: 9;
     width: 180px
 }
 
@@ -4439,6 +4440,12 @@ a.versions.onlycss {
     background-color: #bbb;
     color: #fff;
 }
+
+
+
+
+
+
 
 
 

@@ -88,6 +88,15 @@ body .markdown-body
   font-size: 1em;
 }
 
+.markdown-body kbd{
+  padding: 2px 4px;
+  background: green;
+  color: #fff;
+  margin: 0 2px;
+  border-radius: 4px;
+}
+
+
 .markdown-body input {
   color: inherit;
   font: inherit;
@@ -1008,3 +1017,9 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
+
+
+
+
+
+

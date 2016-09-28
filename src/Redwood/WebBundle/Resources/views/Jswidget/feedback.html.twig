@@ -1,0 +1,19 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+
+{% set nav = 'feedback' %}
+{% block wrapBox %}
+
+<div>
+<h3>bug反馈 发送邮箱至:</h3>
+<p>zhouzhuyan@myhexin.com</p>
+<p>请以"[widget]bug " 作邮件名前缀</p>
+
+<h3>其他需求和建议 发送邮箱至:</h3>
+<p>zhupeng@myhexin.com, zhouzhuyan@myhexin.com</p>
+<p>请以"[widget]advice " 作邮件名前缀</p>
+
+</div>
+        
+{% endblock %}

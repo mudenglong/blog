@@ -151,6 +151,13 @@ jswidget_manual:
     pattern: /jswidget/manual
     defaults: { _controller: RedwoodWebBundle:Jswidget:manual }
 
+markdown_rules:
+    pattern: /jswidget/markdown
+    defaults: { _controller: RedwoodWebBundle:Jswidget:markdownRules }
+    
+jswidget_feedback:
+    pattern: /jswidget/feedback
+    defaults: { _controller: RedwoodWebBundle:Jswidget:feedback }
 
 
 

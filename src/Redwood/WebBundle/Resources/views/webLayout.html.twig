@@ -43,16 +43,15 @@
             <div>
                 <a id="logo" href="{{ path('jswidget_show') }}">
 
-                    <h2>Widget 库</h2>
+                    <h2>同花顺 Widget</h2>
                 </a>
                 <div id="nav_container">
                     <nav>
                         <a href="{{ path('jswidget_show') }}" class="{% if nav == 'browse' %} active{% endif %}">分类浏览</a>
-                        <a href="javascript:;" class="{% if nav == 'link1' %} active{% endif %}">链接一</a>
-                        <a href="javascript:;" class="{% if nav == 'link2' %} active{% endif %}">链接二</a>
-                        <a href="{{ path('jswidget_manual') }}" class="{% if nav == 'manual' %} active{% endif %}">使用手册</a>
+                        <a href="{{ path('markdown_rules') }}" class="{% if nav == 'markdown' %} active{% endif %}">markdown简明手册</a>
+                        <a href="{{ path('jswidget_manual') }}" class="{% if nav == 'manual' %} active{% endif %}">如何上传组件</a>
                         <a href="javascript:;" class="{% if nav == 'news' %} active{% endif %}">更新日志</a>
-                        <a href="javascript:;" class="{% if nav == 'feedback' %} active{% endif %}">反馈&建议</a>
+                        <a href="{{ path('jswidget_feedback') }}" class="{% if nav == 'feedback' %} active{% endif %}">反馈&建议</a>
 
                         {% if app.user %}
                             <a style="color:#6A8F1A;" class="{% if nav == 'mywidget' %} active{% endif %}" href="{{ path('jswidget_list') }}">我的组件</a>

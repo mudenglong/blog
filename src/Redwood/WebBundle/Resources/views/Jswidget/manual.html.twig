@@ -13,19 +13,16 @@
 
 
 
-
-
 <title>gitlab使用</title></head><body><article class="markdown-body"><div class="toc">
 <ul>
 <li><a href="#_1">旨在分享, 完善组件</a></li>
 <li><a href="#gitlab-host">所有代码放在公司私有gitlab上, 需先配host</a></li>
 <li><a href="#_2">如何提交一个新组件</a><ul>
-<li><a href="#1-create-a-new-project">1. 本地自动创建项目 CREATE A NEW PROJECT</a></li>
+<li><a href="#1-gitlab">1. 前往 gitlab 创建一个组件项目</a></li>
 <li><a href="#2">2. 本地提交代码</a></li>
 <li><a href="#3">3. 完善组件库的表单</a></li>
 </ul>
 </li>
-<li><a href="#jswidget">jswidget 快速生成器</a></li>
 </ul>
 </div>
 <h2 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>旨在分享, 完善组件</h2>
@@ -37,68 +34,70 @@
 
 172.20.204.24   widget.10jqka.com.cn
 </code></pre>
-<p><code>tip</code>: 如果配好host仍然不能访问, 请点击右侧 &ldquo;<code>反馈&amp;建议</code>&ldquo;</p>
+<p>如果配好host仍然不能访问, 请点击右侧 &ldquo;<code>反馈&amp;建议</code>&ldquo;</p>
 <h2 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>如何提交一个新组件</h2>
-<p><code>tip</code> 外网可访问的资源,html 文件,css文件,js文件都需要放在一个叫<code>demo</code>的文件夹下(<code>demo</code>是指定的文件夹名字)</p>
-<h3 id="1-create-a-new-project"><a name="user-content-1-create-a-new-project" href="#1-create-a-new-project" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1. 本地自动创建项目 CREATE A NEW PROJECT</h3>
-<p>如果是第一次在公司的gitlab上提交组件, 请先安装 <a href="#jswidget">jswidget 快速生成器</a></p>
-<p>进入<code>jswidgetCreator</code>文件夹, 打开<code>info.js</code>, 编写新组件的项目名 (假设:newJswidget1):</p>
-<pre><code>var info = {
-    // gitlab 用户名
-    'user': 'xxxxxx',
-    // gitlab 密码
-    'pass': 'xxxxxx',
-    // 新建的组件名
-    'projectName': 'newJswidget1'
-};
+<p>共3步:</p>
+<ol>
+<li>
+<p>需要前往 gitlab 创建一个组件项目</p>
+</li>
+<li>
+<p>将本地代码上传至 gitlab</p>
+</li>
+<li>
+<p>在组件库里 添加该项目</p>
+</li>
+</ol>
+<p><kbd>tip</kbd> 上传组件后,外网自动可以访问里面的资源: </p>
+<blockquote>
+<p>外网可访问的资源,html 文件,css文件,js文件都需要放在一个叫<code>demo</code>的文件夹下(<code>demo</code>是指定的文件夹名字)</p>
+</blockquote>
+<pre><code>newJswidgetNameXXXX
+       |
+       |------demo // 需要 以demo命名文件夹, 才会被识别
+                |
+                |---- .html 文件 
+                |----css
+                      |----  .css 文件
+                |---- ...
 </code></pre>
-<p>tip: projectName请使用驼峰命名, 英文大小字符和数字, <code>类似函数名</code>, 不要使用空格或特殊字符.</p>
-<p>保存后, <code>jswidgetCreator</code>目录下运行一下:</p>
-<pre><code>casperjs gitlab.js
-</code></pre>
-<p>大概3-4秒后, 光标不再, 创建生成成功.</p>
+<h3 id="1-gitlab"><a name="user-content-1-gitlab" href="#1-gitlab" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1. 前往 gitlab 创建一个组件项目</h3>
+<p>假设我们要创建一个项目 名为: newJswidgetNameXXXX</p>
+<p>先去<a href="http://gitlab.10jqka.com.cn/projects/new">创建一个项目 <a href="http://gitlab.10jqka.com.cn/projects/new"><a href="http://gitlab.10jqka.com.cn/projects/new">http://gitlab.10jqka.com.cn/projects/new</a></a></a></p>
+<p>如下图:</p>
+<p>项目类型, 务必选择 <code>Public</code></p>
+<p><img alt="pic" src="{{ asset('bundles/redwoodweb/img/createProject.png') }}" /></p>
 <h3 id="2"><a name="user-content-2" href="#2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. 本地提交代码</h3>
-<p>进入组件项目根目录 </p>
-<pre><code>cd newJswidget1-dir
+<p>在gitlab上面创建成功后, 页面会自动跳转到</p>
+<pre><code>http://gitlab.10jqka.com.cn/YourUserName/newJswidgetNameXXXX
 </code></pre>
-<p>初始化git:</p>
-<pre><code>git init
-</code></pre>
-<p>提交 到gitlab上的 <code>newJswidget1</code>项目 (此处的项目名必须与jswidgetCreator生成时输入<code>projectName</code>的 name一致), <code>A</code>是你的gitlab用户名</p>
-<pre><code>git remote add origin http://gitlab.10jqka.com.cn/A/newJswidget1.git
+<p>看到有些命令行, 找到 <code>Create a new repository</code>, 把里面的内容在你本地的终端, 跑一遍:</p>
+<pre><code>// clone 线上的项目
+git clone http://gitlab.10jqka.com.cn/YourUserName/newJswidgetNameXXXX.git
 
-git add .
+// 进入该目录
+cd newJswidgetNameXXXX
 
-git commit -am 'first commit'
+// 创建一份说明文档
+touch README.md
 
+// 加入版本管理
+git add README.md
+
+// 提交
+git commit -m "add README"
+
+// 推送到线上
 git push -u origin master
 </code></pre>
-<p>提交成功后可访问的地址为 </p>
-<pre><code>http://demo.10jqka.com.cn/A/newJswidget1/
+<p>输入gitlab的用户名和密码就可以完成了</p>
+<p><kbd>tip</kbd> 每次都要输入用户名和密码很麻烦? 可以在度娘中搜索 <code>"gitlab免密码提交"</code></p>
+<p>如果你的项目中含有 <code>demo</code> 文件夹, 那么该目录下的所有内容都会被同步到下面这个地址:  </p>
+<pre><code>http://demo.10jqka.com.cn/YourUserName/newJswidgetNameXXXX/
 </code></pre>
 <h3 id="3"><a name="user-content-3" href="#3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3. 完善组件库的表单</h3>
-<h2 id="jswidget"><a name="user-content-jswidget" href="#jswidget" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>jswidget 快速生成器</h2>
-<p>(npm 现在已经随nodejs安装, 一并安装的了, nodejs如何安装, 可以百度一下)</p>
-<p>先在终端中 npm 全局 安装 casperjs: </p>
-<pre><code>npm install casperjs -g
-</code></pre>
-<p>安装成功后, 进入常用的工作目录, 输入:</p>
-<pre><code>git clone http://gitlab.10jqka.com.cn/zhu/add-webhook jswidgetCreator
-</code></pre>
-<p>在clone 完成后, 看到工作目录多了一个 add-webhook 文件夹</p>
-<p>进入 jswidgetCreator 目录 </p>
-<pre><code>cd jswidgetCreator/
-</code></pre>
-<p>info.js 就是我们需要填写信息的文件, 打开 info.js, 假设新组件名为&rdquo;newJswidget1&rdquo;, 填写好以后保存退出</p>
-<pre><code>var info = {
-    // gitlab 用户名
-    'user': 'xxxxx',
-    // gitlab 密码
-    'pass': 'xxxxx',
-    // 新建的组件名
-    'projectName': 'newJswidget1'
-};
-</code></pre>
-<p>好了, 终于可以<a href="#1-create-a-new-project">创建新组件</a></p></article>
-        
+<pre><code>http://widget.10jqka.com.cn/jswidget/create
+</code></pre></article>
+
+
 {% endblock %}
