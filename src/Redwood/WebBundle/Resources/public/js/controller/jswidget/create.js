@@ -36,9 +36,8 @@ define(function(require, exports, module) {
                 'url': {
                     required: true,
                     ths_gitlab_email:[function (url) {
-                                console.log(simplemde.toTextArea());
-
                         var visitUrl = url.replace(/(?:gitlab)/, function(s0, s1){ return 'demo'; });
+                        visitUrl = visitUrl.replace(/(?:\.git)/, function(s0, s1){ return ''; });
                         $('#jswidget_iframeUrl').val(visitUrl);
                     }]
                 },
