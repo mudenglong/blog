@@ -1,12 +1,10 @@
 define(function(require, exports, module) {
     require('common/jquery-validate').inject($);
 
-
     require('markdown');
     require('highlight');
     require('markdown-css');
     require('highlight-css');
-
 
     require('jquery.select2-css');
     require('jquery.select2');

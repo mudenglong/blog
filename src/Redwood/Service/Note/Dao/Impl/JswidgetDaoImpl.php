@@ -62,7 +62,6 @@ class JswidgetDaoImpl extends BaseDao implements JswidgetDao
             throw \InvalidArgumentException(sprintf("%s字段不允许增减，只有%s才被允许增减", $field, implode(',', $fields)));
         }
         $sql = "UPDATE {$this->getTable()} SET {$field} = {$field} + ? WHERE id = ? LIMIT 1";
-
         $result = $this->getConnection()->executeQuery($sql, array($diff, $id));
         return $result;
     }

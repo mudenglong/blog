@@ -60,10 +60,13 @@ class JswidgetController extends BaseController
     public function editAction(Request $request, $id) 
     {   
         $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+            return $this->createMessageResponse('info', "你好像忘了登录哦？ 10秒后将自动跳转到登录页面.",'', 10,$this->generateUrl('login')); 
+        }
         
         $jswidget = $this->getJswidgetService()->getJswidget($id);
         if ($user['id'] != $jswidget['userId']) {
-            return $this->redirect($this->generateUrl('jswidget_show'));
+            return $this->createMessageResponse('info', "您不是原作者, 10秒后将自动跳转到展示页.",'', 10,$this->generateUrl('jswidget_show'));
         }
 
         if(empty($jswidget)){ 
@@ -261,6 +264,17 @@ class JswidgetController extends BaseController
     }
 
     public function deleteAction(Request $request, $id) {
+
+        $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+            return $this->createMessageResponse('info', "你好像忘了登录哦？ 10秒后将自动跳转到登录页面.",'', 10,$this->generateUrl('login')); 
+        }
+        
+        $jswidget = $this->getJswidgetService()->getJswidget($id);
+        if ($user['id'] != $jswidget['userId']) {
+            return $this->createMessageResponse('info', "您不是原作者, 10秒后将自动跳转到展示页.",'', 10,$this->generateUrl('jswidget_show'));
+        }
+
         $this->getJswidgetService()->deleteJswidget($id);
         return $this->createJsonResponse(true);
     }
@@ -269,6 +283,10 @@ class JswidgetController extends BaseController
     public function createAction(Request $request) 
     {   
     	$user = $this->getCurrentUser();
+
+        if (!$user->isLogin()) {
+            return $this->createMessageResponse('info', "你好像忘了登录哦？ 10秒后将自动跳转到登录页面.",'', 10,$this->generateUrl('login')); 
+        }
 
         if ($request->getMethod() == 'POST') {
             // try {

@@ -8,6 +8,8 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Redwood\Service\Common\ServiceKernel;
+use Redwood\Service\Common\AccessDeniedException;
+
 use Redwood\Service\User\CurrentUser;
 
 abstract class BaseController extends Controller
@@ -93,6 +95,15 @@ abstract class BaseController extends Controller
             'duration' => $duration,
             'goto' => $goto,
         ));
+    }
+
+    protected function createAccessDeniedException($message = null)
+    {
+        if ($message) {
+            return new AccessDeniedException($message);
+        } else {
+            return new AccessDeniedException();
+        }
     }
 
     protected function createNamedFormBuilder($name, $data = null, array $options = array())

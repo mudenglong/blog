@@ -112,7 +112,6 @@ define(function(require, exports, module) {
     ];
 
     exports.inject = function(jQuery) {
-        console.log('inject');
        
         jQuery.validator.setDefaults({
             errorClass: "valid-error"
