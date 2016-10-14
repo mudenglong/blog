@@ -4441,6 +4441,11 @@ a.versions.onlycss {
     color: #fff;
 }
 
+.package .jswidget-iframe{
+   border: 3px solid #eee;
+   border-radius: 6px; 
+}
+
 
 
 
