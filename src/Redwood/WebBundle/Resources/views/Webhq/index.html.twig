@@ -1,0 +1,23 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+{% set nav = 'webhq' %}
+
+{% block wrapBox %}
+    
+    <a href="http://172.20.1.247/wiki/index.php/WEBHQ:Js_%E8%A1%8C%E6%83%85%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE" target="_blank">组件使用文档</a>
+    <br/>
+    <br/>
+
+    <p>行情图 功能汇总</p>
+    <ul>
+        <li>
+            <a href="http://testm.10jqka.com.cn/mobile/info/fd/zzy/testhqdata/main.htm" target="_blank">行情数据改动, 使用测试数据源绘图</a>
+        </li>
+        <li>
+            <a href="http://testm.10jqka.com.cn/mobile/info/fd/zzy/ui-on-mobile/release/colorTest.htm" target="_blank">行情图颜色适配 (适用于设计人员)</a>
+        </li>
+    </ul>
+    <p style="color:#C40000;">*行情图使用以本页地址为准, 之后会完善其他功能</p>
+        
+{% endblock %}

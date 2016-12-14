@@ -159,6 +159,10 @@ jswidget_feedback:
     pattern: /jswidget/feedback
     defaults: { _controller: RedwoodWebBundle:Jswidget:feedback }
 
+# 行情图组件相关
+webhq:
+    pattern: /webhq
+    defaults: { _controller: RedwoodWebBundle:Webhq:index }
 
 
 
@@ -173,5 +177,4 @@ tag_match:
 tag_show:
     pattern: /tag/{id}
     defaults: { _controller: RedwoodWebBundle:Tag:show }
-
 
