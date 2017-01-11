@@ -11,5 +11,10 @@ class WebhqController extends BaseController
     {   
         return $this->render('RedwoodWebBundle:Webhq:index.html.twig');
     }
+    
+    public function buildAction() 
+    {   
+        return $this->render('RedwoodWebBundle:Webhq:build.html.twig');
+    }
 
 }

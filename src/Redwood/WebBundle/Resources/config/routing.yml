@@ -164,6 +164,11 @@ webhq:
     pattern: /webhq
     defaults: { _controller: RedwoodWebBundle:Webhq:index }
 
+# 组件生成页面
+webhq_build:
+    pattern: /webhq/build
+    defaults: { _controller: RedwoodWebBundle:Webhq:build }
+
 
 
 tag:

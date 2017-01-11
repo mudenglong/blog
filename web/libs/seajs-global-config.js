@@ -7,6 +7,8 @@ seajs.config({
 		'jquery.validate' : 'jquery.validate/1.11.1/jquery.validate',
 		"jquery.jcrop": "jquery-plugin/jcrop/0.9.12/jcrop",
 		"jquery.jcrop-css": "jquery-plugin/jcrop/0.9.12/jcrop.css",
+		"jquery.jqColorPicker": "jquery-plugin/jqColorPicker/jqColorPicker.min",
+		
 		'widget': 'arale/widget/1.1.1/widget',
 		"templatable": "arale/templatable/0.9.1/templatable",
 		"jquery.select2": "jquery-plugin/select2/3.4.1/select2",

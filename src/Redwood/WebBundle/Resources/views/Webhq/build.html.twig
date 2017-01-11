@@ -1,0 +1,360 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+{% block title %}生成行情图{{ parent() }}{% endblock %}
+
+{% set nav = 'webhq' %}
+{% set script_controller = 'webhq/build' %}
+
+{% block wrapBox %}
+    <link rel="stylesheet" href="{{ asset('bundles/redwoodweb/css/webhqBuild.css') }}"> 
+
+    <div class="webhq-main">
+        <p>请使用 <span style="background:pink;">Chrome</span> 浏览器打开, 确保最佳功能 </p>
+        <h3 style="margin-top: 20px; ">项目运行环境</h3>
+        <div class="webhq-h3-box">
+            <ul>
+                <li>
+
+                    <label class="radio">
+                        <input type="radio" checked="checked" name="runEvn" id="runOnMobile" value="runOnMobile">
+                         运行在手机
+                    </label>
+                </li>
+                <li>
+
+                    <label class="radio">
+                        <input type="radio" name="runEvn" id="runOnPc" value="runOnPc">
+                         运行在PC
+                    </label>
+                </li>
+              
+            </ul>
+        </div>
+
+        <h3>所需数据类型</h3> 
+        <div class="webhq-h3-box">
+            <label class="checkbox checked" for="dataTypeFs">
+                <input type="checkbox" checked="checked" value="" id="dataTypeFs">
+                分时图
+            </label>
+            <label class="checkbox checked" for="dataTypeKline">
+                <input type="checkbox" checked="checked" value="" id="dataTypeKline">
+                K线图
+            </label>
+        </div>
+        
+        <div style="width:50%;float:left" class="fsdata-box">
+            <h4>分时(fs)数据配置 </h4>
+            <div>
+                <ol>
+                    <li>实时更新: 
+                        <label class="radio">
+                            <input type="radio" checked="checked" name="fsdataKeepget" id="fsdataKeepgetYes" value="fsdataKeepgetYes">
+                            是
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="fsdataKeepget" id="fsdataKeepgetNo" value="fsdataKeepgetNo">
+                            否
+                        </label>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div style="width:50%; float:left;" class="klinedata-box">
+            <h4>kline 数据配置</h4>
+            <div>
+                <ol>
+                    <li>实时更新: 暂不支持kline实时更新, 确实项目需要<a href="{{ path('jswidget_feedback') }}">请反馈开发人员</a></li>
+                    <li>复权类型: 可在生成后自行选择</li>
+                    <li>均线选择 (推荐三个及以下): 
+                        <p class="ma-box">
+                            <label class="checkbox" for="matype5">
+                                <input type="checkbox" checked="checked" value="5" id="matype5">
+                                ma5
+                            </label>
+                        </p>   
+                        <p class="ma-box">
+                            <label class="checkbox" for="matype10">
+                                <input type="checkbox" checked="checked" value="10" id="matype10">
+                                ma10
+                            </label>
+                        </p>   
+                        <p class="ma-box">
+                            <label class="checkbox " for="matype20">
+                                <input type="checkbox" value="20" id="matype20">
+                                ma20
+                            </label>
+                        </p> 
+                        <p class="ma-box">
+                            <label class="checkbox" for="matype30">
+                                <input type="checkbox" checked="checked" value="30" id="matype30">
+                                ma30
+                            </label>
+                        </p> 
+                        <p class="ma-box">
+                            <label class="checkbox" for="matype60">
+                                <input type="checkbox" value="60" id="matype60">
+                                ma60 (手机项目不推荐)
+                            </label>
+                        </p> 
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="clearcss"></div>
+
+        <!-- kline 颜色配置 -->
+        <div class="webhq-h3-box">
+            <h3>kline 颜色配置<a name="klinecolor" href="javascript:;">;</a></h3> 
+            <div class="info">
+                1. 下图是 模拟 行情图, 用于便捷调试颜色, 真实行情图中可能不含以下Dom结构
+                <br>
+                2. 颜色确定后, 须点击 "<span style="font-weight:bold;">导出颜色配置</span>", 将输出的内容保存在本地文本, 以后再配色可以导入.
+                <br>
+                3. 设计人员调试好颜色后,只需将颜色配置内容发送给前端,即可.
+            </div>
+           
+            <div class="configsetting">
+                <ul class="fl50 h160">
+                    <li>
+                        行情图背景色 [FFFFFF]
+                        <input data-influence="hqKlhqbgColor" class="jscolor jqshow-alpha" id="idhqKlhqbgColor" value="#FFFFFF">
+                    </li>
+                    <li>
+                        上涨柱子的边框色 [650000]
+                        <input  data-influence="hqKlupBorderColorbd" class="jscolor" id="idhqKlupBorderColor" value="#650000" >
+                    </li>
+                    <li>
+                        上涨柱子的填充色 [C80000]
+                        <input  data-influence="hqKlupFillColor" class="jscolor" id="idhqKlupFillColor" value="#C80000" >
+                    </li>
+                    <li>
+                        下跌柱子的边框色 [003C00]
+                        <input  data-influence="hqKldownBorderColorbd" class="jscolor" id="idhqKldownBorderColor" value="#003C00" >
+                    </li>
+                    <li>
+                        下跌柱子的填充色 [006100]
+                        <input  data-influence="hqKldownFillColor" class="jscolor" id="idhqKldownFillColor" value="#006100" >
+                    </li>
+
+                </ul>
+                <ul class="fl50 h160">
+                    <li>
+                        <div>
+                            <ul>
+                                <li>
+                                    ma5 [505050]
+                                    <input  data-influence="hqKlma5svg" class="jscolor" id="idhqKlma5" value="#505050" >
+                                </li>
+                                <li>
+                                    ma10 [9901FE]
+                                    <input  data-influence="hqKlma10svg" class="jscolor" id="idhqKlma10" value="#9901FE" >
+                                </li>
+                                <li>
+                                    ma30 [08089C]
+                                    <input  data-influence="hqKlma30svg" class="jscolor" id="idhqKlma30" value="#08089C" >
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <ul class="fl50">
+                    <li>
+                        ===============================================
+                    </li>
+                    <li>
+                        最外边框 [BEBEBE]
+                        <input  data-influence="hqKlhqoutlineColor" class="jscolor" id="idhqKlhqoutlineColor" value="#BEBEBE" >
+                    </li>
+                    <li>
+                        分割线 [C0C0C0]
+                        <input  data-influence="hqKlgridColorsvg" class="jscolor" id="idhqKlgridColor" value="#C0C0C0" >
+                    </li>
+
+                    <li>
+                        竖直虚线色 [DDDDDD]
+                        <input  data-influence="hqKldashedLineColorsvg" class="jscolor" id="idhqKldashedLineColor" value="#DDDDDD" >
+                    </li>
+                    <li>
+                        十字光标 [8B8B8B]
+                        <input  data-influence="hqKlcrossColorsvg" class="jscolor " id="idhqKlcrossColor" value="#8B8B8B" >
+                    </li>
+                    <li>
+                        轴文字颜色 [727272]
+                        <input  data-influence="hqKlaxisColorcc" class="jscolor" id="idhqKlaxisColor" value="#727272" >
+                    </li>
+                    <li>
+                        最大值 最小值标注颜色 [727272]
+                        <input  data-influence="hqKlmaxminColorcc" class="jscolor" id="idhqKlmaxminColor" value="#727272" >
+                    </li>
+
+                </ul>
+                <ul class="fl50">
+                    <li>
+                        <span class="klinecolor-get" id="outputKlineColor" href="javascript:;">
+                        导出颜色配置   
+                        </span>
+                        <span class="klinecolor-get" style="margin-left: 10px; background: cadetblue;" id="importKlineColor" href="javascript:;">
+                         导入   
+                        </span>
+                        <div class="importKlineColorTextarea" style="display:none;">
+                           <textarea name="" id="" cols="30" rows="5"></textarea> 
+                           <p style="text-align:center;">
+                               <a class="sayyes btn" href="javascript:;">导入</a>
+                               <a class="cancle btn" href="javascript:;">取消</a>
+                           </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="klinecc-result">
+                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearcss"> </div>
+
+            <div class="klinecolor-box hqKlhqoutlineColor">
+                <div class="klinecolor hqKlhqbgColor" id="klineBox">
+                    <div class="mousepng"></div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <!-- fs 颜色配置 -->
+        <div class="webhq-h3-box">
+
+            <h3>分时(fs) 颜色配置<a name="fscolor" href="javascript:;">;</a></h3> 
+            <div class="info">
+                1. 下图是 模拟 行情图, 用于便捷调试颜色, 真实行情图中可能不含以下Dom结构
+                <br>
+                2. 颜色确定后, 须点击 "<span style="font-weight:bold;">导出颜色配置</span>", 将输出的内容保存在本地文本, 以后再配色可以导入.
+            </div>
+            
+            <div class="configsetting">
+                <ul class="fl50 h104">
+                    <li>
+                        行情图背景色 [FFFFFF]
+                        <input data-influence="hqFshqbgColor" class="jscolor jqshow-alpha" id="idhqFshqbgColor" value="#FFFFFF">
+                    </li>
+                    <li>
+                        上涨柱子的填充色 [C80000]
+                        <input  data-influence="hqFsupFillColor" class="jscolor" id="idhqFsupFillColor" value="#C80000" >
+                    </li>
+                    <li>
+                        下跌柱子的填充色 [006100]
+                        <input  data-influence="hqFsdownFillColor" class="jscolor" id="idhqFsdownFillColor" value="#006100" >
+                    </li>
+
+                </ul>
+                <ul class="fl50 h104">
+                    <li>
+                        <div>
+                            <ul>
+                                <li>
+                                    价格线 [505050]
+                                    <input  data-influence="hqFsma5svg" class="jscolor" id="idhqFsma5" value="#505050" >
+                                </li>
+                                <li>
+                                    均价线(某些市场表示"领先指数") [9901fe]
+                                    <input  data-influence="hqFsma10svg" class="jscolor" id="idhqFsma10" value="#9901fe" >
+                                </li>
+                                <li>
+                                    闭合区域 [08089c]
+                                    <input  data-influence="hqFsma30svg" class="jscolor" id="idhqFsma30" value="#08089c" >
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <ul class="fl50">
+                    <li>
+                        ===============================================
+                    </li>
+                    <li>
+                        最外边框 [bebebe]
+                        <input  data-influence="hqFshqoutlineColor" class="jscolor" id="idhqFshqoutlineColor" value="#bebebe" >
+                    </li>
+                    <li>
+                        分割线 [c0c0c0]
+                        <input  data-influence="hqFsgridColorsvg" class="jscolor" id="idhqFsgridColor" value="#c0c0c0" >
+                    </li>
+                    <li>
+                        十字光标 [8b8b8b]
+                        <input  data-influence="hqFscrossColorsvg" class="jscolor " id="idhqFscrossColor" value="#8b8b8b" >
+                    </li>
+                    <li>
+                        上涨轴文字颜色 [727272]
+                        <input  data-influence="hqFsaxisColorcc" class="jscolor" id="idhqFsaxisColor" value="#727272" >
+                    </li>
+                    <li>
+                        下跌轴文字颜色 [727272]
+                        <input  data-influence="hqFsaxisColorcc" class="jscolor" id="idhqFsaxisColor" value="#727272" >
+                    </li>
+                    <li>
+                        持平轴文字颜色 [727272]
+                        <input  data-influence="hqFsaxisColorcc" class="jscolor" id="idhqFsaxisColor" value="#727272" >
+                    </li>
+
+                </ul>
+                <ul class="fl50">
+                    <li>
+                        <span class="klinecolor-get" id="outputKlineColor" href="javascript:;">
+                        导出颜色配置   
+                        </span>
+                        <span class="klinecolor-get" style="margin-left: 10px; background: cadetblue;" id="importKlineColor" href="javascript:;">
+                         导入   
+                        </span>
+                        <div class="importKlineColorTextarea" style="display:none;">
+                           <textarea name="" id="" cols="30" rows="5"></textarea> 
+                           <p style="text-align:center;">
+                               <a class="sayyes btn" href="javascript:;">导入</a>
+                               <a class="cancle btn" href="javascript:;">取消</a>
+                           </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="fscc-result">
+                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearcss"> </div>
+
+            <div class="fscolor-box hqKlhqoutlineColor">
+                <div class="fscolor hqKlhqbgColor" id="klineBox">
+                    <div class="mousepng"></div>
+                </div>
+            </div>
+            
+        </div>
+
+
+
+
+
+
+    </div>
+  
+
+        <script>
+        function update(jscolor) {
+            
+        }
+        </script>
+{% endblock %}

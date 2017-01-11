@@ -1,0 +1,160 @@
+@charset "utf-8";
+
+ul li{
+    list-style: none;
+}
+.webhq-main .pink{
+    background:pink;
+}
+.webhq-main h3{
+    background: #467B00;
+    padding: 8px;
+    color: #fff;
+    margin: 60px 0 30px;
+}
+.webhq-main h4{
+    border-bottom: 2px solid green;
+    margin: 15px 10px;
+}
+.clearcss{
+    clear: both;
+}
+.fl50{
+    float: left;
+    width:50%;
+}
+.configsetting li{
+    margin: 3px 0;
+}
+
+.klinecolor-box{
+    position: relative;
+    overflow: hidden;
+}
+.horizontalCC{
+    stroke-width: 1px;
+}
+.spotCC{
+    stroke-dasharray:3;
+}
+.maCC{
+    fill: none;
+}
+
+.webhq-main .info{
+    background: #eee;
+    padding: 15px;
+    margin: 15px;
+    border: 1px dashed #ccc;
+}
+.webhq-main .klinecolor{
+    height: 400px;
+    margin: 1px;
+}
+.webhq-main .h160{
+    height: 160px;
+}
+.webhq-main .h104{
+    height: 104px;
+}
+.webhq-main .klinecolor-get{
+    background: #5B5B5B;
+    padding: 10px;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+}
+.webhq-main .klinecolor-get:hover{
+    background: #8f8f8f;
+    color: #fff;
+}
+.webhq-main .jscolor{
+    width: 80px;
+}
+.webhq-main .mousepng{
+    background: url("../img/mouse.png") no-repeat center top;
+    width:  11px;
+    height: 18px;
+    position: absolute;
+    top: 104px;
+    right: 221px;
+}
+.klinecc-result{
+    overflow: hidden;
+    word-break: break-all;
+    margin-top: 15px;
+    background: #499A35;
+    padding: 10px;
+    color: #fff;
+    border-radius: 10px;
+}
+.importKlineColorTextarea textarea{
+    resize: none;
+}
+.importKlineColorTextarea{
+    position: absolute;
+    background: cadetblue;
+    padding: 22px 22px 10px;
+    margin-left: 124px;
+    margin-top: 3px;
+}
+.importKlineColorTextarea .btn{
+    background: #eee;
+    padding: 2px 14px;
+    margin-left: 5px;
+    margin-top: 13px;
+}
+
+
+/*可调整项目*/
+.hqKlhqbgColor{
+    background: #fff;
+}
+.hqKldashedLineColorsvg{
+    stroke: #ddd;
+}
+.hqKlcrossColorsvg{
+    stroke: #8b8b8b;
+}
+.hqKlhqoutlineColor{
+    background: #bebebe;
+}
+.hqKlupFillColor{
+    background: #c80000;
+}
+.hqKldownFillColor{
+    background: #006100;
+}
+.hqKleqFillColor{
+    background: #eee;
+}
+.hqKlupBorderColorbd{
+    border: 1px solid #650000;
+}
+.hqKldownBorderColorbd{
+    border: 1px solid #003C00;
+}
+.hqKleqBorderColorbd{
+    border: 1px solid #999;
+}
+.hqKlgridColorsvg{
+    stroke: #c0c0c0;
+}
+.hqKlma5svg{
+    stroke: #505050;
+    stroke-width: 1;
+}
+.hqKlma10svg{
+    stroke: #9901fe;
+    stroke-width: 1;
+}
+.hqKlma30svg{
+    stroke: #08089c;
+    stroke-width: 1;
+}
+.hqKlmaxminColorcc{
+    color: #727272;
+}
+.hqKlaxisColorcc{
+    color: #727272;
+}
