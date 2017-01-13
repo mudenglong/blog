@@ -40,6 +40,9 @@ ul li{
 .maCC{
     fill: none;
 }
+.maCCstrock{
+    stroke: none;
+}
 
 .webhq-main .info{
     background: #eee;
@@ -55,7 +58,7 @@ ul li{
     height: 160px;
 }
 .webhq-main .h104{
-    height: 104px;
+    height: 138px;
 }
 .webhq-main .klinecolor-get{
     background: #5B5B5B;
@@ -88,17 +91,17 @@ ul li{
     color: #fff;
     border-radius: 10px;
 }
-.importKlineColorTextarea textarea{
+.importbox textarea{
     resize: none;
 }
-.importKlineColorTextarea{
+.importbox{
     position: absolute;
     background: cadetblue;
     padding: 22px 22px 10px;
     margin-left: 124px;
     margin-top: 3px;
 }
-.importKlineColorTextarea .btn{
+.importbox .btn{
     background: #eee;
     padding: 2px 14px;
     margin-left: 5px;
@@ -156,5 +159,53 @@ ul li{
     color: #727272;
 }
 .hqKlaxisColorcc{
+    color: #727272;
+}
+
+/*fs */
+.hqFsgridColorsvg{
+    stroke: #c0c0c0;
+}
+.hqFsnowpsvg{
+    stroke: #6a9fd3;
+    stroke-width: 1;
+}
+.hqFsavpsvg{
+    stroke: #E5A045;
+    stroke-width: 1;
+}
+.hqFshqoutlineColor{
+    background: #bebebe;
+}
+.hqFshqbgColor{
+    background: #fff;
+}
+.hqFsnowpClosesvgfill{
+    fill:rgba(141,168,248, .05);
+}
+.hqFsupColorsvg{
+    stroke: #D85342;
+    stroke-width: 1;
+}
+.hqFsdownColorsvg{
+    stroke: #6CA584;
+    stroke-width: 1;
+}
+.hqFseqColorsvg{
+    stroke: #ccc;
+    stroke-width: 1;
+}
+
+.hqFscrossColorsvg{
+    stroke: #8b8b8b;
+
+}
+.hqFsupAxisColorcc{
+    color: #c80000;
+}
+.hqFsdownAxisColorcc{
+    color: #006100;
+}
+.hqFseqAxisColorcc{
     color: #727272;
 }
