@@ -122,11 +122,11 @@
                 3. 设计人员调试好颜色后,只需将颜色配置内容发送给前端,即可.
             </div>
            
-            <div class="configsetting">
+            <div class="configsettingKl">
                 <ul class="fl50 h160">
                     <li>
                         行情图背景色 [FFFFFF]
-                        <input data-influence="hqKlhqbgColor" class="jscolor jqshow-alpha" id="idhqKlhqbgColor" value="#FFFFFF">
+                        <input data-influence="hqKlhqbgColor" class="jscolor" id="idhqKlhqbgColor" value="#FFFFFF">
                     </li>
                     <li>
                         上涨柱子的边框色 [650000]
@@ -201,13 +201,13 @@
                 </ul>
                 <ul class="fl50">
                     <li>
-                        <span class="klinecolor-get" id="outputKlineColor" href="javascript:;">
+                        <span class="klinecolor-get" id="outputKlColor" href="javascript:;">
                         导出颜色配置   
                         </span>
-                        <span class="klinecolor-get" style="margin-left: 10px; background: cadetblue;" id="importKlineColor" href="javascript:;">
+                        <span class="klinecolor-get" style="margin-left: 10px; background: cadetblue;" id="importKlColor" href="javascript:;">
                          导入   
                         </span>
-                        <div class="importKlineColorTextarea" style="display:none;">
+                        <div class="importKlColorTextarea importbox" data-chart="Kl"  style="display:none;">
                            <textarea name="" id="" cols="30" rows="5"></textarea> 
                            <p style="text-align:center;">
                                <a class="sayyes btn" href="javascript:;">导入</a>
@@ -216,7 +216,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="klinecc-result">
+                        <div class="klinecc-result result-Kl">
                             
                         </div>
                     </li>
@@ -241,21 +241,27 @@
                 1. 下图是 模拟 行情图, 用于便捷调试颜色, 真实行情图中可能不含以下Dom结构
                 <br>
                 2. 颜色确定后, 须点击 "<span style="font-weight:bold;">导出颜色配置</span>", 将输出的内容保存在本地文本, 以后再配色可以导入.
+                <br>
+                3. 设计人员调试好颜色后,只需将颜色配置内容发送给前端,即可.
             </div>
             
-            <div class="configsetting">
+            <div class="configsettingFs">
                 <ul class="fl50 h104">
                     <li>
                         行情图背景色 [FFFFFF]
                         <input data-influence="hqFshqbgColor" class="jscolor jqshow-alpha" id="idhqFshqbgColor" value="#FFFFFF">
                     </li>
                     <li>
-                        上涨柱子的填充色 [C80000]
-                        <input  data-influence="hqFsupFillColor" class="jscolor" id="idhqFsupFillColor" value="#C80000" >
+                        成交量上涨柱子的填充色 [D85342]
+                        <input  data-influence="hqFsupColorsvg" class="jscolor" id="idhqFsupColor" value="#D85342" >
                     </li>
                     <li>
-                        下跌柱子的填充色 [006100]
-                        <input  data-influence="hqFsdownFillColor" class="jscolor" id="idhqFsdownFillColor" value="#006100" >
+                        成交量下跌柱子的填充色 [6CA584]
+                        <input  data-influence="hqFsdownColorsvg" class="jscolor" id="idhqFsdownColor" value="#6CA584" >
+                    </li>
+                    <li>
+                        成交量持平柱子的填充色 [CCCCCC]
+                        <input  data-influence="hqFseqColorsvg" class="jscolor" id="idhqFseqColor" value="#CCCCCC" >
                     </li>
 
                 </ul>
@@ -264,16 +270,16 @@
                         <div>
                             <ul>
                                 <li>
-                                    价格线 [505050]
-                                    <input  data-influence="hqFsma5svg" class="jscolor" id="idhqFsma5" value="#505050" >
+                                    价格线 [6A9FD3]
+                                    <input  data-influence="hqFsnowpsvg" class="jscolor" id="idhqFsnowp" value="#6A9FD3" >
                                 </li>
                                 <li>
-                                    均价线(某些市场表示"领先指数") [9901fe]
-                                    <input  data-influence="hqFsma10svg" class="jscolor" id="idhqFsma10" value="#9901fe" >
+                                    均价线(某些市场表示"领先指数") [E5A045]
+                                    <input  data-influence="hqFsavpsvg" class="jscolor" id="idhqFsavp" value="#E5A045" >
                                 </li>
                                 <li>
-                                    闭合区域 [08089c]
-                                    <input  data-influence="hqFsma30svg" class="jscolor" id="idhqFsma30" value="#08089c" >
+                                    闭合区域(必须有高透明度,因为可能会遮挡均价线) [rgba(141,168,248, .05)]
+                                    <input  data-influence="hqFsnowpClosesvgfill" class="jscolor  jqshow-alpha" id="idhqFsnowpClose" value="rgba(141,168,248, .05)" >
                                 </li>
                             </ul>
                         </div>
@@ -286,40 +292,44 @@
                         ===============================================
                     </li>
                     <li>
-                        最外边框 [bebebe]
-                        <input  data-influence="hqFshqoutlineColor" class="jscolor" id="idhqFshqoutlineColor" value="#bebebe" >
+                        最外边框 [BEBEBE]
+                        <input  data-influence="hqFshqoutlineColor" class="jscolor" id="idhqFshqoutlineColor" value="#BEBEBE" >
                     </li>
                     <li>
-                        分割线 [c0c0c0]
-                        <input  data-influence="hqFsgridColorsvg" class="jscolor" id="idhqFsgridColor" value="#c0c0c0" >
+                        分割线 [C0C0C0]
+                        <input  data-influence="hqFsgridColorsvg" class="jscolor" id="idhqFsgridColor" value="#C0C0C0" >
                     </li>
                     <li>
-                        十字光标 [8b8b8b]
-                        <input  data-influence="hqFscrossColorsvg" class="jscolor " id="idhqFscrossColor" value="#8b8b8b" >
+                        十字光标 [8B8B8B]
+                        <input  data-influence="hqFscrossColorsvg" class="jscolor " id="idhqFscrossColor" value="#8B8B8B" >
                     </li>
                     <li>
-                        上涨轴文字颜色 [727272]
-                        <input  data-influence="hqFsaxisColorcc" class="jscolor" id="idhqFsaxisColor" value="#727272" >
+                        上涨轴文字颜色 [C80000]
+                        <input  data-influence="hqFsupAxisColorcc" class="jscolor" id="idhqFsupAxisColor" value="#C80000" >
                     </li>
                     <li>
-                        下跌轴文字颜色 [727272]
-                        <input  data-influence="hqFsaxisColorcc" class="jscolor" id="idhqFsaxisColor" value="#727272" >
+                        下跌轴文字颜色 [006100]
+                        <input  data-influence="hqFsdownAxisColorcc" class="jscolor" id="idhqFsdownAxisColor" value="#006100" >
                     </li>
                     <li>
                         持平轴文字颜色 [727272]
-                        <input  data-influence="hqFsaxisColorcc" class="jscolor" id="idhqFsaxisColor" value="#727272" >
+                        <input  data-influence="hqFseqAxisColorcc" class="jscolor" id="idhqFseqAxisColor" value="#727272" >
+                    </li>
+                    <li>
+                        x轴文字颜色 [727272]
+                        <input  data-influence="hqFsxAxisColorcc" class="jscolor" id="idhqFsxAxisColor" value="#727272" >
                     </li>
 
                 </ul>
                 <ul class="fl50">
                     <li>
-                        <span class="klinecolor-get" id="outputKlineColor" href="javascript:;">
+                        <span class="klinecolor-get" id="outputFsColor" href="javascript:;">
                         导出颜色配置   
                         </span>
-                        <span class="klinecolor-get" style="margin-left: 10px; background: cadetblue;" id="importKlineColor" href="javascript:;">
+                        <span class="klinecolor-get" style="margin-left: 10px; background: cadetblue;" id="importFsColor" href="javascript:;">
                          导入   
                         </span>
-                        <div class="importKlineColorTextarea" style="display:none;">
+                        <div class="importFsColorTextarea importbox" data-chart="Fs" style="display:none;">
                            <textarea name="" id="" cols="30" rows="5"></textarea> 
                            <p style="text-align:center;">
                                <a class="sayyes btn" href="javascript:;">导入</a>
@@ -328,7 +338,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="fscc-result">
+                        <div class="klinecc-result  result-Fs">
                             
                         </div>
                     </li>
@@ -336,16 +346,12 @@
             </div>
             <div class="clearcss"> </div>
 
-            <div class="fscolor-box hqKlhqoutlineColor">
-                <div class="fscolor hqKlhqbgColor" id="klineBox">
+            <div class="klinecolor-box hqFshqoutlineColor">
+                <div class="klinecolor hqFshqbgColor" id="fsBox">
                     <div class="mousepng"></div>
                 </div>
             </div>
             
         </div>
-
-
     </div>
-  
-
 {% endblock %}
