@@ -56,7 +56,7 @@ security:
 
     access_control:
         - { path: ^/inbox, role: ROLE_USER }
-        - { path: ^/admin/setting, role: ROLE_SUPER_ADMIN }
-        - { path: ^/admin, role: ROLE_ADMIN }
+        #- { path: ^/admin/setting, role: ROLE_SUPER_ADMIN }
+        #- { path: ^/admin, role: ROLE_ADMIN }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }

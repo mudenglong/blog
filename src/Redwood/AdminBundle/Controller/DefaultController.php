@@ -1,6 +1,7 @@
 <?php
 namespace Redwood\AdminBundle\Controller;
 
+
 class DefaultController extends BaseController
 {
 
@@ -8,6 +9,7 @@ class DefaultController extends BaseController
     {
         return $this->render('RedwoodAdminBundle:Default:index.html.twig');
     }
+
    
 }
 

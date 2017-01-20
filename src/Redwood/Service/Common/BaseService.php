@@ -15,7 +15,7 @@ abstract class BaseService
 
     protected function createDao($name)
     {
-        return $this->getKernel()->createDao($name);
+        return  $this->getKernel()->createDao($name);
     }
 
     protected function getKernel()

@@ -57,6 +57,7 @@
                         {% if app.user %}
                             <a style="color:#6A8F1A;" class="{% if nav == 'mywidget' %} active{% endif %}" href="{{ path('jswidget_list') }}">我的组件</a>
                             <a style="color:#F34B4B;"  class="{% if nav == 'addwidget' %} active{% endif %}" href="{{ path('jswidget_create') }}">添加组件</a>
+                            <a style="" href="{{ path('webhq_list') }}">我的绘图配置</a>
 
                             {% if is_granted('ROLE_ADMIN') %}
                            
