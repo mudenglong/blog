@@ -152,4 +152,11 @@ abstract class BaseController extends Controller
     {
         return $this->getServiceKernel()->createService('Taxonomy.TagService');
     }
+
+    // 图表组件服务
+    protected function getConfigService()
+    {
+        return $this->getServiceKernel()->createService('Config.ConfigService');
+    }
+
 }

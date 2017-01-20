@@ -6,12 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Redwood\Common\Paginator;
 use Redwood\Common\ArrayToolkit;
 use Redwood\WebBundle\Form\JswidgetForm;
+use Symfony\Component\HttpFoundation\Response;
 
 class JswidgetController extends BaseController
 {
 
     public function indexAction() 
     {   
+		
         $user = $this->getCurrentUser();
         return $this->render('RedwoodWebBundle:Jswidget:index.html.twig', array(
             'user' => $user,
@@ -336,6 +338,5 @@ class JswidgetController extends BaseController
     }
 
 
-   
 
 }
