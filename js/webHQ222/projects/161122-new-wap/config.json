@@ -1,0 +1,7 @@
+{
+
+        "KlineVolChart": "hexinStock/grid/KlineVolChart",
+        "KlinePriceChart": "hexinStock/grid/KlinePriceChart",
+        "FsPriceChart": "hexinStock/grid/FsPriceChart",
+        "FsVolChart": "hexinStock/grid/FsVolChart"
+}

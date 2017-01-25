@@ -1,0 +1,18 @@
+// @charset "utf-8";
+({
+    baseUrl: "../../resources/js",
+    name: "almond",
+    include: "../../projects/{{ name }}/entrance.js",
+    wrap: true,
+    out: "release/wapa.min.js",
+    optimize: 'uglify',
+
+    paths: {
+        {% autoescape false %}
+            {% for key,value in configs %}
+        	   '{{key}}' : '{{value}}',
+            {% endfor %}
+        {% endautoescape %}
+        'aaa' : 'aaa'
+    }
+})

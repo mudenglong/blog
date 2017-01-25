@@ -1,0 +1,9 @@
+{# src/Redwood/WebBundle/Resources/views/Webhq/download.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+{% set nav = 'webhq' %}
+{% set srcipt_controller = 'webhq/generateZip' %}
+
+{% block wrapBox %}
+    下载<a href="/chartFile/{{ filename }}.zip">{{filename}}.zip</a>
+{% endblock %}

@@ -187,7 +187,8 @@ webhq_list:
 
 #绘图下载
 webhq_generate:
-    pattern: /webhq/download
+    pattern: /webhq/generate
+    defaults: { _controller: RedwoodWebBundle:Webhq:generate }    
     
 webhq_test:
     pattern: /webhq/test

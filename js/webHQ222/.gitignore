@@ -1,0 +1,4 @@
+.jshintrc
+backup/*
+release/*
+projects/*/release/*

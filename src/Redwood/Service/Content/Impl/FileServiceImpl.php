@@ -81,6 +81,16 @@ class FileServiceImpl extends BaseService implements FileService
         return $this->getKernel()->getParameter('redwood.upload.public_directory') . '/' . str_replace('public://', '', $sqlUri);
     }
 
+    public function chartConvertAbsolutUri()
+    {
+        return $this->getKernel()->getParameter('redwood.chartFile.public_directory');
+    }
+
+    public function getJsAboslutUri()
+    {
+        return $this->getKernel()->getParameter('redwood.jsFile.public_directory');
+    }
+
     private function saveFile($newImageInfo, $file)
     {
         $finalPath = $this->sqlUriConvertAbsolutUri($newImageInfo['directory']);
@@ -154,7 +164,7 @@ class FileServiceImpl extends BaseService implements FileService
 
     }
 
-    public function zipFolder($cropDirPath)
+/*    public function zipFolder($cropDirPath)
     {
         $path = $cropDirPath.'/';
         $path = $this->sqlUriConvertAbsolutUri($path);
@@ -169,7 +179,7 @@ class FileServiceImpl extends BaseService implements FileService
             $this->zip->close();
         }
 
-    }
+    }*/
 
     private function getFilesFromFolder($directory, $destination, $zip) 
     {
@@ -193,13 +203,118 @@ class FileServiceImpl extends BaseService implements FileService
     }
 
     /*
-     *生成js文件夹
+     *生成js文件
      */
-    public function GenerateJsFile(){
-        $path = $_SERVER['DOCUMENT_ROOT'];
-        $cmd = "sh ../release.sh";
-        $result = shell_exec($cmd);
+    public function GenerateJs($path)
+    {
+
+        chdir($path);
+        exec("sh release.sh");
     }
 
+    public function getConfigFromFile($file)
+    {
+        $path = $_SERVER['DOCUMENT_ROOT'];
+        $str = file_get_contents($path . "/" . $file);
+        $jsonObject = json_decode($str);
+        $config = array();
+        foreach ($jsonObject as $key => $value) {
+            $config[$key] = $value;
+        }
+        return $config;
+    }
 
+    public  function getConfigFromJson($json)
+    {
+        $jsonObjectArray = json_decode($json);
+        $config = array();
+        foreach ($jsonObjectArray as $key => $value) {
+            array_push($config, strtolower($key . "Chart"));
+        }
+        return $config;
+    }
+
+    /*
+     *根据用户的配置，和总的配置生成实际的配置
+     *@param array 总的配置
+     *@param array 用户需要的配置
+     *@return array 实际写入文件的配置
+     */
+    public function modifyConfig($config, $change)
+    {
+        $newConfig = array();
+        foreach ($config as $key => $value) {
+            if (in_array(strtolower($key), $change)) {
+                $newConfig[$key] = $value;
+            } else {
+                $newConfig[$key] = "empty";
+            }
+        }
+        return $newConfig;
+    }
+
+    /*
+     *创建文件夹，将release.sh移入文件夹中
+     *@param string 文件夹名
+     *@return string 文件夹绝对路径
+     */
+    public function makeFolder($folder)
+    {
+        $path = $this->getJsAboslutUri();
+        $file = new Filesystem();
+        $file->mkdir($path . '/' . $folder);
+        $file->copy($path . '/' . "release.sh" , $path . '/' . $folder . '/' . "release.sh");
+        $file->chmod($path . '/' . $folder, 0777);
+        $file->chmod($path . '/' . $folder . '/' . "release.sh", 0777);
+        return $path . '/' . $folder;
+    }
+
+    /*
+     * 将配置写入文件夹中
+     * @param string 文件夹路径
+     * @param string 文件名字
+     * @param string 写入文件的数据
+     */
+    public function writeConfigJs($folder, $fileName, $data)
+    {
+        file_put_contents($folder . '/' . $fileName, $data);
+    }
+
+    public function existJsFolder($folder) 
+    {
+        $path = $this->getJsAboslutUri();
+        if (file_exists($path . '/' . $folder)) {
+            return $path . '/' . $folder;
+        }
+    }
+
+    public function existZipFile($fileName)
+    {
+        $path = $this->chartConvertAbsolutUri();
+        $file = new Filesystem();
+        return $file->exists($path . '/' .$fileName);
+    }
+
+    /*
+     *@param string 文件夹路径
+     */
+    public function removeFolder($folder)
+    {
+        $file = new Filesystem();
+        $file->remove($folder);
+    }
+
+    public function zipFolder($zipFolder, $zipName=null)
+    {
+        $putPath = $this->chartConvertAbsolutUri();
+        $zip_file = '';
+        $fileName = $putPath . $zipName . '.zip';
+        $this->zip = new \ZipArchive();
+        $canOpen = $this->zip->open($fileName, \ZipArchive::CREATE);
+        if ($canOpen) {
+            $this->getFilesFromFolder($zipFolder, $zip_file, $this->zip);
+            $this->zip->close();
+        }
+    }
+    
 }

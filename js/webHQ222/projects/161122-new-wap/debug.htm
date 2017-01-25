@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no"
+        id="myviewport" />
+        <title>
+        test
+        </title>
+    </head>
+    <body>
+        <div>
+            test
+        </div>
+        <script data-main="entrance" src="http://s.thsi.cn/js/webHQ/resources/require.min.js"></script> 
+
+        <script>
+            function checkVar(name, callback) {
+                var timer = setInterval(function() {
+                    if (window[name]) {
+                        clearInterval(timer);
+                        callback();
+                    }
+                }, 20);
+            }
+
+            checkVar('hxc3', function() {
+                console.log(hxc3);
+            });
+
+        </script>
+
+    </body>
+
+</html> 

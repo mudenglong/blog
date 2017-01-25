@@ -44,9 +44,9 @@ class WebhqController extends BaseController
     public function deleteConfigAction(Request $request)
     {
         $user = $this->getCurrentUser(); 
-        $cid = $request->query->get('cid');
-        $uid = $user->id;
-        $this->getConfigService()->deleteConfig($cid, $uid);
+        $configId = $request->query->get('cid');
+        $userId = $user->id;
+        $this->getConfigService()->deleteConfig($configId, $userId);
         return $this->redirect($this->generateUrl('webhq_list'));
     }
 
@@ -65,44 +65,52 @@ class WebhqController extends BaseController
      *
      *生成绘图配置的压缩文件
      */
-     private function generate()
-     {
 
-         $path = $_SERVER['DOCUMENT_ROOT'];
-         $path .= "/js/webHQ222";
-         $cmd = "{$path}/projects/161122-new-wap/node {$path}/r.js -o {$path}/projects/161122-new-wap/build.js";  
-         shell_exec($cmd);
-         $zip = new \ZipArchive();
-         $time = time();
-         $filename = md5($time) . '.zip';
-         if ($zip->open("{$path}/projects/161122-new-wap/release/zip/{$filename}",\ZIPARCHIVE::CREATE) !== true) {
-            exit('无法打开文件，创建文件失败');
-         }
-         $filePath = "{$path}/projects/161122-new-wap/release/dist/wapa.min.js";
-         $file = "wapa.min.js";
-         $zip->addFile($filePath, $file);
-         $zip->close();
-         $can_open = fopen("{$path}/projects/161122-new-wap/release/zip/{$filename}",'r');
-         if ($can_open) {
-            return $this->render('RedwoodWebBundle:Webhq:download.html.twig', array('filename' => $filename));
-         } else {
-            throw $this->createServiceException("生成失败");
-         }
-     }
 
-     public function testAction()
-     {
-        return $this->generate();
-     }
+    public function generateAction(Request $request)
+    {
+        $json = $request->query->get('json');
+        $json = '{
+            "fsprice": {
+            "nowp": "#6A9FD3",
+            "avp": "#E5A045",
+            "nowpClose": "rgba(141,168,248, .05)"
+            },
+            "crossColor": "#143C14",
+            "fsvol": {
+                "upColor": "#D85342",
+                "downColor": "#6CA584",
+                "eqColor": "#CCCCCC"
+             }
+        }';
 
-     public function downloadZipAction()
-     {
-        
-     }
-
-     public function zipAction()
-     {
-     }
+        $folder = md5($json);
+        if ($this->getFileService()->existZipFile($folder . '.zip')) {
+            return $this->render('RedwoodWebBundle:Webhq:download.html.twig', array('filename' => $folder));
+        }
+        $path = '';
+        $this->getFileService()->makeFolder($folder);
+        if ($path = $this->getFileService()->existJsFolder($folder)) {
+            $this->getFileService()->removeFolder($path);
+        }
+        $path = $this->getFileService()->makeFolder($folder);
+        $originalConfig = $this->getFileService()->getConfigFromFile("config.json");
+        $newConfig = $this->getFileService()->getConfigFromJson($json);
+        $realConfig = $this->getFileService()->modifyConfig($originalConfig, $newConfig);
+        $buildJs = $this->renderView('RedwoodWebBundle:Webhq:build.js.twig', array(
+            'configs' => $realConfig,
+            'name' => $folder,
+        ));
+        $entranceJs = $this->renderView('RedwoodWebBundle:Webhq:entrance.js.twig', array(
+            'configs' => $realConfig
+        ));
+        $this->getFileService()->writeConfigJs($path, 'build.js', $buildJs);
+        $this->getFileService()->writeConfigJs($path, 'entrance.js', $entranceJs);
+        $this->getFileService()->generateJs($path);
+        $releasePath = $path . "/release/";
+        $this->getFileService()->zipFolder($releasePath, $folder);
+        return $this->render('RedwoodWebBundle:Webhq:download.html.twig', array('filename' => $folder));
+    }
 
 	
 }

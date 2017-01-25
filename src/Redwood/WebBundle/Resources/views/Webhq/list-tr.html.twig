@@ -1,0 +1,18 @@
+<tr id="webhq-table-{{ data.id }}">
+    <td>
+        <strong> {{ data.id }}</strong>
+    </td>
+    <td>
+        <strong> {{ data.name }}</strong>
+    </td>
+
+    <td>
+        {{data.detail}}    
+    </td>
+    <td>
+        {{data.config}}
+    </td>
+    <td>
+        <a href="{{ path('webhq_delete', {cid:data.id}) }}">删除</a>
+    </td>
+</tr>

@@ -1,0 +1,29 @@
+// @charset "utf-8";
+
+{% set foo = ['KlineVolChart', 'KlinePriceChart', 'FsPriceChart', 'FsVolChart', 'aaa'] %}
+
+require.config({
+    baseUrl:'../../resources/js',
+    paths: {
+
+        {% autoescape false %}
+            {% for key,value in configs if value != 'empty'%}
+               '{{key}}' : '{{value}}',
+            {% endfor %}
+        {% endautoescape %}
+        'aaa':'aaa'
+    }
+});
+
+
+require([{% for key,value in configs if value != 'empty' %}'{{key}}',{% endfor %} 'aaa'], function({% for key,value in configs if value !='empty' %}{{key}},{% endfor %} aaa) {
+    window.hxc3 = {
+         {% autoescape false %}
+            {% for key,value in configs if value != 'empty'%}
+               '{{key}}' : {{key}},
+            {% endfor %}
+        {% endautoescape %}
+        'aaa':aaa
+    }
+
+});

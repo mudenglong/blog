@@ -13,7 +13,7 @@ interface FileService
     
     public function writeFile($includePathFilename, $content);
     
-    public function zipFolder($includePathFilename);
+    public function zipFolder($includePathFilename, $definedFileName=null);
 
 
 }
