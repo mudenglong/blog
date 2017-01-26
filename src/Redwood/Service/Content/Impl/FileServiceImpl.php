@@ -192,5 +192,14 @@ class FileServiceImpl extends BaseService implements FileService
         return $this->createDao('Content.FileDao');
     }
 
+    /*
+     *生成js文件夹
+     */
+    public function GenerateJsFile(){
+        $path = $_SERVER['DOCUMENT_ROOT'];
+        $cmd = "sh ../release.sh";
+        $result = shell_exec($cmd);
+    }
+
 
 }

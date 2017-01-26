@@ -12,6 +12,7 @@ class JswidgetController extends BaseController
 
     public function indexAction() 
     {   
+		
         $user = $this->getCurrentUser();
         return $this->render('RedwoodWebBundle:Jswidget:index.html.twig', array(
             'user' => $user,
@@ -334,8 +335,5 @@ class JswidgetController extends BaseController
             ->add('content', 'textarea')
             ->getForm();
     }
-
-
-   
 
 }

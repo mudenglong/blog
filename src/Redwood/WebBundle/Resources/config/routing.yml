@@ -1,4 +1,4 @@
-# homepage:
+#homepage:
 #     pattern:  /
 #     defaults: { _controller: RedwoodWebBundle:Default:index }
 
@@ -114,6 +114,7 @@ jswidget_show:
     pattern: /
     defaults: { _controller: RedwoodWebBundle:Jswidget:index }
 
+
 jswidget_content:
     pattern: /jswidget/{id}
     defaults: { _controller: RedwoodWebBundle:Jswidget:show }
@@ -159,6 +160,8 @@ jswidget_feedback:
     pattern: /jswidget/feedback
     defaults: { _controller: RedwoodWebBundle:Jswidget:feedback }
 
+
+
 # 行情图组件相关
 webhq:
     pattern: /webhq
@@ -174,6 +177,23 @@ webhq_start:
     pattern: /webhq/start
     defaults: { _controller: RedwoodWebBundle:Webhq:start }
 
+# 组件配置添加
+webhq_add:
+    pattern: /webhq/add
+    defaults: { _controller: RedwoodWebBundle:Webhq:addConfig }
+
+# 组件配置删除
+webhq_delete:
+    pattern: /webhq/delete
+    defaults: { _controller: RedwoodWebBundle:Webhq:deleteConfig }
+
+#组件配置列表
+webhq_list:
+    pattern: /webhq/list
+    defaults: { _controller: RedwoodWebBundle:Webhq:listConfig }  
+    
+
+
 
 tag:
     pattern: /tag
@@ -186,4 +206,6 @@ tag_match:
 tag_show:
     pattern: /tag/{id}
     defaults: { _controller: RedwoodWebBundle:Tag:show }
+
+
 

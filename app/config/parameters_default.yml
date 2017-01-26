@@ -7,7 +7,5 @@ parameters:
     third_login_password: 12345678
     weibo_key: testdata
     qq_key: testdata
-    gitlab_key: 262d498f7852443e4400c4689358014d41fcae1987e21f3eca340beafbb37a4a
-    gitlab_secret: 44027044a708dc7b641cf6ed62caf69616ef33d2516402f29b7c224a73d2d881
 
     route_white_list: ['/uploader/upload_callback', '/uploader/process_callback', '/coin/pay/return/alipay','/coin/pay/notify/alipay','/login', '/login_check']
