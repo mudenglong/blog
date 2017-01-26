@@ -179,7 +179,7 @@ define(function(require, exports, module) {
             var str = '';
             var x = scale()
                         .domain([0, d.length-1])
-                        .range([chartStartX, canvasW-1]);
+                        .range([chartStartX+1, canvasW-1]);
             var y = scale()
                         .domain(MMy)
                         .range([fsPriceH-10, 0]);
@@ -188,8 +188,8 @@ define(function(require, exports, module) {
                         .range([canvasH-ss, fsPriceH]);
 
             var left, nowpriceStr = '', avpriceStr = '', nowpriceStr2 = '', 
-                volline = '';
-            var svgStr = '<svg style="position: absolute;" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">';
+                volline = '', svgStr = '';
+            var svgStrStart = '<svg style="position: absolute;" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">';
 
             var bbottom = canvasH - ss - 0.5;
             for (var i = 0; i < d.length; i++) {
@@ -238,7 +238,7 @@ define(function(require, exports, module) {
             var volYAxisstr = '<div class="hx3-axis-klinevol hqFseqAxisColorcc"><div class="hx3-axis-y-hhr-left" class=""><div style="position:absolute;text-align:left;top:'+(yarr[4]-24)+'px;left:13.5px;"><span>13233</span></div></div><div class="hx3-axis-y-hhr-left" style=""><div style="position:absolute;text-align:left;top:'+(yarr[3]-12)+'px;left:13.5px;"><span>34242</span></div></div><div class="hx3-axis-y-hhr-left" style=""><div style="position:absolute;text-align:left;top:'+(yarr[2])+'px;left:13.5px;"><span>65462</span></div></div></div>';
 
 
-            svgStr = svgStr + nowpriceStr + avpriceStr + nowpriceStr2 + volline + verticalDraw1 + horizontalDraw1 + horizontalDraw2 + horizontalDraw3 + horizontalDraw4 + spotLine1 + spotLine2 + spotLine3 + crossStr +'</svg>';
+            svgStr = svgStrStart + verticalDraw1 + horizontalDraw1 + horizontalDraw2 + horizontalDraw3 + horizontalDraw4 + spotLine1 + spotLine2 + spotLine3 + nowpriceStr2  + avpriceStr + nowpriceStr + volline + crossStr +'</svg>';
 
             $(main.fsBoxDom).append(svgStr);
             $(main.fsBoxDom).append(volYAxisstr);

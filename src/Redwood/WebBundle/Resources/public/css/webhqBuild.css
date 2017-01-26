@@ -26,6 +26,16 @@ ul li{
 .configsetting li{
     margin: 3px 0;
 }
+.cadetblue-btn {
+    padding: 10px;
+    background: cadetblue;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+}
+.cadetblue-btn:hover {
+    color: #fff;
+}
 
 .klinecolor-box{
     position: relative;

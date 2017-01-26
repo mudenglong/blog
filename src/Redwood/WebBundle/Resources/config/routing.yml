@@ -168,7 +168,11 @@ webhq:
 webhq_build:
     pattern: /webhq/build
     defaults: { _controller: RedwoodWebBundle:Webhq:build }
-
+    
+# 选择绘图类型
+webhq_start:
+    pattern: /webhq/start
+    defaults: { _controller: RedwoodWebBundle:Webhq:start }
 
 
 tag:

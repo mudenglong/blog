@@ -38,6 +38,7 @@
 {% set nav = nav|default('browse') %}
 {% set navclass = navclass|default('index') %}
 <body class="{% if navclass %} {{ navclass }} {% else %} index{% endif %}">
+    {% block wrapHeader %}
     <header>
         <section>
             <div>
@@ -97,6 +98,9 @@
             </div>
         </section>
     </header>
+    {% endblock %}
+
+    
     <div id="torso">
 
         <div id="content">

@@ -1,0 +1,74 @@
+{# src/Redwood/WebBundle/Resources/views/Login/index.html.twig #}
+{% extends 'RedwoodWebBundle::webLayout.html.twig' %}
+
+{% block title %}选择绘图类型 {{ parent() }}{% endblock %}
+
+{% set nav = 'webhq' %}
+
+{% set script_controller = 'webhq/start' %}
+
+{% block wrapBox %}
+    <link rel="stylesheet" href="{{ asset('bundles/redwoodweb/css/webhqBuild.css') }}"> 
+
+    <div class="webhq-main">
+        <p>请使用 <span style="background:pink;">Chrome</span> 浏览器打开, 确保最佳功能 </p>
+        <h3 style="margin-top: 20px; ">项目运行环境</h3>
+        <div class="webhq-h3-box">
+            <ul>
+                <li>
+
+                    <label class="radio">
+                        <input type="radio" checked="checked" name="runEvn" id="runOnMobile" value="runOnMobile">
+                         运行在手机
+                    </label>
+                </li>
+                <li>
+
+                    <label class="radio">
+                        <input type="radio" name="runEvn" id="runOnPc" value="runOnPc">
+                         运行在PC
+                    </label>
+                </li>
+              
+            </ul>
+        </div>
+
+        <h3>请选择 要绘图的类型(可多选)</h3> 
+        <p> 例如: 既要绘制 分时图,也要绘制 k线图 需要把这两块图形一起勾选.</p>
+        <div class="webhq-h3-box">
+            <label class="checkbox" for="dataTypeFs">
+                <input type="checkbox" checked="checked" data-charttype='fs' id="dataTypeFs" class="JChartType">
+                分时图: 可通过配置实现如下样例
+            </label>
+            <style>
+                .fstype-imgs img, .kltype-imgs img{
+                    width: 300px;
+                }
+                .fstype-imgs, .kltype-imgs{
+                    margin-bottom: 40px;
+                }
+            </style>
+            <div class="fstype-imgs">
+               <img src="{{ asset('bundles/redwoodweb/img/fs1.png') }}" alt=""> 
+               <img src="{{ asset('bundles/redwoodweb/img/fs3.png') }}" alt=""> 
+               <img src="{{ asset('bundles/redwoodweb/img/fs2.png') }}" alt=""> 
+            </div>
+            <label class="checkbox" for="dataTypeKl">
+                <input type="checkbox" data-charttype='kline' id="dataTypeKl" class="JChartType">
+                K线图: 可通过配置实现如下样例
+            </label>
+
+            <div class="kltype-imgs">
+               <img src="{{ asset('bundles/redwoodweb/img/kl1.png') }}" alt=""> 
+               <img src="{{ asset('bundles/redwoodweb/img/kl2.png') }}" alt=""> 
+               <img src="{{ asset('bundles/redwoodweb/img/kl3.png') }}" alt=""> 
+            </div>
+        </div>
+
+        <div style="float: right; margin-top: 40px; ">
+            <a id="startSetting" class="cadetblue-btn" data-href="{{ path('webhq_build') }}" href="javascript:;">开始配置</a>
+        </div>
+        
+    </div>
+
+{% endblock %}
